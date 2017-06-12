@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据库配置 |系统安装</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../Home/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../Home/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>数据库配置</h3>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form action="./index.php?s=last" method="post" class="form-horizontal">
+                        <div class="form-group"><label  class="col-md-2 control-label">数据库类型</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_TYPE" class="form-control" value="mysqli" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="form-group"><label  class="col-md-2 control-label">服务器地址</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_HOST" class="form-control" value="localhost"  />
+                            </div>
+                        </div>
+                        <div class="form-group"><label  class="col-md-2 control-label">数据库端口</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_PORT" class="form-control" value="3306"  />
+                            </div>
+                        </div>
+                        <div class="form-group"><label  class="col-md-2 control-label">数据库名</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_NAME" class="form-control"   />
+                            </div>
+                        </div>
+                        <div class="form-group"><label  class="col-md-2 control-label">用户名</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_USER" class="form-control" value="root"  />
+                            </div>
+                        </div>
+                        <div class="form-group"><label  class="col-md-2 control-label">用户名密码</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_PWD" class="form-control"    />
+                            </div>
+                        </div>
+                        <div class="form-group"><label  class="col-md-2 control-label">数据表前缀</label>
+                            <div class="col-md-10">
+                                <input type="text" name="DB_PREFIX" class="form-control" value="tp_"  />
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 3%;">
+                            <a href="./index.php?s=check" type="button" class=" btn btn-primary">上一步</a>
+                            <button type="submit" class=" btn btn-primary">最后一步</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+                
+                
+            </div>
+            
+            
+        </div>
+    </div>
+    <script type="text/javascript" src="../Home/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="../Home/assets/js/bootstrap.min.js"></script>
+
+</body>
+</html>
