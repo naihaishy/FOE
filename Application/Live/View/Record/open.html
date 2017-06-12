@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>创建直播 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>创建直播</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Live</a>
+                        </li>
+                        <li>
+                             Record
+                        </li>
+                        <li class="active">
+                            <strong>open</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content">
+            	
+            		<div class="row">
+            			<div class="col-lg-12">
+            				<div class="ibox float-e-margins">
+            					<div class="ibox-title">
+                            <h5>直播信息 <small>请仔细填写</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                      </div>
+                      <div class="ibox-content">
+                      		<form method="post" action="{:U('Live/Record/create')}" class="form-horizontal" enctype="multipart/form-data" >
+				            				<div class="form-group"><label class="col-md-2 control-label">直播名称</label>
+				                        <div class="col-md-6"><input type="text" name="title" class="form-control"></div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    <div class="form-group"><label class="col-md-2 control-label">内容简介</label>
+				                        <div class="col-md-6"><textarea  cols="20" rows="6" name="description" class="form-control"></textarea></div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    
+				                    
+				                    <div class="form-group" id="start_date"><label class="col-md-2 control-label">直播日期</label>
+				                    	<div class="col-md-6">
+				                    		<div class="input-group date">
+						                        <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+						                        <input type="text" name="start_date" class="form-control" value="<php>echo date('Y-m-d',time());</php>" />
+						                    </div>
+				                    	</div>
+				                    	<div class="col-md-4"></div>
+											      </div>
+											      
+				                    <div class="form-group"><label class="col-md-2 control-label">开始时间</label>
+				                    	<div class="col-md-6">
+				                    		<div class="input-group clockpicker" data-autoclose="true">
+					                        <input type="text" class="form-control" name="start_time" value="09:30" >
+					                        <span class="input-group-addon">
+					                            <span class="fa fa-clock-o"></span>
+					                        </span>
+					                   		</div>
+				                    	</div>
+				                    	<div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    <div class="form-group"><label class="col-md-2 control-label">直播封面</label>
+					                    	 
+		                            <div class="col-md-6">
+		                                <input type="file" accept="image/jpeg image/png image/gif" name="poster" id="inputImage" value="选择图片" />                   
+		                            </div>
+		                            <div class="col-md-4"> <p>你可以上传jpg, gif, png格式的文件, 图片建议尺寸至少为480x270。文件大小不能超过2M。</p> </div>
+				                    </div>
+				                    
+				                    <div class="form-group"><label class="col-md-2 control-label">标签</label>
+				                        <div class="col-md-6"><input type="text" name="tags" class="form-control"></div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    
+				                    <div class="col-md-12 col-md-offset-5"><hr/>
+	                            	<button class="btn btn-primary" type="submit">保存</button>  
+	                          </div>
+				            		  </form>
+                      </div>
+            				</div>
+            			</div>
+            			
+            		</div>
+            		
+            		
+                
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+    <!-- Data picker -->
+    <script src="__HOME__/uassets/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Clock picker -->
+    <script src="__HOME__/uassets/js/plugins/clockpicker/clockpicker.js"></script>
+    <script>
+    	 $('#start_date .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                format:'yyyy-mm-dd',
+        });
+        
+       $('.clockpicker').clockpicker();
+        
+    	
+    </script>
+
+
+</body>
+
+</html>

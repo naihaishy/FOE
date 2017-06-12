@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{$live['title']} | 实时评论消息</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animation CSS -->
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    
+ 
+    
+</head>
+<body id="page-top" class="landing-page">
+<div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                     
+                    <a class="navbar-brand" href="{:U('Live/Manage/index')}">返回直播列表</a>
+                </div>
+ 
+            </div>
+        </nav>
+</div>
+
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="col-md-12" style="padding-top:3%;"></div>
+                <center>
+                    <div id="dialog" style="overflow: auto;height: 400px;width: 100%;" >
+                        <volist name="messages" id="message">
+                          <if condition="$message['rid'] eq '1'">
+                            <font color="blue">{$message['uname']} :</font>
+                          <elseif condition="$message['rid'] eq '2'"/>
+                            <font color="red">{$message['uname']} :</font>
+                          <else/>
+                            <font color="black">{$message['uname']} :</font>
+                           </if>  <font color="white"> {$message['content']}</font> <br/>
+                       </volist>
+                    </div>
+
+                    <form class="form-group" onsubmit="onSubmit(); return false;">
+                        <input type="text" class="form-control" id="chatmessage" onkeydown="keydownfun(event)" placeholder="Enter提交或者点击下面发表按钮" />
+                        <input type="submit" class="btn btn-primary" value="发表" />
+                   </form> 
+                </center>
+                 
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+<!-- Mainly scripts -->
+<script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+<script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+
+<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+
+<script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+<script src="__HOME__/uassets/js/plugins/wow/wow.min.js"></script>
+
+    <script type="text/javascript" src="https://foe.zhfsky.com/Public/Chat/js/swfobject.js"></script>
+    <script type="text/javascript" src="https://foe.zhfsky.com/Public/Chat/js/web_socket.js"></script>
+    <script type="text/javascript" src="https://foe.zhfsky.com/Public/Chat/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var name= "{$user['uname']}";
+            if(name){
+                //用户已经登录
+                connect();
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+        // 如果浏览器不支持websocket，会使用这个flash自动模拟websocket协议，此过程对开发者透明
+        WEB_SOCKET_SWF_LOCATION = "https://foe.zhfsky.com/Public/Chat/swf/WebSocketMain.swf";
+        // 开启flash的websocket debug
+        WEB_SOCKET_DEBUG = true;
+        var ws, name, client_list={};
+
+        // 连接服务端
+        function connect() {
+           // 创建websocket
+           ws = new WebSocket("wss://"+document.domain+":7272");
+           // 当socket连接打开时，输入用户名
+           ws.onopen = onopen;
+           // 当有消息时根据消息类型显示不同信息
+           ws.onmessage = onmessage; 
+           ws.onclose = function() {
+              console.log("连接关闭，定时重连");
+              connect();
+           };
+           ws.onerror = function() {
+              console.log("出现错误");
+           };
+        }
+
+        // 连接建立时发送登录信息
+        function onopen()
+        {
+            var name= "{$user['uname']}";
+            if(!name) { 
+                alert('请先登录');return;
+            }
+            // 登录
+            var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"<?php echo isset($_GET['id']) ? $_GET['id'] : 1?>"}';
+            console.log("websocket握手成功，发送登录数据:"+login_data);
+            ws.send(login_data);
+        }
+
+        // 服务端发来消息时
+        function onmessage(e) {
+            console.log(e.data);
+            var data = eval("("+e.data+")");
+            switch(data['type']){
+                // 服务端ping客户端
+                case 'ping':
+                    ws.send('{"type":"pong"}');
+                    break;;
+                // 登录 更新用户列表
+                case 'login':
+                    //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
+                    say(data['client_id'], data['client_name'],  '加入了讨论室', data['time']);
+                    
+                    if(data['client_list']) {
+                        client_list = data['client_list'];
+                    } else {
+                        client_list[data['client_id']] = data['client_name']; 
+                    }
+                    //flush_client_list();
+                    console.log(data['client_name']+"登录成功");
+                    break;
+                // 发言
+                case 'say':
+                    //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                    say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                    break;
+                // 用户退出 更新用户列表
+                case 'logout':
+                    //{"type":"logout","client_id":xxx,"time":"xxx"}
+                    say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' 退出了', data['time']);
+                    delete client_list[data['from_client_id']];
+                    //flush_client_list();
+            }
+        }
+     
+
+        // 提交对话
+        function onSubmit() {
+            var name= "{$user['uname']}";
+            if(!name) { 
+                alert('请先登录');return;
+            }
+          var input = document.getElementById("chatmessage");
+          if( $.trim(input.value).length < 1 )  return;
+          if(input.value.length > 60) {
+            alert('输出太多了') ; return;
+            }
+          var to_client_id = 'all';
+          var to_client_name = '所有人';
+          save(input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r'));//保存到数据库
+          ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
+          input.value = "";
+          input.focus();
+        }
+
+
+
+        // 发言
+        function say(from_client_id, from_client_name, content, time){             
+            $("#dialog").append("<br/><font color='white'>"+ from_client_name + content + "</font>" );
+            //$("#dialog").scrollTop = $("#dialog").scrollHeight;
+            $('#dialog').scrollTop( $('#dialog')[0].scrollHeight );
+        }
+
+     
+        
+        //Enter 键提交
+        function keydownfun(event){
+                
+                if(event.keyCode == 13){
+                    onSubmit();
+                }
+            }
+      </script>
+
+      <script type="text/javascript">
+          //存储到数据库
+          function save(message){
+            var liveid = "{$Think.get.id}";
+            $.post("{:U('Live/Chat/save')}", {liveid: liveid, content:message}, function(data,status){
+                if(data && status =='success'){
+                    console.log('保存成功');
+                }
+            });
+          }
+      </script>
+    
+
+</body>
+</html>

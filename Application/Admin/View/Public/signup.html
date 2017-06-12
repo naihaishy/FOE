@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>管理员注册 | FOE  </title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+     
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <style>
+        .logo-image{
+            margin-top: 50px;
+            margin-bottom: 25px;
+        }
+        #login-footer{
+            padding-top:30px;
+        }
+        
+    </style>
+ 
+</head><!--/head-->
+
+<body>
+    <div class="logo-image">                                
+       <a href="{:U('Index/index')}"><img class="img-responsive" src="__HOME__/assets/images/logo.png" alt=""> </a> 
+       <h2 class="text-center">管理员注册</h2>
+    </div>
+     <section id="login-form">        
+         <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <form class="form-horizontal" action="{:U('Admin/Public/signup')}" method="post">
+                            <div class="form-group"><label class="col-lg-2 control-label">用户名</label>
+                                <div class="col-lg-10"><input type="text" name="username" placeholder="请输入用户名" class="form-control"> <span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-lg-2 control-label">邮箱</label>
+                                <div class="col-lg-10"><input type="email" id="email" name="email" placeholder="请输入邮箱 " class="form-control" /> <span id="email_help" class="red help-block m-b-none"></span>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-lg-2 control-label">手机号码</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input type="text" id="tel" name="tel"  placeholder="请输入手机号" class="form-control">  
+                                        <span class="input-group-addon" id="send-sms" style="color:green;cursor: pointer">点击发送验证码</span>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-lg-2 control-label">验证码</label>
+                                <div class="col-lg-10"><input type="text" id="sms-verify" name="verify_code"  placeholder="请输入短信验证码" class="form-control"> <span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-lg-2 control-label">密码</label>
+                                <div class="col-lg-10"><input type="password" name="password" placeholder="请输入登录密码" class="form-control"><span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-lg-2 control-label">确认密码</label>
+                                <div class="col-lg-10"><input type="password" name="password2" placeholder="请再次输入登录密码" class="form-control"><span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn  btn-white" type="submit">注册</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <span class="help-block m-b-none"><a href="{:U('Public/login')}">立即登录</a>  </span>                            
+                                </div>
+                            </div>
+                        </form>
+                      
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                
+                
+                 
+            </div>
+        </div>       
+    </section>
+     
+
+    <section id="login-footer" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <p>&copy; FOE 2017. All Rights Reserved.</p>
+                    <p>Designed by <a target="_blank" href="https://naihai.tk">Naihai</a></p>
+                </div>
+            </div>
+        </div>       
+    </section>
+    
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script >
+        $(function(){
+            //发送手机验证码
+            $('#send-sms').on('click',function(){
+                var tel = $('#tel').val();
+                if(tel.length!=11){alert('目前仅支持11位大陆手机号码');return;} 
+                var url=  '__CONTROLLER__/sendSms/tel/' + tel + "/from/admin";
+                 $.get(url,function(data,status){
+                    if( data && status == 'success'){
+                        alert(data);
+                    } 
+                });
+                 
+            });
+
+            //自动验证邮箱
+            $("input[name='email']").blur(function(){
+                $("#email_help").text(' ');
+                var email = $(this).val();
+                if(email.length<5) return;
+                $.get('__CONTROLLER__/checkEmail/email/' + email , function(data, status){
+                if(data && status=='success'){
+                    $("#email_help").text(data);
+                }
+              })
+            });
+
+        })
+    </script>    
+ 
+    
+</body>
+</html>

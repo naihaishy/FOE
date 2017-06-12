@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户管理 </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+    	
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">{$Think.MODULE_NAME}</a>
+                            </li>
+                            <li>{$Think.CONTROLLER_NAME }</li>
+                            <li class="active">{$Think.ACTION_NAME} </li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                        
+                        <h1 class="h1">管理人员</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">基本信息</h3>
+                                <div class="actions pull-right">
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                            	<div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>姓名</th>
+                                            <th>电子邮箱</th>
+                                            
+                                             
+                                            <th>最后登录时间</th>
+                                            <th>最后登录IP</th>
+                                            <th>操作</th>
+                                            <th>信息管理</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<volist name='data' id='vol'>
+                                    		<tr>
+                                            <td>{$vol.id}</td>
+                                            <td>{$vol.truename}</td>
+                                            <td>{$vol.email}</td>
+                                            
+                                            <td>{$vol.last_login_time}</td>
+                                            <td>{$vol.last_login_ip}</td>
+                                            <td><a href="__CONTROLLER__/deleteUser/id/{$vol.id}" id="deleteUser"  onclick="return confirm('是否删除 ?')" >删除</a> | <a href="__CONTROLLER__/banUser/id/{$vol.id}" id="banUser"  onclick="return confirm('是否禁用该管理账号 ?')" >禁用</a> </td>
+                                            <td><a href="__CONTROLLER__/manage/id/{$vol.id}" >管理</a></td>
+                                        </tr>
+                                    	</volist>
+                                        
+                                         
+                                    </tbody>
+                                </table>
+                              </div>  
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+               
+
+
+                 
+
+                 
+
+
+            </section>
+        </section>
+        <!--main content end-->
+        
+         
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+         
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/nanoScroller/jquery.nanoscroller.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    
+    <script type="text/javascript">
+    
+    	/*$(function(){
+    		$('#deleteUser').on('click',function(){
+    			var url = $('#deleteUser').attr('data_tag');
+    			alert(url);
+    		});
+    	});*/
+    	
+    </script>
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end-->     
+</body>
+
+</html>

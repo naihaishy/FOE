@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>添加课程 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+ 
+		<link href="__HOME__/uassets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+		<link href="__HOME__/uassets/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+         <include file="Application/Course/View/Navbar/left.html" />
+		    <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+         	 <!--navbar-static-top start-->
+         	 <include file="Application/Course/View/Navbar/top.html" />
+			    <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>添加课程</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Add</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>课程信息 <small>请确保输入无误</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" action="{:U('Manage/addCourse')}" class="form-horizontal" enctype="multipart/form-data">
+                                <div class="form-group"><label class="col-sm-2 control-label">课程名称</label>
+                                    <div class="col-sm-10"><input type="text" name="title" class="form-control"></div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">课程副标题</label>
+                                    <div class="col-sm-10"><input type="text" name="subtitle" class="form-control"> <span class="help-block m-b-none">课程副标题 更加吸引学生选课 也可不填.</span>
+                                    </div>
+                                </div>                         
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">课程基本介绍</label>
+                                    <div class="col-sm-10"><textarea type="text" rows="5" name="description" class="form-control"></textarea><span class="help-block m-b-none">课程的基本介绍内容 大约100字以内.</span>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">课程分类</label>
+                                	
+                                    <div class="col-sm-10">
+                                    	<select class="form-control m-b" name="category_id">
+	                                    	<option value="0">请选择分类</option>
+	                                			<volist name='category' id='vol'>
+	                                				<option value="{$vol.id}">{$vol.name}</option>
+	                                			</volist>
+                                   	  </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="col-lg-12">
+							                    <div class="ibox float-e-margins">
+							                    	<div class="col-lg-2">
+							                    		<label class="control-label">课程相关日期设置<br/>[年/月/日]</label>
+							                    	</div>
+							                    	<div class="col-lg-10">
+							                    		 <div class="ibox-content">
+							                            <div class="form-group col-md-6" id="course_start">
+							                                <label class="font-noraml">开课日期</label>
+							                                <div class="input-group date">
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="course_start_date" class="form-control" value="<php>echo date('Y-m-d',time());</php>">
+							                                </div>
+							                            </div>
+							                            <div class="form-group col-md-6" id="course_end">
+							                                <label class="font-noraml">结课日期</label>
+							                                <div class="input-group date">
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="course_start_date" class="form-control" value="<php>echo date('Y-m-d',time());</php>">
+							                                </div>
+							                            </div>
+							                            <div class="form-group col-md-6" id="exam_date">
+							                                <label class="font-noraml">考试时间</label>
+							                                <div class="input-daterange input-group" id="datepicker">
+							                                    <input type="text" class="input-sm form-control" name="exam_start_date" value="<php>echo date('Y-m-d',time());</php>"/>
+							                                    <span class="input-group-addon">to</span>
+							                                    <input type="text" class="input-sm form-control" name="exam_end_date" value="<php>echo date('Y-m-d',time()+604800);</php>" />
+							                                </div>
+							                            </div>
+							                            
+							                            <div class="form-group col-md-6" id="query_results">
+							                                <label class="font-noraml">成绩查询</label>
+							                                <div class="input-daterange input-group" id="datepicker">
+							                                    <input type="text" class="input-sm form-control" name="query_results_start_date" value="<php>echo date('Y-m-d',time());</php>"/>
+							                                    <span class="input-group-addon">to</span>
+							                                    <input type="text" class="input-sm form-control" name="query_results_end_date" value="<php>echo date('Y-m-d',time()+604800);</php>" />
+							                                </div>
+							                            </div>
+							                        </div>
+							                    	</div>
+							                        
+							                    </div>
+
+							               	  </div>
+
+									            
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                    		<button class="btn btn-primary" type="submit">创建</button>&nbsp;&nbsp;&nbsp;
+                                        <button class="btn btn-white" type="reset">清空</button>                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    <!-- Data picker -->
+    <script src="__HOME__/uassets/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- iCheck -->
+    <script src="__HOME__/uassets/js/plugins/iCheck/icheck.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+         /*-----日期 datepicker------*/   
+         $('#course_start .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                format:'yyyy-mm-dd',
+            });
+
+         $('#course_end .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                format:'yyyy-mm-dd',
+            });
+         $('#exam_date .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format:'yyyy-mm-dd',
+            });     
+         $('#query_results .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format:'yyyy-mm-dd',
+            });         
+ 
+        </script>
+ 
+</body>
+
+</html>

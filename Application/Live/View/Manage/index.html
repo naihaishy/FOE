@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>直播列表 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+ 
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <!-- Toastr style -->
+    <link href="__HOME__/uassets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>直播列表</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Live</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Index</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+ 
+            <div class="row">
+ 
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>直播信息</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#ID</th>  
+                                    <th>名称</th>                                    
+                                    <th>状态</th>
+                                    <th>标签</th>
+                                    <th>是否已经结束</th>
+                                    <th>添加录播视频</th>
+                                    <th>开始时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                	<volist name="live" id="vol">
+                                		<tr>
+                                    		<td>{$vol['id']}</td>
+    	                                    <td>{$vol['title']|subtext=36}</td>
+    	                                    <td>{$vol['status']}</td>
+    	                                    <td>{$vol['tags']}</td>
+    	                                    <td><if condition="$vol['is_over'] eq 1"><span style="color:red;">已经结束</span><else/><span style="color:green;">尚未开始</span></if></td>
+    	                                    <td><if condition="$vol['is_over'] eq 1"> <a href="{:U('Live/Manage/uploadvod',array('id'=>$vol['id']))}">添加</a> </if></td>
+    	                                    <td>{$vol['start']|date='Y-m-d H:i:s',###}</td>
+    	                                    <td><a href="{:U('Live/Statics/detail/id/'.$vol['id'] ) }">统计</a> |<a href="{:U('Live/Manage/view',array('id'=>$vol['id']))}" target="_blank">查看</a> | <a href="{:U('Live/Manage/message',array('id'=>$vol['id']))}" target="_blank">实时消息</a> | <a href="{:U('Live/Manage/edit',array('id'=>$vol['id']))}">编辑</a>| <a href="{:U('Live/Manage/del',array('id'=>$vol['id']))}" onclick="return confirm('确认删除?')">删除</a></td>
+	                              	 	</tr>
+                                	</volist>
+	                                
+                     
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                
+                <div class="col-lg-12">
+	                  <a href="{:U('Live/Record/open')}" class="btn btn-primary">创建直播</a> 
+	                  <a href="{:U('Live/Setting/index')}" class="btn btn-primary">直播帮助</a> 
+            		</div>
+            </div>
+ 
+        </div>
+ 
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+ 
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+   
+    <!-- Toastr script -->
+    <script src="__HOME__/uassets/js/plugins/toastr/toastr.min.js"></script>
+    
+    
+    
+    <script>
+    
+    	
+    	//删除试卷 
+    	function del_paper(obj){
+    		var $paper_id = $(obj).attr('paperid');
+    		var url="{:U('Course/Paper/delete')}";
+    		var bool = confirm('确认删除?');
+    		if(bool){
+	    			$.post(url,{id:$paper_id},function(data,status){ 
+	    				if(data && status=='success'){
+	    					var del_obj=$("#paper_"+$paper_id);
+	    					del_obj.fadeOut('slow',function(){
+	    						 del_obj.remove(); 
+	    					});
+	    					setTimeout(function() {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 2000
+		                };
+		                toastr.success('删除成功!');
+		            }, 100);
+	    				}else{
+	    					setTimeout(function() {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 2000
+		                };
+		                toastr.error('删除失败!');
+		            }, 100);
+	    				}
+	    				
+	    				 } );
+    			}
+    	}
+    	
+    	
+    </script>
+
+ 
+
+ 
+
+</body>
+
+</html>

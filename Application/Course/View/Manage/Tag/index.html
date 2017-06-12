@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Basic Form</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+
+ 
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Basic Form</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Forms</a>
+                        </li>
+                        <li class="active">
+                            <strong>Basic Form</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+	            <div class="col-lg-4">
+	                <div class="ibox float-e-margins">
+	                    <div class="ibox-title">
+	                        <h5>添加新标签<small></small></h5>
+	                        <div class="ibox-tools">
+	                            <a class="collapse-link">
+	                                <i class="fa fa-chevron-up"></i>
+	                            </a>
+	                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                                <i class="fa fa-wrench"></i>
+	                            </a>
+	                            <ul class="dropdown-menu dropdown-user">
+	                                <li><a href="#">Config option 1</a>
+	                                </li>
+	                                <li><a href="#">Config option 2</a>
+	                                </li>
+	                            </ul>
+ 
+	                        </div>
+	                    </div>
+	                    <div class="ibox-content">
+	                        <div class="row">
+                            <form role="form">
+                                <div class="form-group">
+                                	<label>名称</label>
+                                	 <input type="email" placeholder="Tag Name" class="form-control">
+                                	 <small>简洁概括</small>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>添加</strong></button>
+                                </div>
+                            </form>
+	                        </div>
+	                             
+	                    </div>
+	                 </div>
+	                 
+	            </div>
+	            <div class="col-lg-8">	                  
+                  <div class="ibox float-e-margins">
+                      <div class="ibox-title">
+                          <h5>标签列表 <small>您所使用的标签</small></h5>
+                          <div class="ibox-tools">
+                              <a class="collapse-link">
+                                  <i class="fa fa-chevron-up"></i>
+                              </a>
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <i class="fa fa-wrench"></i>
+                              </a>
+                              <ul class="dropdown-menu dropdown-user">
+                                  <li><a href="#">Config option 1</a>
+                                  </li>
+                                  <li><a href="#">Config option 2</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="ibox-content">
+
+                      <table class="table table-hover">
+                          <thead>
+                          <tr>
+                               
+                              <th>名称</th>
+                              <th>别名</th>
+                              <th>总数</th>
+                              <th>操作</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          	<volist name='tag' id='vol'>
+                            	<tr>
+                            		 	
+                            	</tr>
+                           </volist>
+                          </tbody>
+                      </table>
+
+                  </div>
+                  </div>                
+	            </div>
+            </div>
+             
+        </div>
+ 
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+ 
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>学员家园 | Triangle</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+     
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <style>
+ 
+    	#index-footer{
+    		padding-top:30px;
+    	}
+    </style>
+ 
+</head><!--/head-->
+
+<body>
+		<!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+     <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">学员中心</h1>
+                            <p>学生家园</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	   </section>
+	    <!--/#page-breadcrumb-->
+     
+    <section id="user-center" class="container">
+    	<div class="row">
+    		<div class="col-md-12">
+    			<label>姓名:</label><php>echo $_SESSION['user_name'];</php><br/>
+    			<label>电子邮箱:</label><span class="user-info">{$data['email']}</span><br/>
+    			<label>手机号码:</label><span class="user-info">{$data['tel']}</span><br/>
+    			<label>注册日期:</label><span class="user-info">{$data['user_registered']}</span><br/>
+    			<label>昵称:</label><span class="user-info">{$data['nickname']}</span><br/>
+    			<label>真实姓名:</label><span class="user-info">{$data['truename']}</span><br/>
+    			<label>最后登录时间:</label><span class="user-info">{$data['last_login_time']}</span><br/>
+    			<label>最后登录IP:</label><span class="user-info">{$data['last_login_ip']}</span><br/>
+    			<label>账号是否激活:</label><span class="user-info"><if condition="$data['enabled'] eq 1">是<else/>否<a href="#">激活账号</a></if></span><br/>
+    		</div>
+    	</div>
+    </section>  
+     
+
+    <section id="index-footer" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <p>&copy; FOE 2017. All Rights Reserved.</p>
+                    <p>Designed by <a target="_blank" href="https://naihai.tk">Naihai</a></p>
+                </div>
+            </div>
+        </div>       
+    </section>
+    
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+
+ 
+    
+</body>
+</html>

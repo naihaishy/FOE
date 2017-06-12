@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>发表帖子 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #postcontent{
+            height: 450px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>论坛</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>
+                            Forum 
+                        </li>
+                        <li class="active">
+                            <strong>index</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content animated fadeInRight">
+
+                        <div class="ibox-content m-b-sm border-bottom">
+                            <div class="p-xs">
+                                <div class="pull-left m-r-md">
+                                    <i class="fa fa-globe text-navy mid-icon"></i>
+                                </div>
+                                <h2> 发表帖子 </h2>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content forum-container">
+
+                            <form class="form-horizontal" action="{:U('Teacher/Forum/post')}" method="post" enctype="multipart/form-data"> 
+                                
+                                <div class="form-group"><label class="col-md-2 control-label">标题</label>
+                                     <div class="col-md-10"><input type="text" name="title" class="form-control"></div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">所属板块</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control m-b" name="forum_id">
+                                            <option value="0">请选择板块</option>
+                                            <volist name='forum' id='vol'>
+                                                <option value="{$vol.id}">{$vol.title} --- {$vol['ptitle']}</option>
+                                            </volist>
+                                      </select>
+                                    </div>
+                                </div>
+
+                           
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">内容</label>
+                                    <div class="col-md-10"><textarea  id="postcontent" name="content" class="form-control"></textarea><span class="help-block m-b-none">....</span>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">添加附件</label>
+                                    <div class="col-md-10"><input type="file"  name="attachment" class="form-control" /><span class="help-block m-b-none">建议多个文件打包</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary  col-md-offset-9">发布</button>
+                            </form>
+                            
+
+  
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('postcontent');
+            //editor.config.zindex = 20000;
+            //上传图片
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/forum')}";
+            editor.config.uploadImgFileName = 'upload'
+
+            editor.create();
+        });
+    </script>
+ 
+
+
+
+
+</body>
+
+</html>

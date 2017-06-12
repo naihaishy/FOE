@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理员后台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- iCheck-->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/icheck/css/_all.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <!--mail wrapper start-->
+                
+                <!--显示邮件开始-->
+                
+                <div class="row">
+                    <div class="col-md-4 col-sm-12" id="compose-wrapper">
+                        <div class="panel">
+                            <aside class="panel-body">
+                                <a href="{:U('Admin/Email/compose')}" class="btn btn-primary btn-block">撰写邮件</a>
+                                <ul class="nav nav-pills nav-stacked compose-nav">
+                                    <li class="active">
+                                        <a href="{:U('Admin/Email/inbox')}"> <i class="fa fa-inbox"></i> 收件箱
+                                            <span class="label label-danger pull-right inbox-notification" id="new-messages4"> {$unread_count} </span>
+                                        </a>
+                                    </li>
+                                    <li id="emstar_li" >
+                                        <a href="{:U('Admin/Email/inbox/type/star')}"> <i class="fa fa-star-o"></i> 星标邮件
+                                             
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{:U('Admin/Email/sendbox')}"> <i class="fa fa-envelope-o"></i> 已发送</a>
+                                    </li>
+                                    <li>
+                                        <a href="{:U('Admin/Email/sendbox/type/draft')}"> <i class="fa fa-pencil-square-o"></i> 草稿箱
+                                            <span class="label label-info pull-right inbox-notification">1</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{:U('Admin/Email/inbox/type/trash')}"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
+                                    </li>
+                                </ul>
+                            </aside>
+                        </div>
+
+                        <div class="panel">
+                            <aside class="panel-body">
+                                <button class="btn btn-default btn-block">管理标签</button>
+                                <ul class="nav nav-pills nav-stacked compose-nav">
+                                    <volist name="tags" id="tag">
+                                        <li> <a href="#"> <i class="fa fa-bookmark danger-txt"></i>  {$tag['name']} </a>  </li>
+                                    </volist>
+
+                                </ul>
+                            </aside>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12" id="inbox-wrapper">
+
+                        <section class="panel">
+                            <header class="panel-heading wht-bg">
+                                <h4 class="gen-case">{$page['title']}  <span id="new-messages3"></span>
+                                    <form action="#" class="pull-right mail-src-position">
+                                        <div class="input-append">
+                                            <input type="text" class="form-control " placeholder="搜索">
+                                        </div>
+                                    </form>
+                                </h4>
+                            </header>
+                            <div class="panel-body minimal">
+                                <div class="mail-option">
+                                    <div class="pull-left mail-checkbox ">
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                            所有
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">已读</a>
+                                            </li>
+                                            <li><a href="#">未读</a>
+                                            </li>
+                                            <li><a href="#">星标</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a data-original-title="刷新" data-placement="top" data-toggle="tooltip" href="#" class="btn btn-default btn-sm tooltips">
+                                            <i class=" fa fa-refresh"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+                                            操作
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#"><i class="fa fa-pencil"></i> 标记已读</a>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-ban"></i> 移至垃圾箱</a>
+                                            </li>
+                                            <li><a href="#"><i class="fa fa-trash-o"></i> 删除</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <ul class="inbox-pag pull-right">
+                                        <li> </li>      
+                                    </ul>
+
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-inbox table-hover">
+                                        <tbody>
+                                            <!--循环遍历-->
+                                            <volist name='emails' id='email'>
+                                                <tr id="email-list-box"  >
+                                                    <td>
+                                                        <input type="checkbox" class="mail-checkbox">
+                                                    </td>
+                                                    <td class="message">
+                                                        <a href="{:U('Admin/Email/view/id/'.$email['id'])}"><span class="title">{$email['receiver']['name']} <if condition="$email['to_rid'] eq 1" ><small class="text-danger">管理员</small><elseif condition="$email['to_rid'] eq 2" /><small class="text-navy">教师</small><else/><small class="text-warning">学生</small></if></span> {$email['subject']} </a>
+                                                    </td>
+                                                    <td class="text-right">{$email['post_time']|date='Y-m-d H:i:s',###}
+                                                        <notempty name="email['attachment_id']"> <i class="fa fa-paperclip"></i> </notempty>
+                                                    </td>
+                                                </tr>
+                                            </volist>
+ 
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+ 
+                </div>
+                </div>
+                <!--mail wrapper end-->
+            </section>
+        </section>
+        <!--main content end-->
+         
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+         
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Level JS-->
+    <script src="__ADMIN__/SpaceLab/assets/plugins/icheck/js/icheck.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+        });
+        $('.tooltips').tooltip();
+        
+ 
+
+    });
+    </script>
+ 
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+</body>
+
+</html>

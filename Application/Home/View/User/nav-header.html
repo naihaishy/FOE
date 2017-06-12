@@ -1,0 +1,82 @@
+<nav class="navbar navbar-static-top" role="navigation">
+    <div class="navbar-header">
+        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <i class="fa fa-reorder"></i>
+        </button>
+        <a href="{:U('Home/User/dashboard')}" class="navbar-brand">  {$_SESSION['uname']} </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a aria-expanded="false" role="button" href="{:U('Home/Index/index')}"> 返回首页 </a>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 我的课程 <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{:U('Home/User/course/type/ing')}">正在上课 </a></li>
+                    <li><a href="{:U('Home/User/course/type/pre')}">即将开课  </a></li>
+                    <li><a href="{:U('Home/User/course/type/over')}">已结课  </a></li>
+                    <li><a href="{:U('Home/User/course/type/follow')}">已关注  </a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 我的讨论 <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{:U('Home/User/discuss/type/lead')}">我发起的</a></li>
+                    <li><a href="{:U('Home/User/discuss/type/attend')}">我参与的</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 我的人脉  <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{:U('Home/User/relation/type/follow')}">我的关注 </a></li>
+                    <li><a href="{:U('Home/User/relation/type/fan')}">我的粉丝 </a></li>
+                    <li><a href="{:U('Home/User/relation/type/friend')}">我的好友</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 消息通知 <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{:U('Home/User/message')}">全部通知</a></li>
+                    <li><a href="{:U('Home/User/message/type/qa')}">问答通知</a></li>
+                    <li><a href="{:U('Home/User/message/type/forum')}">论坛通知</a></li>
+                    <li><a href="{:U('Home/User/message/type/system')}">系统消息</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 站内信件 <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{:U('Home/Email/inbox')}">收件箱</a></li>
+                    <li><a href="{:U('Home/Email/sendbox')}">发件箱</a></li>
+                    <li><a href="{:U('Home/Email/compose')}">发送信件</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a  role="button" href="{:U('Home/User/onlineJudge')}" class="dropdown-toggle" > Online Judge  </a>
+            </li>
+            <li class="dropdown">
+                <a  role="button" href="{:U('Home/User/chat')}" class="dropdown-toggle" > 聊天  </a>
+            </li>
+            <li class="dropdown">
+                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 设置 <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{:U('Home/Setting/profile')}">个人资料</a></li>
+                    <li><a href="{:U('Home/Setting/account')}">账号设置</a></li>
+                    <li><a href="{:U('Home/Setting/email')}">邮件设置</a></li>
+                    <li><a href="{:U('Home/Setting/privacy')}">隐私设置</a></li>
+                    <li><a href="{:U('Home/Setting/inform')}">通知设置</a></li>
+                </ul>
+            </li>
+
+
+        </ul>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="{:U('Home/User/logout')}">
+                    <i class="fa fa-sign-out"></i> 退出
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

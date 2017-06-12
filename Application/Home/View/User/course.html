@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>  我的课程 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="container">
+                    <div class="row">
+
+                        <volist name="courses" id="course">
+                            <div class="col-lg-4">
+                                <div class="contact-box">
+                                    <a href="{:U('Course/Index/details/id/'.$course['course_id'])}" target="_blank">
+                                    <div class="col-sm-4">
+                                        <div class="text-center">
+                                            <img alt="image" class="m-t-xs img-responsive" src="{$course['picture_path']}">
+                                            <div class="m-t-xs font-bold">{$course['title']}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                         
+                                        <p><i class="fa fa-clock-o"></i>开课时间:{$course['course_start_date']|date='Y年m月d日',###}  </p>
+                                        <p><i class="fa fa-clock-o"></i>结课时间:{$course['course_end_date']|date='Y年m月d日',###}  </p>
+                                        <p><i class="fa fa-user"></i>教师:{$course['teacher_name']}  </p>
+                                        <p><i class="fa fa-users"></i>学习人数:{$course['learn_count']}  </p>
+                                         
+                                    </div>
+                                    <div class="clearfix"></div>
+                                        </a>
+                                </div>
+                            </div>
+                        </volist>
+                        
+                        
+                    </div>
+ 
+                         
+
+                    <div class="row">
+                    </div>
+
+                </div>
+     
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+ 
+ 
+
+</body>
+
+</html>

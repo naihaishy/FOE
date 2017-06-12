@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> {$subforum['title']} | FOE</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+        <script src="__HOME__/assets/js/html5shiv.js"></script>
+        <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+      <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">{$subforum['title']}</h1>
+                            <p> {$subforum['description']}</p>
+                            <a href="{:U('Forum/Post/index')}" class="btn btn-primary pull-right"> 我要发帖</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#action-->
+
+ 
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div>
+                        <h3>置顶帖</h3>
+                        <volist name="stick_posts" id="vol">
+                            <div class="post">
+                                <ul> <a href="{:U('Forum/View/index/id/'.$vol['id'])}" > {$vol['title']} </a> <span class="label label-primary">顶</span></ul> 
+                            </div>
+                        </volist>
+                        <hr/>
+                    </div>
+                
+
+                    <div>
+                        <h3>精华帖</h3>
+                        <volist name="essence_posts" id="vol">
+                            <div class="post">
+                                <ul> <a href="{:U('Forum/View/index/id/'.$vol['id'])}" > {$vol['title']} </a> <span class="label label-success">精</span></ul> 
+                            </div>
+                        </volist>
+                        <hr/>
+                    </div>
+
+                    <div>
+                        <h3>最新帖</h3>
+                        <volist name="latest_posts" id="vol">
+                            <div class="post">
+                                <ul> <a href="{:U('Forum/View/index/id/'.$vol['id'])}" > {$vol['title']} </a> </ul> 
+                            </div>
+                        </volist>
+                        <hr/>
+                    </div>
+
+          
+                    
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <!--分页-->
+            <div class="row">
+                <div class="portfolio-pagination">
+                    <ul class="pagination">
+                    {$show}
+                    </ul>
+                </div>  
+            </div>
+        </div>
+     
+    <!--/#projects-->
+
+    <div class="col-md-12" style="padding-bottom: 10%;"></div>
+
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script>   
+</body>
+</html>

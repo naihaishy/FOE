@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>{$file['title']}</title>
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  	#pdfcontainer{
+  		padding:0px;
+  		margin:0px;
+  	}
+  </style>
+    
+	</head>
+	
+	<body id="pdfcontainer" uri="{$file['uri']}">
+		 
+	 
+	</body>
+	
+	<script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+	<script src="__HOME__/uassets/js/plugins/pdfobject/pdfobject.min.js"></script>
+	
+	<script>
+		var url  = $('#pdfcontainer').attr('uri');
+		PDFObject.embed(url, "#pdfcontainer");
+	
+	</script>
+	
+</html>

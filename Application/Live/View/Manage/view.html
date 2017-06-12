@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{$paper['title']}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animation CSS -->
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    
+ 
+    
+</head>
+<body id="page-top" class="landing-page">
+<div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                     
+                    <a class="navbar-brand" href="{:U('Live/Manage/index')}">返回直播列表</a>
+                </div>
+ 
+            </div>
+        </nav>
+</div>
+
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+            	<div class="col-md-12" style="padding-top:3%;"></div>
+            	<center>
+            		<div   id="fmsobj"  >
+									<object width='640' height='377' id='SampleMediaPlayback' name='SampleMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' >
+										<param name='movie' value="/Public/Live/watch/swfs/SampleMediaPlayback.swf" /> 
+										<param name='quality' value='high' /> 
+										<param name='bgcolor' value='#000000' /> 
+										<param name='allowfullscreen' value='true' /> 
+										<param name='flashvars' value= "&src=<?php echo $room['rtmp'].'/'.$live['rtmp_keys'] ?>&autoHideControlBar=true&streamType=live&autoPlay=true&verbose=true"/>
+										<embed src="/Public/Live/watch/swfs/SampleMediaPlayback.swf" width='640' height='377' id='SampleMediaPlayback' quality='high' bgcolor='#000000'  name='SampleMediaPlayback' allowfullscreen='true'   pluginspage='http://www.adobe.com/go/getflashplayer'  flashvars="&src=<?php echo $room['rtmp'].'/'.$live['rtmp_keys'] ?>&autoHideControlBar=true&streamType=live&autoPlay=true&verbose=true"  type='application/x-shockwave-flash'>  	</embed>
+									</object>
+								</div>
+            	</center>
+                 
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+<!-- Mainly scripts -->
+<script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+<script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+
+<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+
+<script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+<script src="__HOME__/uassets/js/plugins/wow/wow.min.js"></script>
+
+
+    
+
+</body>
+</html>

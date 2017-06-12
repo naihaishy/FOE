@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程管理 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+ 
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+         <include file="Application/Course/View/Navbar/left.html" />
+        <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+           <!--navbar-static-top start-->
+           <include file="Application/Course/View/Navbar/top.html" />
+          <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程管理</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Detail</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                  <div class="col-lg-3">
+                    <div class="ibox-content">
+                      <ul class="nav nav-tabs">
+                        <li class="list-group-item">
+                          <a href="{:U('Manage/base')}">
+                            <span>基本信息</span>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a href="{:U('Manage/detail')}">
+                            <span>详细信息</span>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a href="{:U('Manage/picture')}">
+                            <span>课程图片</span>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a href="{:U('Manage/lesson')}">
+                            <span>课时管理</span>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                          <a href="{:U('Manage/files')}">
+                            <span>课程文件</span>
+                          </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{:U('Manage/bulletin')}">
+                              <span>课程公告</span>
+                            </a>
+                          </li>
+                         
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="ibox-title">
+                      <h5>详细信息</h5>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <div class="form-group"><label class="col-sm-2 control-label">课程简介</label>
+                           <button id="summernoteedit" class="btn btn-primary btn-xs m-l-sm"   type="button">编辑</button>
+                           <button id="summernotesave" class="btn btn-primary  btn-xs"   type="button">预览</button>
+                        </div>  
+                        <input type="hidden" name="course_id" value="{$course['id']}"/> 
+
+                         
+                        <div class="click2edit wrapper p-md summernote">
+                          {$course['description']|htmlspecialchars_decode}
+                        </div>                                                   
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="button" id="detailsub">保存</button>                                      
+                            </div>
+                        </div>
+                         
+                    </div>
+                  </div>
+                     
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+   
+     <!-- SUMMERNOTE -->
+    <script src="__HOME__/uassets/js/plugins/summernote/summernote.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/summernote/summernote-zh-CN.js"></script>
+     <script>
+        $(document).ready(function(){
+            $('.summernote').summernote({
+              lang:'zh-CN'});
+       });
+       
+       $('#summernoteedit').on('click',function(){
+          $('.click2edit').summernote({focus: true});
+       });
+       
+      $('#summernotesave').on('click',function(){
+         var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+         $('.click2edit').destroy();
+       });
+       
+       //ajax提交
+       
+       $('#detailsub').on('click',function(){
+         var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+         //alert(aHTML);
+ 
+         var url='editCourse';
+         var courseid=$("input[name='course_id']").val();
+         $.post(url,{description:aHTML,course_id:courseid} ,function(data,status){
+            if(status=='success'){
+              alert('提交成功');
+            }
+          });
+        });
+       
+       
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>收件箱 | 教师管理后台 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+
+        <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--左侧导航 -->
+                <include file="Application/Teacher/View/Email/left.html" />
+            </div>
+            <div class="col-lg-9 animated fadeInRight">
+                <div class="mail-box-header">
+
+                    <form method="get" action="index.html" class="pull-right mail-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" name="search" placeholder="Search email">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    搜索
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <h2>
+                        {$page['title']}   
+                    </h2>
+                    <div class="mail-tools tooltip-demo m-t-md">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+                        </div>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+                    </div>
+                </div>
+                <div class="mail-box">
+
+                    <table class="table table-hover table-mail">
+                        <tbody>
+                            <volist name="emails" id="email">
+                                <if condition="$email['isread'] eq 1"><tr class="read"><else/><tr class="unread"></if>
+                                    <td class="check-mail">
+                                        <input type="checkbox" class="i-checks">
+                                    </td>
+                                    <td class="mail-ontact"><a href="{:U('Teacher/Email/view/id/'.$email['id'])}"> {$email['sender']['name']} <if condition="$email['from_rid'] eq 1" ><small class="text-danger">管理员</small><elseif condition="$email['from_rid'] eq 2" /><small class="text-navy">教师</small><else/><small class="text-warning">学生</small></if> </a> <notempty name="email['category']"> <span class="label label-danger pull-right"> {$email['category']}</span></notempty>  </td>
+                                    <td class="mail-subject"><a href="{:U('Teacher/Email/view/id/'.$email['id'])}"> {$email['subject']} </a></td>
+                                    <td class=""><notempty name="email['attachment_id']"> <i class="fa fa-paperclip"></i> </notempty> </td>
+                                    <td class="text-right mail-date"> {$email['post_time']|date='Y-m-d H:i:s',###}</td>
+                                </tr>
+
+                            </volist>    
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="__HOME__/uassets/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+</body>
+
+</html>

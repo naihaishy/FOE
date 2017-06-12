@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>问题详情 | 教师管理后台 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>问题详情 </h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li> Lesson </li>
+                        <li class="active">
+                            <strong>question</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInUp">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="m-b-md">
+                                        <a href="#" class="btn btn-white btn-xs pull-right" onclick="sticktop(this)"> 置顶 </a>
+                                        <h2>{$question['title']} </h2>
+                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt>教师回复:</dt> <dd>
+                                        <if condition="$question['teacher_reply'] eq 1"> <span class="label label-primary">已回复</span> <else/><span class="label label-default">未回复</span> </if>
+
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <dl class="dl-horizontal">
+                                        <dt>内容:</dt>
+                                        <dd>
+                                             {$question['content']|htmlspecialchars_decode}
+                                            
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="col-lg-5" id="cluster_info">
+                                    <dl class="dl-horizontal" >
+                                        <dt>提问者 :</dt> <dd>{$question['name']}</dd>
+                                        <dt>最后修改:</dt> <dd>{$question['updated_time']|date='Y-m-d H:i:s',###}</dd>
+                                        <dt>创建时间:</dt> <dd>{$question['created_time']|date='Y-m-d H:i:s',###}  </dd>
+                                    </dl>
+                                </div>
+                            </div> <hr/>
+                            
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                    <div class="panel blank-panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-options">
+                                                 <h3 class="green">回复内容</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <div class="feed-activity-list">
+                                                <!--开始遍历回复-->
+                                                <volist name="answer" id="vol">
+                                                    <div class="feed-element">
+                                                        <div class="media-body" style="font-size:110%;">
+                                                            <small class="pull-right">{$vol['post_time']|date='Y-m-d H:i:s',###}</small>
+                                                            <if condition="$vol['user_role'] eq 'teacher' " >
+                                                                <strong style="color:red;">{$vol['user_name']} </strong>
+                                                            <else/> 
+                                                                <strong>{$vol['user_name']}  </strong>
+                                                            </if>
+                                                            
+                                                            <if condition="$vol['quotes'] neq 0">
+                                                              回复给
+                                                              <if condition="$vol['quotes']['user_role'] eq 'teacher'">
+                                                                 <strong style="color:red;">{$vol['quotes']['user_name']} </strong>
+                                                              <else/>
+                                                                 <strong>{$vol['quotes']['user_name']} </strong> 
+                                                              </if>
+                                                              
+                                                            <blockquote>
+                                                                <small> {$vol['quotes']['answer']|htmlspecialchars_decode|strip_tags} </small>
+                                                            </blockquote>
+                                                            </if>  <br>
+
+                                                            {$vol['answer']|htmlspecialchars_decode}
+                                                             
+                                                            <div class="actions">
+                                                                <a href="{:U('Course/Lquestion/delAnswer/aid/'.$vol['id'])}"  class="pull-right btn btn-xs btn-white" ><i class="fa fa-trash"></i> 删除 </a> &nbsp;&nbsp;
+                                                                <a class="pull-right btn btn-xs btn-white" answerid="{$vol['id']}" onclick="reply(this)"><i class="fa fa-reply"></i> 回复 </a>
+
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </volist>
+                                                
+                                                
+ 
+                                                 
+                                             
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">回复给该提问者
+                                <div>
+                                    <form action="{:U('Course/Lquestion/replyT')}" method="post">
+                                        <input type='hidden' name='question_id' value="{$question['id']}" />
+                                        <textarea cols='10' rows='5' name='answer' class='form-control' ></textarea> <br/> 
+                                        <button type='submit' class='btn btn-sm' >提交</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+    <script>
+
+        //引用回复
+        function reply(obj){
+            $(obj).siblings().remove();
+            var answerid = $(obj).attr('answerid');
+            var replybox = $("<div><input type='hidden' name='quotes' value='" + answerid +"'/><textarea cols='10' rows='5' name='answer' class='form-control' ></textarea> <br/> <button type='button' class='btn btn-sm' id='subreply' onclick='submit(this)' >提交</button>&nbsp; <button type='button' class='btn btn-sm'  onclick='cancel(this)' >取消</button><div/>");
+            $(obj).after(replybox);
+        }
+
+        //直接回复
+        function submit(obj){
+            var questionid   = {$question['id']};
+            var replyto      = $("input[name='quotes']").val();
+            var replycontent = $("textarea[name='answer']").val();
+            if(!replycontent){
+                alert('回复内容不得为空');return;
+            }
+            $.post(
+                    "{:U('Course/Lquestion/reply')}",
+                    {replyto:replyto, replycontent:replycontent, questionid:questionid},
+                    function(data, status){
+                if(data && status=='success'){
+                    alert('回复成功');
+                    $(obj).parent().remove();
+                    window.location.reload();
+                }
+            });
+        }
+
+        //置顶该问题
+        function sticktop(obj){
+            var questionid   = {$question['id']};
+            $.post("{:U('Course/Lquestion/stickTop')}",{qid:questionid}, function(data,status){
+                if(data && status=='success'){
+                    //置顶成功
+                    alert('置顶成功');
+                    window.location.reload();
+                }
+            });
+        }
+
+
+        function cancel(obj){
+            $(obj).parent().remove();
+        }
+
+
+
+    </script>
+</body>
+
+</html>

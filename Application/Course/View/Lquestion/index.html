@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课时问题列表 | 教师管理后台 list</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>课时问题列表</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>Lesson</li>
+                        <li class="active">
+                            <strong>Question</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInUp">
+
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>你开设课程里面学生提出的所有问题 </h5>
+                            <div class="ibox-tools">
+                                <a href="" class="btn btn-primary btn-xs hidden">Create new project</a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row m-b-sm m-t-sm">
+                                <div class="col-md-1">
+                                    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> 刷新</button>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="input-group"><input type="text" placeholder="搜索" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜!</button> </span></div>
+                                </div>
+                            </div>
+
+                            <div class="project-list">
+
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <volist name="lquestion" id="vol">
+                                            <tr>
+                                                <td class="project-status">
+                                                    <if condition="$vol['teacher_reply'] eq 1"> <span class="label label-primary">已回复</span> <else/><span class="label label-default">未回复</span> </if>
+                                                </td>
+                                                <td class="project-title">
+                                                    <a href="{:U('Course/Lquestion/detail/id/'.$vol['id']) }" > {$vol['title']} </a>
+                                                    <br/>
+                                                    <small>于 {$vol['created_time']|date='Y-m-d H:i:s',###}  提问</small>
+                                                </td>
+                                                <td class="project-completion">
+                                                    {$vol['course_title']} >>>  {$vol['lesson_title']} 
+                                                </td>
+                                                <td class="project-actions">
+                                                    <a href="{:U('Course/Lquestion/detail/id/'.$vol['id']) }" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+                                                    <a href="{:U('Course/Lquestion/delQuestion/id/'.$vol['id'])}" onclick="return confirm('确认删除?')" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 删除 </a>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    
+                                     
+                                     
+                                            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('#loading-example-btn').click(function () {
+                btn = $(this);
+                simpleLoad(btn, true)
+
+                // Ajax example
+//                $.ajax().always(function () {
+//                    simpleLoad($(this), false)
+//                });
+
+                simpleLoad(btn, false)
+            });
+        });
+
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith("载入中...");
+            } else {
+                setTimeout(function () {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith("刷新");
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+
+</html>

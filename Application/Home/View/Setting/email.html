@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>邮件设置 | 教师管理后台 Page</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+            
+
+            <div class="wrapper wrapper-content">
+                
+                <div class="row">
+                    <form method="post" action="{:U('Home/Setting/email')}">
+                        <!--说明-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                <h4>说明</h4>
+                                    <div class="form-horizontal" >
+                                        本设置决定系统将哪些消息发至您的信箱                                                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--订阅-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>订阅设置 </h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="email_subscr_course"  >
+                                                <label  > 订阅课程动态提醒 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>包含开课提醒、上传提醒、阅卷提醒等内容</span> </div>
+                                        </div>
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="email_subscr_activity" >
+                                                <label  > 订阅FOE活动提醒 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>包含定期举办的比赛、交流会、讲座等内容</span> </div>
+                                        </div>                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--通知-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>邮箱通知</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div  class="form-horizontal"  >
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="email_info_question"  >
+                                                <label  > 允许问题通知 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>当有人回答你在课程里的提问时,系统将通过邮件通知你</span> </div>
+                                        </div>
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="email_info_forum" >
+                                                <label  > 允许论坛通知 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>当有人回复你的帖子时,系统将通过邮件通知你</span> </div>
+                                        </div>                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <button type="submit" class="btn btn-primary col-md-offset-9">保存</button>
+                    </form>
+                    
+                </div>
+                    
+                    
+                
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            //label
+            var checkboxs = $(":checkbox");
+            $.each(checkboxs, function(index){
+                $(this).attr('id', 'checkbox'+index);
+                $(this).next().attr('for', 'checkbox'+index);
+            });
+
+            //初始化select option radio checkbox
+            var setting   = {$setting};//json格式
+            $.each(setting, function(key,val){
+                if(val =='on'){
+                    $(":checkbox[name='"+ key +"']").attr("checked", "checked");
+                }
+            });
+        });
+    </script>
+ 
+
+
+</body>
+
+</html>

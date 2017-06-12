@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SpaceLab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- DataTables-->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/dataTables/css/dataTables.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">{$Think.MODULE_NAME}</a> </li>
+                            <li>{$Think.CONTROLLER_NAME}</li>
+                            <li class="active">{$Think.ACTION_NAME}</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                        <h1 class="h1">手册分类</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">分类信息</h3>
+                                <div class="actions pull-right">
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addcat"><i class="fa fa-plus"></i>添加分类</button>
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-download" ></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                            	
+                            	<div class="table-responsive">
+                                <table id="example" class="table table-hover" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                        		
+                                        	<th>分类名</th>
+                                            <th>别名</th>
+                                            <th>总数</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    	 
+                                    	<volist name='category' id='vol'>
+                                    		<tr>
+                                            <td>{$vol.name}</td>
+                                            <td>{$vol.slug}</td>
+                                            <td>{$vol.count}</td>
+                                            <td><a href="javascript:;" onclick="editcat(this)" catid="{$vol['id']}"  catname="{$vol['name']}"" slug="{$vol['slug']}" description="{$vol['description']}" >编辑</a>  | <a href="{:U('Admin/Manual/delCategory',array('id'=>$vol['id'] ))}" onclick="return confirm('确认删除?')" >删除</a>  </td>
+                                        </tr>
+                                    	</volist>
+                                        
+ 
+                                    </tbody>
+                                </table>
+                              </div>  
+
+                            </div>
+                             
+                            
+                        </div>
+                    </div>
+
+
+                        <!-- Form Modal   添加分类 -->
+                        <div class="modal fade" id="addcat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">添加分类</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form" action="{:U('Admin/Manual/addCategory')}" method="post">
+                                            <input type="hidden" name="pid" value="0">
+                                            <div class="form-group">
+                                                <label for="inputtitle" class="col-sm-2 control-label">分类名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="name" class="form-control"  placeholder="请输入分类名">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputname" class="col-sm-2 control-label">别名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="slug"  class="form-control"   placeholder="英文别名">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputdes" class="col-sm-2 control-label">描述</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="description"  class="form-control"  placeholder="请输入描述">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="formsubmit-addcat">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Form Modal -->
+
+                        <!-- Form Modal   修改分类 -->
+                        <div class="modal fade" id="editcat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">编辑分类</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form" action="{:U('Admin/Manual/editCategory')}" method="post">
+                                            <input type="hidden" name="id" value="0">
+                                            <div class="form-group">
+                                                <label for="inputtitle" class="col-sm-2 control-label">分类名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="name" class="form-control" id="inputtitle" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputname" class="col-sm-2 control-label">别名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="slug"  class="form-control" id="inputname" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputdes" class="col-sm-2 control-label">描述</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="description"  class="form-control" >
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="formsubmit-editcat">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Form Modal -->
+
+
+
+                </div>
+
+            </section>
+        </section>
+        <!--main content end-->
+        
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+        
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/nanoScroller/jquery.nanoscroller.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Leve JS -->
+
+    <script type="text/javascript">
+        $('#formsubmit-addcat').on('click',function(){
+            $('form').eq(0).submit();
+        });
+        $('#formsubmit-editcat').on('click',function(){
+            $('form').eq(1).submit();
+         });
+
+
+        function editcat(obj){
+            var catid=$(obj).attr('catid');
+            var catname=$(obj).attr('catname');
+            var slug=$(obj).attr('slug');
+            var description=$(obj).attr('description');
+            $("input[name='id']").val(catid);
+            $("input[name='name']").val(catname);
+            $("input[name='slug']").val(slug);
+            $("input[name='description']").val(description);
+            $('#editcat').modal('show');
+        }
+        
+
+    </script>
+ 
+ 
+
+</body>
+
+</html>

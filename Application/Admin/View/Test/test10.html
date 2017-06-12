@@ -1,0 +1,24 @@
+<html>
+	<body>
+		 
+		<volist name='array' id='vol'>
+			{$vol} -
+		</volist>
+		<hr/>
+		<foreach name='array' item='for' >
+			{$for} -
+		</foreach>
+		<hr/>
+		
+		<volist name='array2' id='vol'>
+			<volist name='vol' id='vols'>
+				{$vols}
+			</volist>
+			<br/>
+		</volist>
+		
+		<foreach name='array2' item='for'>
+			{$for[0]} {$for[1]} {$for[2]}
+		</foreach>
+	</body>
+</html>

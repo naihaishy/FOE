@@ -1,0 +1,131 @@
+
+1.后台代码规范
+
+    控制器函数命名规则：
+
+        方法的命名使用驼峰法，并且首字母小写
+        属性的命名使用驼峰法，并且首字母小写
+
+    函数的命名 使用小写字母和下划线的方式
+    变量的命名 使用小写字母和下划线的方式
+    
+
+2.前台代码规范
+    CSS: id _
+ 
+ 
+
+3.数据库
+    命名规范:
+        数据表和字段采用小写加下划线方式命名
+
+    字段规范:
+        所有的时间 均为int(11)类型
+        用户相关字段:     username truename nickname truename sex tel email avatar description  password salt
+                        registered enabled locked
+                        last_login_time last_login_ip session_id oauth_id
+                        access_send_time access_token forget_send_time forget_token
+
+
+    
+    
+4.常用变量规范 
+
+uid    用户id 包括admin teacher student  统一为uid
+rid    用户角色role id 根据此判断用户角色 admin 1 teacher 2 student 3   
+tid   
+uname  用户名 [admin teacher student]
+cid  课程id
+lid 课时id
+fid 文件id
+pid 试卷id 
+
+
+session全局
+
+uid rid uname avatar
+course_id
+file_id
+lesson_id
+paper_id
+last_login_time
+last_login_ip
+
+
+course_count 总课程数目
+
+对于三种角色均可以增改 的模块 $created_user = $uid.','.$rid; 以此区分不同角色
+对于确定角色才能使用的模块/操作 直接记录uid即可
+ 
+
+
+5.网站架构
+
+Home模块下： 
+    用户登录入口 [teacher student]  
+    课程显示信息 Course
+    
+    
+    
+    
+
+
+--------------业务逻辑------------
+
+
+1.删除课程 是否 删除该课程下的所有课时 资料 文件等     ？   [提供选项] 默认 N
+
+2.删除课时 是否删除该课时下的所有资料 ？  [提供选项]  默认 N 
+
+3.删除试卷 是否删除该试卷下的所有题目 ？  [提供选项]  默认 Y
+
+
+  
+
+
+试卷组卷方式：自动组卷 + 人工组卷
+自动组卷使用算法 
+    
+试卷批阅
+    试卷中的客观题有系统自动批阅 （选择 填空 判断 程序）  判分时对所有题目统一判分 
+
+
+------论坛开发原则-------
+
+
+主版块不得发帖 
+主版块下必须有子版块
+发帖均在子版块
+
+
+
+-------------系统消息提醒机制-----------------
+
+type 类型 system forum course account 
+
+event 事件  
+        account : login(正常登录) logout changepassword(修改密码) rometologin(异地登录)
+        course: 教师/学生/管理员:  
+                教师: 距离开课还有xx天 距离结课还有xx天 距离下课上传课程文件还有xx天 距离公布学生成绩还有xx天
+                学生: 距离开课还有xx天 距离结课还有xx天 距离考试还有xx天 距离成绩查询还有xx天 ...
+
+
+
+
+
+
+
+
+
+删除操作慎重
+
+本系统对删除处理规则
+
+    删除： 用户 课程 直播 文件 论坛
+    将删除全部有关其信息 包括服务器上传的真实文件
+
+    删除学生将删除有关所有资料
+    删除教师应该提供选择 是否删除全部信息还是保留其部分资料
+    删除管理员同教师
+    
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> 手册--{$category['name']} | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="__HOME__/uassets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+            
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>{$category['name']}</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>
+                            <a>Help</a>
+                        </li>
+                        <li class="active">
+                            <strong>{$category['slug']}</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+        <div class="wrapper wrapper-content  animated fadeInRight blog">
+            <div class="row">
+                <volist name="manuals" id="vol">
+                    <div class="col-lg-4">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <a href="{:U('Teacher/Help/view/id/'.$vol['id'])}" class="btn-link">
+                                    <h2>
+                                        {$vol['title']}
+                                    </h2>
+                                </a>
+                                <div class="small m-b-xs">
+                                      <span class="text-muted"><i class="fa fa-clock-o"></i> {$vol['created_time']|date='Y-m-d H:i:s',###}</span>
+                                </div>
+                                <p>
+                                   {$vol['description']|subtext=60} 
+                                </p>
+                                <div class="row">
+                                 
+                                    <div class="col-md-6">
+                                            <h5>标签:</h5>
+                                            <volist name="vol['tags']" id="tag">
+                                                <button class="btn btn-primary btn-xs" type="button">{$tag}</button>
+                                            </volist>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="small text-right">
+                                            <h5>统计:</h5>
+                                            <div> <i class="fa fa-eye"> </i> {$vol['views']} 查看  </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+
+
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+</body>
+
+</html>

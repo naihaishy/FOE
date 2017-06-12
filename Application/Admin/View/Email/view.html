@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理员后台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- iCheck-->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/icheck/css/_all.css">
+
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #postcontent{
+            height: 450px;
+        }
+    </style>
+
+ 
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <!--mail wrapper start-->
+                <div class="row">
+                     
+                    <!--原文-->
+                    <div class="col-md-12 col-sm-12" id="view-mail-wrapper">
+
+                        <div class="panel" id="mail_origin">
+                            <div class="panel-body">
+                                <header>
+                                    <h2>{$email['subject']} </h2>
+                                    <p class="pull-right">{$email['post_time']|date='Y-m-d H:i:s',###}</p>
+                                </header>
+                                <div class="row view-mail-header">
+                                    <div class="col-md-8 ">
+                                        <img src="__ADMIN__/SpaceLab/assets/img/avatar4.gif" alt="" class="img-circle">
+                                        <strong><a href="#">{$email['sender']['name']}</a>
+                                        </strong>发至 <a href="#">{$email['receiver']['name']} </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="view-mail-reply pull-right">
+                                        	<button class="btn btn-sm btn-primary" onclick="self.location=document.referrer;"><i class="fa fa-arrow-circle-left"></i> 返回 </button>
+                                            <if condition="$email['to_uid']  eq  $_SESSION['uid'] "><button class="btn btn-sm btn-primary" onclick="reply(this)"><i class="fa fa-reply"></i> 回复 </button></if>
+                                            <button class="btn  btn-sm btn-default tooltips" data-original-title="Print" type="button" data-toggle="tooltip" data-placement="top" title="打印" onclick="javascript:window.print();"  ><i class="fa fa-print"></i> 
+                                            </button>
+                                            <button class="btn btn-default btn-sm tooltips" data-original-title="Trash" data-toggle="tooltip" data-placement="top" title="垃圾箱"><i class="fa fa-trash-o"></i>
+                                            </button>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="panel view-mail-body">
+                                            <div class="panel-body">
+                                                {$email['content']} 
+                                                
+                                            </div>
+                                            <div class="panel-footer">
+                                                <h5>附件 (1 个文件, {$email['file']['size']} Bytes)</h5>
+                                                <br>
+                                                <span class="label label-default">Photoshop</span>
+                                                <a href="{$email['file']['uri']}">
+                                                    <span class="attchments">{$email['file']['name']}</span>
+                                                </a>
+                                                
+                                                 
+                                                <a class="btn btn-sm btn-primary pull-right"  href="{:U('Admin/Email/downloadAttach/id/'.$email['file']['id'] )}" >下载附件</a>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--回复-->
+                    <div class="col-md-12 col-sm-12" id="view-mail-wrapper">
+                        <div class="panel hidden" id="mail_reply" >
+                            <div class="panel-body">
+                                <div class="mail-box-header">
+                                    <button type="button" class="btn btn-default pull-right" onclick="reply(this)" >取消</button>
+                                </div>
+                                <div  class="mail-box">
+                                    <form class="form-horizontal" method="post" action="{:U('Teacher/Email/compose')}" enctype="multipart/form-data" >
+                                        <input type="hidden" name="to_uid" value="{$email['from_uid']}" />
+                                        <input type="hidden" name="to_rid" value="{$email['from_rid']}" />
+                                     
+                                        <div class="form-group"><label class="col-md-2 control-label">主题:</label>
+                                            <div class="col-md-8"><input type="text" class="form-control" name="subject" value="回复: {$email['subject']}"></div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+
+                                        <div class="form-group"><label class="col-md-2 control-label">内容</label>
+                                            <div class="col-md-8"><textarea  id="postcontent" name="content" class="form-control"></textarea><span class="help-block m-b-none">....</span></div>
+                                            <div class="col-md-2"></div>   
+                                        </div>
+
+                                        <div class="form-group"><label class="col-md-2 control-label">添加附件</label>
+                                            <div class="col-md-8"><input type="file"  name="attachment" class="form-control" /><span class="help-block m-b-none">多个文件请打包</span></div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary col-lg-offset-10">发送</button>
+                                    </form>
+                                 </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+                <!--mail wrapper end-->
+            </section>
+        </section>
+        <!--main content end-->
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Index/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Level JS-->
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('postcontent');
+            var mail_origin_subject = "{$email['subject']}";
+            var mail_origin_content = "{$email['content']}";
+            var mail_origin_from = "{$email['sender']['name']}";
+            var mail_origin_to = "{$email['receiver']['name']}";
+            var mail_origin_time = "{$email['post_time']|date='Y年m月d日 H:i:s',###}";
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/email')}";
+            editor.config.uploadImgFileName = 'upload'
+            editor.create();
+            editor.$txt.html("<br/><br/><br/><br/><br/><br/><div>-----------原始邮件------------<br/><blockquote><br/><b>发件人:</b>"+ mail_origin_from +"<br/><br/><b> 收件人:</b>"+ mail_origin_to +"<br/><br/><b>发送时间:</b>" + mail_origin_time+ "<br/><br/><b>主题:</b>" + mail_origin_subject + "<br/></blockquote><br/><br/>" +mail_origin_content +"</div>");
+        });
+        function reply(){
+            $("#mail_origin").toggleClass('hidden');
+            $("#mail_reply").toggleClass('hidden');
+        }
+    </script>
+    
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+</body>
+
+</html>

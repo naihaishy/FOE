@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>  我的讨论 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="container">
+                    <div class="row">
+                        <volist name="discuss" id="vol">
+                            <div class="col-md-3">
+                                <div class="ibox">
+                                    <div class="ibox-content">
+                                        <h3>{$vol['title']}</h3>
+
+                                        <p class="small"> {$vol['content']|subtext=36|strip_tags}                  
+                                        </p>
+
+                                        <p class="small font-bold">
+                                            <span><i class="fa fa-circle text-navy"></i><a href="{:U('Course/')}"> 点击查看 </a></span>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </volist>
+                        
+                    </div>
+
+                    <div class="row">
+                    </div>
+                         
+
+                    <div class="row">
+                    </div>
+
+                </div>
+     
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+ 
+ 
+
+</body>
+
+</html>

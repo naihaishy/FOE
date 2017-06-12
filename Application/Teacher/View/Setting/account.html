@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>账号设置 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    
+
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>账号设置</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>
+                             Setting
+                        </li>
+                        <li class="active">
+                            <strong>account</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content">
+                
+                  
+                <div class="row">
+
+                    <!--说明-->
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                            <h4>说明</h4>
+                                <div class="form-horizontal" >
+                                                                                                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--账号状态-->
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>账号状态</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div  class="form-horizontal"  >
+                                    <div class="form-group"><label class="col-md-2 control-label">当前登录帐号</label>
+                                        <div class="col-md-6"> 
+                                            <div class="alert alert-success"  >{$account['email']} </div>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+                                    
+
+                                    <div class="form-group" id="start_date"><label class="col-md-2 control-label"  >激活状态</label>
+                                        <div class="col-md-6">                                 
+                                             <if condition="$account['enabled'] eq 1"><div class="alert alert-success">已经激活 </div><else/><div class="alert alert-warning">尚未激活 &nbsp;&nbsp;&nbsp; <a href="" class="alert-link">点击再次发送激活邮件</a></div></if> 
+                                        </div>
+                                        <div class="col-md-4"> </div>
+                                    </div>
+                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+                    
+                <!--第三方帐号-->               
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>第三方帐号</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="form-horizontal">
+                                    <h4>绑定后可使用以下帐号直接登录当前帐户</h4>
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                          <a href="javascript:;" acctype="wechat" onclick="bindaccount(this)"><i class="fa fa-wechat fa-2x"></i>微信</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <a href="javascript:;" acctype="qq" onclick="bindaccount(this)"><i class="fa fa-qq fa-2x"></i>QQ</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <a href="javascript:;" acctype="weibo" onclick="bindaccount(this)"><i class="fa fa-weibo fa-2x"></i>微博</a>
+                                        </div>
+
+                                    </div>
+                                </div><br/><br/><br/>
+                                
+                                
+                                 
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+                <!--账户安全性-->               
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>账号安全性</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="form-horizontal">
+                                   
+                                    <div class="col-md-12"> 
+                                         
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chanagepass">修改密码 </button>
+                                            
+                                        </div>
+                                                                                  
+
+                                    </div>
+                                </div><br/><br/><br/>
+                                
+                                
+                                 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Modal   修改密码 -->
+                    <div class="modal fade" id="chanagepass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form" action="{:U('Teacher/Setting/account')}" method="post">
+                                            <input type="hidden" name="id">
+                                        <div class="form-group">
+                                            <label for="inputtitle" class="col-md-3 control-label">输入原始密码</label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="password_old" class="form-control"   placeholder="原始密码">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputname" class="col-md-3 control-label">输入新密码</label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="password_new1"  class="form-control"   placeholder="新密码 建议复杂度较高">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputname" class="col-md-3 control-label">确认新密码</label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="password_new2"  class="form-control"   placeholder="确认密码">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" id="formsubmit-edit">提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Modal -->
+                </div>
+                    
+                    
+              
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+    <script type="text/javascript">
+        function bindaccount(obj){
+            window.open('');
+        }
+
+        $("#formsubmit-edit").on('click',function(){
+            $('form').eq(1).submit();
+        });
+    </script>
+ 
+ 
+
+
+</body>
+
+</html>

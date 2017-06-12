@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程列表 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+ 
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+ 
+ 
+ 
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+		     <include file="Application/Course/View/Navbar/left.html" />
+		    <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+         	 <!--navbar-static-top start-->
+			     <include file="Application/Course/View/Navbar/top.html" />
+			    <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程列表</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Index</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>课程信息 <small>您所开设的课程</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>名称</th>
+                                <th>状态</th>
+                                <th>分类</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            	<volist name='course' id='vol'>
+	                            	<tr>                            	
+	                            		<td>{$vol.id}</td>
+	                            		<td>{$vol.title}</td>
+	                            		<td><if condition="$vol['status'] eq 'closed'"><span style="color:red">已关闭</sapn> <elseif condition="$vol['status'] eq 'published' " /><span style="color:green">已发布</span></if> </td>
+	                            		<td>{$vol.category_name}</td>
+	                            		<td>                     			  
+																 	   <if condition="$vol['status'] eq 'closed' " ><a href="__CONTROLLER__/pulishCourse/cid/{$vol.id}">发布课程</a> | <elseif condition="$vol['status'] eq 'published' "/>  <a href="__CONTROLLER__/closeCourse/cid/{$vol.id}" onclick="return confirm('确认关闭该课程?')" >关闭课程</a> |</if> <a href="__CONTROLLER__/deleteCourse/cid/{$vol.id}" onclick="return confirm('确认删除该课程?')">删除</a> |<a href="__CONTROLLER__/base/cid/{$vol.id}">管理该课程</a>
+															   	</td>                            	
+	                            	</tr>
+                             </volist>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+ 
+       
+ 
+</body>
+
+</html>

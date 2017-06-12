@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>手工组卷 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+ 
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+
+ 
+   
+    
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+         <include file="Application/Course/View/Navbar/left.html" />
+            <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+             <!--navbar-static-top start-->
+             <include file="Application/Course/View/Navbar/top.html" />
+                <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>手工组卷</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Paper</a>
+                        </li>
+                        <li class="active">
+                            <strong>Create</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <!--说明-->
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                        <h4>说明</h4>
+                            <div class="form-horizontal" >
+                                手工组卷需要您为每道题进行选择                                                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>试卷组织</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" action="{:U('Course/Paper/hand')}" class="form-horizontal" >
+                                <input type="hidden" name="id" value="{$data['id']}" /> 
+                                <div class="form-group"><label class="col-sm-2 control-label">试卷名称</label>
+                                    <div class="col-sm-10"><input type="text" name="title" disabled class="form-control" value="{$data['title']}"></div>
+                                </div>
+                                
+                                  <!--时间安排-->  
+                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-1" aria-expanded="false" aria-controls="collapse-paper-1">
+                                    <i class="fa fa-plus" ></i> 时间安排
+                                </a>                                                            
+                                <div class="collapse" id="collapse-paper-1">
+                                      <div class="form-group"><label class="col-sm-2 control-label">时间限制  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="若启用 将限制学生回答的时间 时间一结束，试卷结束做题，系统自动提交"></i></label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="time_limit_num"  class="form-control" value="{$data['time_limit_num']}">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select id="time-limit" class="form-control m-b" name="time_limit_unit" unit="{$data['time_limit_unit']}">
+                                                    <option   value="m">分</option>  
+                                                    <option   value="h">时</option>                                               
+                                                    <option   value="d">天</option>                                       
+                                                </select>
+                                             </div>
+                                            <div class="col-sm-4">
+                                                默认0 表示无时间限制
+                                            </div>
+                                        </div>
+                                </div>  
+                                <div class="hr-line-dashed"></div> 
+
+                                 <!--成绩-->                                                   
+                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-2" aria-expanded="false" aria-controls="collapse-paper-2">
+                                    <i class="fa fa-plus" ></i> 成绩
+                                </a>                                                                
+                                <div class="collapse" id="collapse-paper-2">
+                                    <div class="form-group"><label class="col-sm-2 control-label">试卷总分  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                        <div class="col-sm-6"><input type="text" name="total_scores"  class="form-control" value="{$data['total_scores']}"></div>
+                                        <div class="col-sm-4">默认100  </div>
+                                    </div>
+                                    <div class="form-group"><label class="col-sm-2 control-label">及格线  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                        <div class="col-sm-6"><input type="text" name="pass_line"  class="form-control" value="{$data['pass_line']}"></div>
+                                        <div class="col-sm-4">默认60   </div>
+                                    </div>
+                                    <div class="form-group"><label class="col-sm-2 control-label">允许答题次数  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                        <div class="col-sm-6"><input type="text" name="alow_times"  class="form-control" value="{$data['alow_times']}"></div>
+                                            <div class="col-sm-4">默认1 次</div>
+                                    </div>
+                                </div> 
+                                                                 
+                                 <div class="hr-line-dashed"></div>
+                                 <!--限制访问-->                                                 
+                                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-4" aria-expanded="false" aria-controls="collapse-paper-4">
+                                    <i class="fa fa-plus" ></i> 限制访问
+                                 </a>                                                                
+                                 <div class="collapse" id="collapse-paper-4">
+                                        <div class="form-group"><label class="col-sm-2 control-label">需要密码  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="只允许知道密码的学生做题"></i></label>
+                                            <div class="col-sm-6"><input type="text" name="exam_password"  class="form-control" value="{$data['exam_password']}"></div>
+                                                <div class="col-sm-4">默认0 无密码  </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-2 control-label">限制网络地址  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="只允许在某ip地址段的设备做题"></i></label>
+                                            <div class="col-sm-6"><input type="text" name="limit_net_addr"  class="form-control" value="{$data['limit_net_addr']}"></div>
+                                                <div class="col-sm-4">默认0 无限制 </div>
+                                        </div>
+                                         
+                                 </div> 
+                                 <div class="hr-line-dashed"></div>
+                                                                 
+                                                                 
+                                                                
+                                <!--添加题目-->                                                 
+                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-3" aria-expanded="false" aria-controls="collapse-paper-3">
+                                    <i class="fa fa-plus" ></i> 题目 
+                                </a> <span class="red">您需要先在  <a href="{:U('Course/Question/add')}" target="_blank">题库</a>里将题目添加完毕，然后在此选择题目 </span>                                                    
+                                <div class="collapse" id="collapse-paper-3">
+                                    <div class="form-group">
+                                        <button  class="btn col-sm-offset-10" type="button"   id="add_question"  >添加题目</button><br/>
+                                        <span id="chose_help_text" class="hidden">刚刚选择的题目 #ID:</span><input type="text" class="form-control" name="question_chose" id="question_chose" readonly="" />   <span class="hidden" id="chose_help_text2">点击保存即可看到所选题目</span>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#ID</th>   
+                                                    <th>题干</th>                                  
+                                                    <th>类型</th>
+                                                    <th>操作</th>
+                                                    <th>排序</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                              <!---题目列表-->
+                                                <volist name="questions" id="vol">
+                                                    <tr >
+                                                        <td>{$vol['id']}</td>
+                                                        <td>{$vol['stem']|subtext=36|htmlspecialchars_decode|trim|strip_tags}</td>
+                                                        <td>{$vol['type']}</td>
+                                                        <td><a href="javascript:;">查看</a> | <a href="javascript:;" id="del-question" paperid="{$data['id']}" questionid="{$vol['id']}" onclick="del_question(this)" >删除</a></td>
+                                                        <td><input type="number" min="1" max="30" name="question_sort" /></td>
+                                                    </tr>
+                                                </volist>
+                                              </tbody>
+                                        </table>
+                                    </div>
+                                                                        
+                                </div> 
+                                <div class="hr-line-dashed"></div> 
+                                                                 
+                                                                 
+                            
+                                <div class="form-group">
+                                    <div class="col-md-12 col-md-offset-10">
+                                        <button class="btn btn-primary" type="submit">保存</button>                                
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+   
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+   
+    
+     
+    
+     
+    
+    <script>
+        $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+            });
+        
+        $("#add_question").on('click',function(){
+            var question_window  = window.open("{:U('Course/Question/flows/cid/'.$data['course_id'])}","questions"," menubar=0,scrollbars=1, resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+        });
+         
+         function del_question(obj){
+            var questionid = $(obj).attr('questionid');
+            var paperid = $(obj).attr('paperid');
+            $.post("{:U('Course/Paper/delQuestion')}", {questionid:questionid,paperid:paperid}, function(data , status){
+                if(data && status=='success'){
+                    alert(data);
+                    window.location.reload();
+                }
+            });
+         }
+    </script>
+     
+ 
+</body>
+
+</html>

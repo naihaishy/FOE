@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程管理 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+ 
+		<link href="__HOME__/uassets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+		<link href="__HOME__/uassets/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+		     <include file="Application/Course/View/Navbar/left.html" />
+		    <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+         	 <!--navbar-static-top start-->
+			     <include file="Application/Course/View/Navbar/top.html" />
+			    <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程管理</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Base</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                	<div class="col-lg-3">
+                		<div class="ibox-content">
+	                		<ul class="nav nav-tabs">
+	                			<li class="list-group-item">
+							            <a href="{:U('Manage/base')}">
+							              <span>基本信息</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/detail')}">
+							              <span>详细信息</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/picture')}">
+							              <span>课程图片</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/lesson')}">
+							              <span>课时管理</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/files')}">
+							              <span>课程文件</span>
+							            </a>
+							          </li>
+                        <li class="list-group-item">
+                            <a href="{:U('Manage/bulletin')}">
+                              <span>课程公告</span>
+                            </a>
+                          </li>
+							           
+	                		</ul>
+                	  </div>
+                	</div>
+                	<div class="col-lg-9">
+                		<div class="ibox-title">
+                			<h5>基本信息</h5>
+                		</div>
+                		<div class="ibox-content">
+	                		 <form method="post" action="{:U('Manage/editCourse')}" class="form-horizontal">
+	                		 	<input type="hidden" name="course_id" value="{$course['id']}"/> 
+                            <div class="form-group"><label class="col-sm-2 control-label">课程名称</label>
+                                <div class="col-sm-10"><input type="text" name="title" value="{$course['title']}" class="form-control"></div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">课程副标题</label>
+                                <div class="col-sm-10"><input type="text" name="subtitle" value="{$course['subtitle']}" class="form-control"> <span class="help-block m-b-none">课程副标题 更加吸引学生选课 也可不填.</span>
+                                </div>
+                            </div>                         
+                            <div class="hr-line-dashed"></div>
+ 
+                            <div class="col-lg-12">
+					                    <div class="ibox float-e-margins">
+					                    	<div class="col-lg-2">
+					                    		<label class="control-label">课程日期设置<br/></label><span>[年-月-日]</span>
+					                    	</div>
+					                    	<div class="col-lg-10">
+					                    		 <div class="ibox-content">
+					                            <div class="form-group col-md-6" id="course_start">
+					                                <label class="font-noraml">开课日期</label>
+					                                <div class="input-group date">
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="course_start_date" class="form-control" value="{$course['course_start_date']|date='Y-m-d',###}">
+					                                </div>
+					                            </div>
+					                            <div class="form-group col-md-6" id="course_end">
+					                                <label class="font-noraml">结课日期</label>
+					                                <div class="input-group date">
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" name="course_end_date" class="form-control" value="{$course['course_end_date']|date='Y-m-d',###}">
+					                                </div>
+					                            </div>
+					                            <div class="form-group col-md-6" id="exam_date">
+					                                <label class="font-noraml">考试时间</label>
+					                                <div class="input-daterange input-group" id="datepicker">
+					                                    <input type="text" class="input-sm form-control" name="exam_start_date" value="{$course['exam_start_date']|date='Y-m-d',###}"/>
+					                                    <span class="input-group-addon">to</span>
+					                                    <input type="text" class="input-sm form-control" name="exam_end_date" value="{$course['exam_end_date']|date='Y-m-d',###}" />
+					                                </div>
+					                            </div>
+					                            
+					                            <div class="form-group col-md-6" id="query_results">
+					                                <label class="font-noraml">成绩查询</label>
+					                                <div class="input-daterange input-group" id="datepicker">
+					                                    <input type="text" class="input-sm form-control" name="query_results_start_date" value="{$course['query_results_start_date']|date='Y-m-d',###}"/>
+					                                    <span class="input-group-addon">to</span>
+					                                    <input type="text" class="input-sm form-control" name="query_results_end_date" value="{$course['query_results_end_date']|date='Y-m-d',###}" />
+					                                </div>
+					                            </div>
+					                        </div>
+					                    	</div>
+					                        
+					                    </div>
+
+					               	  </div>
+
+							            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                		<button class="btn btn-primary" type="submit">保存</button>                                     
+                                </div>
+                            </div>
+                       </form>
+                	  </div>
+                	</div>
+                     
+                </div>
+            </div>
+        </div>
+ 
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+   <!-- Data picker -->
+   <script src="__HOME__/uassets/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+  <script>
+   /*-----日期 datepicker------*/   
+   $('#course_start .input-group.date').datepicker({
+          todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          calendarWeeks: true,
+          autoclose: true,
+          format:'yyyy-mm-dd',
+      });
+
+   $('#course_end .input-group.date').datepicker({
+          todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          calendarWeeks: true,
+          autoclose: true,
+          format:'yyyy-mm-dd',
+      });
+   $('#exam_date .input-daterange').datepicker({
+ 			  	todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          autoclose: true,
+          format:'yyyy-mm-dd',
+      });     
+   $('#query_results .input-daterange').datepicker({
+ 			  	todayBtn: "linked",
+          keyboardNavigation: false,
+          forceParse: false,
+          autoclose: true,
+          format:'yyyy-mm-dd',
+      });         
+
+  </script>
+ 
+     
+ 
+</body>
+
+</html>

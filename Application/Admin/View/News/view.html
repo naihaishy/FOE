@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SpaceLab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- iCheck-->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/icheck/css/_all.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <!--mail wrapper start-->
+                <div class="row">
+                     
+                     
+                    <div class="col-md-12 col-sm-12" id="view-mail-wrapper">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <header>
+                                    <h2>{$news.title}</h2>
+                                    <p class="pull-right">{$news.post_time|date='Y-m-d H:i:s',###}</p>
+                                </header>
+                                <div class="row view-mail-header">
+                                    <div class="col-md-8 ">
+                                         
+                                         
+                                         
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="view-mail-reply pull-right">
+                                                <button class="btn btn-sm btn-primary" onclick="self.location=document.referrer;"><i class="fa fa-arrow-circle-left"></i> 返回 </button>
+                                            <button class="btn btn-sm btn-primary"><i class="fa fa-share"></i> 分享 </button>
+                                            <button class="btn  btn-sm btn-default tooltips" data-original-title="Print" type="button" data-toggle="tooltip" data-placement="top" title="打印" onclick="javascript:window.print();"  ><i class="fa fa-print"></i> 
+                                            </button>
+                                            <button class="btn btn-default btn-sm tooltips" data-original-title="Oweseme" data-toggle="tooltip" data-placement="top" title="点赞"><i class="fa fa-thumbs-o-up"></i>
+                                            </button>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="panel view-mail-body">
+                                            <div class="panel-body">
+                                               {$news['content']}
+                                                
+                                            </div>
+                                            <div class="panel-footer">
+                                                 
+                                            
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!--mail wrapper end-->
+            </section>
+        </section>
+        <!--main content end-->
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Index/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Level JS-->
+    <script src="__ADMIN__/SpaceLab/assets/plugins/icheck/js/icheck.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+        });
+        $('.tooltips').tooltip();
+        
+
+    });
+    </script>
+    
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+</body>
+
+</html>

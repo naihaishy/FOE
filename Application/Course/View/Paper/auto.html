@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>自动组卷 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+ 
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+
+ 
+   
+    
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+         <include file="Application/Course/View/Navbar/left.html" />
+            <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+             <!--navbar-static-top start-->
+             <include file="Application/Course/View/Navbar/top.html" />
+                <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>自动组卷</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Paper</a>
+                        </li>
+                        <li class="active">
+                            <strong>Create</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>试卷组织</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" action="{:U('Course/Paper/auto')}" class="form-horizontal" >
+                                    <input type="hidden" name="id" value="{$data['id']}" /> 
+                                <div class="form-group"><label class="col-sm-2 control-label">试卷名称</label>
+                                    <div class="col-sm-10"><input type="text" name="title" disabled class="form-control" value="{$data['title']}"></div>
+                                </div>
+                                
+                                  <!--时间安排-->  
+                                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-1" aria-expanded="false" aria-controls="collapse-paper-1">
+                                                                    <i class="fa fa-plus" ></i> 时间安排
+                                                                 </a>                                                            
+                                                                 <div class="collapse" id="collapse-paper-1">
+                                                                      <div class="form-group"><label class="col-sm-2 control-label">时间限制  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="若启用 将限制学生回答的时间 时间一结束，试卷结束做题，系统自动提交"></i></label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="time_limit_num"  class="form-control" value="{$data['time_limit_num']}">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select id="time-limit" class="form-control m-b" name="time_limit_unit" unit="{$data['time_limit_unit']}">
+                                                        <option   value="m">分</option>  
+                                                    <option   value="h">时</option>                                               
+                                                            <option   value="d">天</option>                                       
+                                              </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            默认0 表示无时间限制
+                                        </div>
+                                        </div>
+                                                                 </div>  
+                                                                 <div class="hr-line-dashed"></div> 
+                                                                 <!--成绩-->                                                   
+                                                                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-2" aria-expanded="false" aria-controls="collapse-paper-2">
+                                                                    <i class="fa fa-plus" ></i> 成绩
+                                                                 </a>                                                                
+                                                                 <div class="collapse" id="collapse-paper-2">
+                                                                        <div class="form-group"><label class="col-sm-2 control-label">试卷总分  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                               <div class="col-sm-6"><input type="text" name="total_scores"  class="form-control" value="{$data['total_scores']}"></div>
+                                                <div class="col-sm-4">默认100  </div>
+                                          </div>
+                                                                      <div class="form-group"><label class="col-sm-2 control-label">及格线  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                            <div class="col-sm-6"><input type="text" name="pass_line"  class="form-control" value="{$data['pass_line']}"></div>
+                                                <div class="col-sm-4">默认60   </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-2 control-label">允许答题次数  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                            <div class="col-sm-6"><input type="text" name="alow_times"  class="form-control" value="{$data['alow_times']}"></div>
+                                                <div class="col-sm-4">默认1 次</div>
+                                        </div>
+                                                                 </div> 
+                                                                 <div class="hr-line-dashed"></div>
+                                                                 <!--试题设置-->                                                 
+                                                                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-3" aria-expanded="false" aria-controls="collapse-paper-3">
+                                                                    <i class="fa fa-plus" ></i> 试题设置
+                                                                 </a>                                                                
+                                                                 <div class="collapse" id="collapse-paper-3">
+                                                                      <div class="form-group"><label class="col-sm-2 control-label">生成方式  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                            <div class="col-sm-6">
+                                                <select id="gener-method" class="form-control m-b" name="gener_method">
+                                                        <option value="random" selected="selected">随机生成</option>  
+                                                    <option value="difficulty" >按难易程度</option>                                                                                           
+                                              </select>
+                                            </div>  
+                                                <div class="col-sm-4">默认 随机生成 </div>
+                                                 
+                                        </div>
+                                        <div id="diff-setting" diffchose="{$data['diff_chose']}" class="form-group "><label class="col-sm-2 control-label">难易比例设置 &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="如果某个难度的题目数不够，将会随机选择题目来补充"></i></label>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-md-4"><input type="text" name="diff-easy" value="{$data['diff-easy']}" placeholder="简单 例如30" class="form-control"></div>
+                                                <div class="col-md-4"><input type="text" name="diff-medi" value="{$data['diff-medi']}" placeholder="中等 例如40" class="form-control"></div>
+                                                <div class="col-md-4"><input type="text" name="diff-hard" value="{$data['diff-hard']}" placeholder="困难 例如30" class="form-control"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">请确保总和为100 </div>
+                                        </div>
+                                        
+                                            
+           
+                                        <div class="form-group"><label class="col-sm-2 control-label">出题范围  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                            <div class="col-sm-6">
+                                                <select id="exam-range" class="form-control m-b" name="exam_range">
+                                                        <option value="course" >本门课程全部</option>  
+                                                    <option value="units" >部分章节</option>                                                                                             
+                                              </select>
+                                            </div>
+                                                <div class="col-sm-4">默认  本课程 </div>
+                                        </div>
+                                        <div id="examrange-setting" class="form-group "><label class="col-sm-2 control-label">章节选择 &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="适合阶段性练习"></i></label>
+                                        <div class="col-sm-6">
+                                            <label>Unfinished...</label>
+                                        </div>
+                                        <div class="col-sm-4"> 是是是是 </div>
+                                        </div>
+                                        
+                                        <div class="form-group"><label class="col-sm-2 control-label">题目设置  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title=" "></i></label>
+                                            <div class="col-sm-6">
+                                                
+                                                <ul id="sortable" class="form-group">
+                                                                                      <li>单选题 题目数量:<input  type="text"name="er-radio-num" value="{$data['er-radio-num']}" />每题分值:<input  type="text" name="er-radio-unit"  value="{$data['er-radio-unit']}" /></li>
+                                                                                      <li>多选题 题目数量:<input type="text" name="er-multi-num" value="{$data['er-multi-num']}" />每题分值:<input  type="text" name="er-multi-unit"  value="{$data['er-multi-unit']}" /></li>
+                                                                                      <li>判断题 题目数量:<input type="text" name="er-check-num" value="{$data['er-check-num']}" />每题分值:<input  type="text" name="er-check-unit"  value="{$data['er-check-unit']}" /></li>
+                                                                                      <li>填空题 题目数量:<input type="text" name="er-fill-num"  value="{$data['er-fill-num']}" />每题分值:<input  type="text" name="er-fill-unit"    value="{$data['er-fill-unit']}" /></li>
+                                                                                      <li>程序题 题目数量:<input type="text" name="er-prog-num"  value="{$data['er-prog-num']}" />每题分值:<input  type="text" name="er-prog-unit"    value="{$data['er-prog-unit']}" /></li>
+                                                                                    </ul>
+                                            </div>   
+                                                <div class="col-sm-4">请确保总分与 [成绩->试卷总分] 一栏填写一致 </div> 
+                                                 
+                                        </div>
+                                         
+                                                                 </div> 
+                                                                 <div class="hr-line-dashed"></div>
+                                                                 <!--限制访问-->                                                 
+                                                                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapse-paper-4" aria-expanded="false" aria-controls="collapse-paper-4">
+                                                                    <i class="fa fa-plus" ></i> 限制访问
+                                                                 </a>                                                                
+                                                                 <div class="collapse" id="collapse-paper-4">
+                                                                      <div class="form-group"><label class="col-sm-2 control-label">需要密码  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="只允许知道密码的学生做题"></i></label>
+                                            <div class="col-sm-6"><input type="text" name="exam_password"  class="form-control" value="{$data['exam_password']}"></div>
+                                                <div class="col-sm-4">默认0 无密码  </div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-2 control-label">限制网络地址  &nbsp; &nbsp;&nbsp; <i class="fa fa-question-circle" data-toggle="tooltip"  title="只允许在某ip地址段的设备做题"></i></label>
+                                            <div class="col-sm-6"><input type="text" name="limit_net_addr"  class="form-control" value="{$data['limit_net_addr']}"></div>
+                                                <div class="col-sm-4">默认0 无限制 </div>
+                                        </div>
+                                         
+                                                                 </div> 
+                                                                 <div class="hr-line-dashed"></div>
+                            
+                                <div class="form-group">
+                                    <div class="col-md-12 col-md-offset-10">
+                                            <button class="btn btn-primary" type="submit">保存</button>                                
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+   
+    
+     
+    
+     
+    
+    <script>
+        $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+            });
+            
+             
+            
+            var diff_set = $('#diff-setting').attr('diffchose');
+            if(diff_set == 'diff'){
+                $("#gener-method option[value='difficulty']").attr("selected","selected");
+            }else if(diff_set == 'random'){
+                $("#gener-method option[value='random']").attr("selected","selected");
+            } 
+            
+            
+            
+            
+            if($("#gener-method").find("option:selected").attr("value")=='random'){
+                $('#diff-setting').addClass('hidden');
+            }
+            $("#gener-method").on('change',function(){
+                var method =$("#gener-method").find("option:selected").attr("value");
+                if(method=='random'){
+                    $('#diff-setting').addClass('hidden');
+                }else{
+                    $('#diff-setting').removeClass('hidden');
+                }
+            });
+            
+            
+            
+            
+            var unit = $('#time-limit').attr('unit');
+            if(unit == 'm'){
+                $("#time-limit option[value='m']").attr("selected","selected");
+            }else if(unit == 'h'){
+                $("#time-limit option[value='h']").attr("selected","selected");
+            }else{
+                $("#time-limit option[value='d']").attr("selected",true);
+            }
+            
+            
+            if($("#exam-range").find("option:selected").attr("value")=='course'){
+                $('#examrange-setting').addClass('hidden');
+            }
+            $("#exam-range").on('change',function(){
+                var method =$("#exam-range").find("option:selected").attr("value");
+                if(method=='course'){
+                    $('#examrange-setting').addClass('hidden');
+                }else{
+                    $('#examrange-setting').removeClass('hidden');
+                }
+            });
+ 
+            
+            
+            
+         
+    </script>
+     
+ 
+</body>
+
+</html>

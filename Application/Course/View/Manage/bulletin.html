@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程公告 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+ 
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #editcontent,#content{
+            height: 300px;
+        }
+    </style>
+ 
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+             <include file="Application/Course/View/Navbar/left.html" />
+            <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                 <!--navbar-static-top start-->
+                     <include file="Application/Course/View/Navbar/top.html" />
+                    <!--navbar-static-top end-->
+            </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程管理</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Files</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-3">
+                            <div class="ibox-content">
+                                <ul class="nav nav-tabs">
+                                    <li class="list-group-item">
+                                            <a href="{:U('Manage/base')}">
+                                              <span>基本信息</span>
+                                            </a>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <a href="{:U('Manage/detail')}">
+                                              <span>详细信息</span>
+                                            </a>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <a href="{:U('Manage/picture')}">
+                                              <span>课程图片</span>
+                                            </a>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <a href="{:U('Manage/lesson')}">
+                                              <span>课时管理</span>
+                                            </a>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <a href="{:U('Manage/files')}">
+                                              <span>课程文件</span>
+                                            </a>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <a href="{:U('Manage/bulletin')}">
+                                              <span>课程公告</span>
+                                            </a>
+                                          </li>
+                                           
+                                </ul>
+                          </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="ibox-title">
+                              <h5>课程公告</h5>
+                              <div class="ibox-tools">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addcoursebulletin"><i class="fa fa-plus"></i> 添加公告</button>
+                                  <a class="collapse-link">
+                                      <i class="fa fa-chevron-up"></i>
+                                  </a>
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                      <i class="fa fa-wrench"></i>
+                                  </a>
+                                  
+                              </div>
+                          </div>
+                        <div class="ibox-content">
+                          <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>标题</th>
+                                  <th>发布日期 </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <volist name='bulletins' id='vol'>
+                                    <tr>
+                                      <td>{$vol['title']|subtext=36}</td>
+                                      <td>{$vol['post_time']|date='Y年m月d日 H:i:s',###}</td>
+                                      <td><a href="{:U('Manage/delbulletin', array('id'=>$vol['id']) ) }" onclick="return confirm('确认删除?')">删除</a>| <a href="javascript:;" onclick="edit_bulletin(this)" bulletinid="{$vol['id']}" bulletintitle="{$vol['title']}" content="{$vol['content']}" > 编辑</a></td>
+                                    </tr>
+                                </volist>
+                              </tbody>
+                          </table>
+                        </div>
+                        </div>
+                         
+                    </div>
+                    
+                    <!--添加课时公告模态框-->
+                    <div class="modal fade" id="addcoursebulletin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">添加公告</h4>
+                            </div>
+                            <div class="modal-body">
+                              <form class="dropzone" method="post" action="{:U('Manage/addbulletin')}" role="form"  enctype="multipart/form-data">
+                                  <label for="title">标题</label><input type="text" class="form-control" name="title" />
+                                  <label for="content">内容</label><textarea id="content" name="content"></textarea>
+                              </form>   
+                                
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" id="form-addbulletin">保存</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--修改课时公告模态框-->
+                    <div class="modal fade" id="editcoursebulletin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">更新公告</h4>
+                            </div>
+                            <div class="modal-body">
+                              <form class="form-group" method="post" action="{:U('Manage/editBulletin')}" role="form" >
+                                  <input type="hidden"  name="id" value="0" />
+                                  <input type="text" class="form-control" name="title" />
+                                  <textarea id="editcontent" name="content"></textarea>
+                              </form>   
+                                
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" id="form-editbulletin">保存</button>
+                              <button type="button" class="btn btn-default" id="modal_close" data-dismiss="modal">关闭</button>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+       $(document).ready(function(){
+            //编辑器初始化
+            var editor = new wangEditor('content');
+            editor.config.menuFixed = false;
+            //wangEditor.config.printLog = false;
+            editor.config.menus = ['source', 'insertcode', 'bold','underline','italic','strikethrough','eraser','forecolor','bgcolor', '|', 'quote', 'fontfamily', 'fontsize','head', 'alignleft', 'aligncenter','alignright',  '|','link','unlink'];
+            editor.create();
+
+
+        });
+
+       $('#addcoursefile').on('hide.bs.modal', function () {
+            window.location.reload();// 后期 ajax dom局部刷新
+          });
+
+       $('#form-addbulletin').on('click',function(){
+            $('form').eq(1).submit();
+        });
+
+       $('#form-editbulletin').on('click',function(){
+            $('form').eq(2).submit();
+        });
+
+    </script>
+    <script type="text/javascript">
+      /*
+         * 编辑课时 
+         * ajax post获取该课时信息
+         */
+        function edit_bulletin(obj){
+            var id=$(obj).attr('bulletinid');
+            var title=$(obj).attr('bulletintitle');
+            var content=$(obj).attr('content');
+
+            $("input[name='id']").val(id);
+            $("input[name='title']").val(title);
+            $('#editcontent').val(content);
+
+            var editor2 = new wangEditor('editcontent');
+            //wangEditor.config.printLog = false;
+            editor2.config.menus = ['source', 'insertcode', 'bold','underline','italic','strikethrough','eraser','forecolor','bgcolor', '|', 'quote', 'fontfamily', 'fontsize','head', 'alignleft', 'aligncenter','alignright',  '|','link','unlink'];
+            editor2.create();
+
+            $('#editcoursebulletin').modal('show');
+
+            //关闭modal 清除数据
+          $('#editcoursebulletin').on('hide.bs.modal', function () {
+             editor2.destroy();
+          });
+            
+        }
+
+
+        
+
+
+    </script>
+       
+     
+ 
+</body>
+
+</html>

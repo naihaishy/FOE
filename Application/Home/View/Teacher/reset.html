@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>重置密码 | FOE </title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+     
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <style>
+ 
+        #index-footer{
+            padding-top:30px;
+        }
+    </style>
+ 
+</head><!--/head-->
+
+<body>
+        <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+     <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">重置密码</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </section>
+        <!--/#page-breadcrumb-->
+     
+    <section id="user-center" class="container">
+        <div class="row" style="padding-top: 3%;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form method="post" action="{:U('Home/Teacher/resetPass?Token='.$token )}" class="form-horizontal">
+                    <label class="label-control col-md-3">请输入密码 </label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" name="password"  />
+                    </div>
+                    <label class="label-control col-md-3">请确认密码 </label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" name="password2"  />
+                    </div>
+                    <div class="col-sm-12">
+                        <input type="submit" class="btn btn-primary pull-right" value="提交" />
+                     </div>
+                    
+                  </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </section>  
+     
+
+    <section id="index-footer" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <p>&copy; FOE 2017. All Rights Reserved.</p>
+                    <p>Designed by <a target="_blank" href="https://naihai.tk">Naihai</a></p>
+                </div>
+            </div>
+        </div>       
+    </section>
+    
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+
+ 
+    
+</body>
+</html>

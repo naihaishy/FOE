@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程管理 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+ 
+ 
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+		     <include file="Application/Course/View/Navbar/left.html" />
+		    <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+	        <div class="row border-bottom">
+	         	 <!--navbar-static-top start-->
+				     <include file="Application/Course/View/Navbar/top.html" />
+				    <!--navbar-static-top end-->
+	        </div>
+	        <div class="row wrapper border-bottom white-bg page-heading">
+	            <div class="col-lg-10">
+	                <h2>课程管理</h2>
+	                <ol class="breadcrumb">
+	                    <li>
+	                        <a href="index.html">Course</a>
+	                    </li>
+	                    <li>
+	                        <a>Manage</a>
+	                    </li>
+	                    <li class="active">
+	                        <strong>Files</strong>
+	                    </li>
+	                </ol>
+	            </div>
+	            <div class="col-lg-2">
+
+	            </div>
+	        </div>
+	        <div class="wrapper wrapper-content animated fadeInRight">
+	            <div class="row">
+	                <div class="col-lg-12">
+	                	<div class="col-lg-3">
+	                		<div class="ibox-content">
+		                		<ul class="nav nav-tabs">
+		                			<li class="list-group-item">
+								            <a href="{:U('Manage/base')}">
+								              <span>基本信息</span>
+								            </a>
+								          </li>
+								          <li class="list-group-item">
+								            <a href="{:U('Manage/detail')}">
+								              <span>详细信息</span>
+								            </a>
+								          </li>
+								          <li class="list-group-item">
+								            <a href="{:U('Manage/picture')}">
+								              <span>课程图片</span>
+								            </a>
+								          </li>
+								          <li class="list-group-item">
+								            <a href="{:U('Manage/lesson')}">
+								              <span>课时管理</span>
+								            </a>
+								          </li>
+								          <li class="list-group-item">
+								            <a href="{:U('Manage/files')}">
+								              <span>课程文件</span>
+								            </a>
+								          </li>
+                                          <li class="list-group-item">
+                                            <a href="{:U('Manage/bulletin')}">
+                                              <span>课程公告</span>
+                                            </a>
+                                          </li>
+								           
+		                		</ul>
+	                	  </div>
+	                	</div>
+	                	<div class="col-lg-9">
+	                		<div class="ibox-title">
+		                      <h5>课程文件</h5>
+		                      <div class="ibox-tools">
+		                      	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addcoursefile"><i class="fa fa-plus"></i> 添加文件</button>
+		                          <a class="collapse-link">
+		                              <i class="fa fa-chevron-up"></i>
+		                          </a>
+		                          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		                              <i class="fa fa-wrench"></i>
+		                          </a>
+		                          
+		                      </div>
+		                  </div>
+	                    <div class="ibox-content">
+	                      <table class="table table-hover">
+	                          <thead>
+	                            <tr>
+	                              <th>文件名</th>
+	                              <th>类型 </th>
+	                              <th>大小 </th>
+	                              <th>操作 </th>
+	                            </tr>
+	                          </thead>
+	                          <tbody>
+	                          	<volist name='files' id='vol'>
+	                          		<tr>
+	                                <td>{$vol['title']|subtext=36}</td>
+	                                <td>{$vol['type']}</td>
+	                                <td><if condition="$vol['size']/(1024*1024) gt 1" >{$vol['size']/1048576|floor=###} MB <elseif condition="$vol['size']/(1024) gt 1" />{$vol['size']|fmod=###,1024} KB <else/>{$vol['size']} B</if></td>
+	                                <td><a href="{:U('Manage/delfiles', array('id'=>$vol['id']) ) }" onclick="return confirm('确认删除?')">删除</a>| <a href="{:U('Manage/editfiles', array('id'=>$vol['id']) ) }">编辑</a></td>
+	                            	</tr>
+	                          	</volist>
+	                          </tbody>
+	                      </table>
+	                    </div>
+	                	</div>
+	                     
+	                </div>
+	                
+	                <!--添加课时文件模态框-->
+	                <div class="modal fade" id="addcoursefile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									  <div class="modal-dialog modal-lg" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+									      </div>
+									      <div class="modal-body">
+									      	<form class="dropzone" id="my-awesome-dropzone" method="post" action="{:U('Manage/addfiles')}" role="form"  enctype="multipart/form-data">
+									      		<div class="dropzone-previews"></div>
+                            <button type="submit" class="btn btn-primary pull-right">开始上传</button>
+									      	</form>   
+									      	<div class="m text-left">
+									      		<small> 支持mp4, mp3格式的文件上传，且文件大小不能超过<php >echo '2G';</php>
+																		MP4文件的视频编码格式，请使用AVC(H264)编码，否则浏览器无法播放。<br/>
+																		<span style="color:green" >建议先在本地修改为清晰明了的文件名</span>
+									      			<a href="https://github.com/enyo/dropzone" target="_blank">https://github.com/enyo/dropzone</a>
+									      		</small>
+									      	</div>   
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+	            </div>
+	        </div>
+
+        </div>
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+    <!-- DROPZONE -->
+    <script src="__HOME__/uassets/js/plugins/dropzone/dropzone.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+
+            Dropzone.options.myAwesomeDropzone = {
+								paramName: "file",
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                parallelUploads: 100,
+                maxFiles: 100,
+                addRemoveLinks:true,
+                dictRemoveFile:'删除',
+
+                // Dropzone settings
+                init: function() {
+                    var myDropzone = this;
+
+                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on("sendingmultiple", function() {
+                    });
+                    this.on("successmultiple", function(files, response) {
+                    });
+                    this.on("errormultiple", function(files, response) {
+                    });
+                    
+                }
+
+            }
+
+       });
+       
+       
+       $('#addcoursefile').on('hide.bs.modal', function () {
+				  window.location.reload();// 后期 ajax dom局部刷新
+				})
+    </script>
+   
+     
+ 
+</body>
+
+</html>

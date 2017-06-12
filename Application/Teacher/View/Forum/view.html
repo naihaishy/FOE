@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{$post['title']} | 教师管理后台 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #replycontentajax,#replycontent{
+            height: 300px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>论坛 </h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>Forum</li>
+                        <li class="active">
+                            <strong>view </strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content animated fadeInRight">
+                        <div class="ibox-content forum-post-container">
+                            <div class="forum-post-info">
+                                <h4><span class="text-navy"><i class="fa fa-globe"></i> <a href="{:U('Teacher/Forum/sub/id/'.$forum_info['pid'])}" >{$forum_info['ptitle']}</a>   >>> <a href="{:U('Teacher/Forum/lists/id/'.$forum_info['id'])}" > {$forum_info['title']} </a>   </span>  {$post['title']} </h4>
+                            </div>
+
+                            <!--源帖-->
+                            <div class="media">
+                                <a class="forum-avatar" href="#">
+                                    <img src="{$author['avatar']}" class="img-circle" alt="image">
+                                    <div class="author-info">
+                                        <strong>{$author['name']}  </strong> <br/>
+                                        <strong>发表于:</strong> {$post['created_time']|date='Y-m-d H:i:s',###}<br/>
+                                    </div>
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"> {$post['title']}  </h4>
+                                    {$post['content']}
+                                    <strong>附件：</strong> <a href="{$attachment['uri']}" > {$attachment['name']} </a>
+                                </div>
+                            </div>
+
+                            <!--帖子回复内容-->
+                            <volist name="replys" id="reply">
+                                <div class="media">
+                                    <a class="forum-avatar" href="#">
+                                        <img src="{$reply['user_avatar']}" class="img-circle" alt="image">
+                                        <div class="author-info">
+                                            <strong>{$reply['user_name']} </strong> <if condition="$reply['user_role'] eq 'admin'"><span class="label label-success">管理员</span> </if> <br/>
+                                            <strong>发表于:</strong> {$reply['post_time']|date='Y-m-d H:i:s',###} <br/>
+                                        </div>
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"> </h4>
+                                         {$reply['content']}
+
+                                         
+                                         <!--引用回复-->
+                                         <notempty name="reply['quotes']">
+                                             <div class="media">
+                                                <a class="forum-avatar" href="#">
+                                                    <img src="{$reply['quotes']['user_avatar']}" class="img-circle" alt="image">
+                                                    <div class="author-info">
+                                                        <strong>{$reply['quotes']['user_name']} </strong> <if condition="$reply['quotes']['user_role'] eq 'admin'"><span class="label label-success">管理员</span> </if> <br/>
+                                                        <strong>发表于:</strong> {$reply['quotes']['post_time']|date='Y-m-d H:i:s',###} <br/>                                                        
+                                                    </div>
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">  </h4>
+                                                     {$reply['quotes']['content']}
+                                                </div>
+                                            </div>
+                                         </notempty>
+
+
+                                         <div>
+                                            <button type="button" class="btn btn-primary btn-xs  pull-right" replyid="{$reply['id']}" onclick="reply(this)"><i class="fa fa-reply"></i>回复</button>
+                                            <button type="button" class="btn btn-primary btn-xs  pull-right" replyid="{$reply['id']}" onclick="thumbup(this)"><i class="fa fa-thumbs-o-up"></i>点赞</button>
+                                         </div>
+                                        
+                                         
+                                    </div>
+                                    
+                                </div>
+                            </volist>
+
+                            <!--直接回复-->
+                            <div class="row">回复给该提问者
+                                <div>
+                                    <form action="{:U('Teacher/Forum/replyT')}" method="post">
+                                        <input type='hidden' name='post_id' value="{$post['id']}" />
+                                        <textarea cols='10' rows='5' id="replycontent" name='content' class='form-control' ></textarea> <br/> 
+                                        <button type='submit' class='btn btn-sm'  >提交</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('replycontent');
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/forum')}";
+            editor.config.uploadImgFileName = 'upload';
+            editor.config.menuFixed = false;
+            editor.create();
+        });
+    </script>
+
+
+    <script>
+
+        //引用回复 输入组件
+        function reply(obj){
+            $(obj).siblings().eq(1).remove();
+            var replyid = $(obj).attr('replyid');//引用帖子id
+            var replybox = $("<div><input type='hidden' name='quotes' value='" + replyid +"'/><textarea cols='10' rows='5' name='content' id='replycontentajax' class='form-control' ></textarea><br/> <button type='button' class='btn btn-sm' id='subreply' onclick='submit(this)' >提交</button> <button type='button' class='btn btn-sm'  onclick='cancel(this)' >取消</button><div/>");
+            $(obj).after(replybox);
+
+            var editor2 = new wangEditor('replycontentajax');
+            editor2.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/forum')}";
+            editor2.config.uploadImgFileName = 'upload';
+            editor2.config.menuFixed = false;
+            editor2.config.menus = ['bold','underline','italic','strikethrough','eraser','forecolor','bgcolor', '|', 'quote', 'fontfamily', 'fontsize','head', 'alignleft', 'aligncenter','alignright',  '|','link','unlink', 'table', 'emotion', 'img' ];
+            editor2.create();
+            
+        }
+
+        //引用回复 提交
+        function submit(obj){
+            var postid   = {$post['id']};
+            var replyto      = $("input[name='quotes']").val();
+            var replycontent = $("textarea[name='content']").val();
+            if(!replycontent){
+                alert('回复内容不得为空');return;
+            }
+            $.post(
+                    "{:U('Teacher/Forum/reply')}",
+                    {replyto:replyto, replycontent:replycontent, postid:postid},
+                    function(data, status){
+                if(data && status=='success'){
+                    alert('回复成功');
+                    $(obj).parent().remove();
+                    window.location.reload();
+                }
+            });
+        }
+
+        function thumbup(){
+            alert('点赞成功!');
+        }
+
+        function cancel(obj){
+            $(obj).parent().remove();
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理员后台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">{$Think.MODULE_NAME}</a> </li>
+                            <li>{$Think.CONTROLLER_NAME}</li>
+                            <li class="active">{$Think.ACTION_NAME}</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                        <h1 class="h1">课程列表</h1>
+                    </div>
+                </div>
+
+      
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">尚未通过审核的课程</h3>
+                                <div class="actions pull-right">
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="table-responsive">
+                                    <table class="table  ">
+                                        <thead>
+                                            <tr>
+                                                <th>#ID</th>
+                                                <th>标题</th>
+                                                <th>分类</th>
+                                                <th>状态</th>
+                                                <th>创建时间</th>
+                                                <th>教师</th>
+                                                <th>管理</th>
+                                                <th>审核状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <volist name="courses" id="vol">
+                                                <tr>
+                                                    <td>{$vol['id']}</td>
+                                                    <td>{$vol['title']|subtext=30} </td>
+                                                    <td> {$vol['category_name']}</td>
+                                                    <td> {$vol['status']}</td>
+                                                    <td> {$vol['create_time']|date='Y-m-d H:i:s',###}</td>
+                                                    <td>{$vol['teacher_name']} </td>
+                                                    <td><a href="javascript:;" onclick="check(this)" courseid="{$vol['id']}" coursetitle="{$vol['title']}" checkedinfo="{$vol['checked']}" uncheck_reason="{$vol['uncheck_reason']}" >审核</a>| <a href="{:U('Admin/Course/delete/id/'.$vol['id'])}" onclick="return confirm('确认删除?')">删除</a>|<a href="{:U('Course/Index/details/id/'.$vol['id'])}" target="_blank">查看</a> </td>
+                                                    <td><if condition="$vol['uncheck_reason'] eq '' "> 尚未审核  <else/> 审核未通过</if></td>
+                                                </tr>
+                                            </volist>
+                                            
+                                             
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="panel-body">
+                                 {$show}
+                            </div>
+                          
+                                 
+                             
+                            
+                            
+                        </div>
+                        <a href="{:U('Admin/Course/index')}" class="btn btn-primary" >查看已通过审核课程</a>
+                    </div>
+
+
+                    <!-- Form Modal   审核课程-->
+                    <div class="modal fade" id="check" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">审核 </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form" action="{:U('Admin/Course/check')}" method="post">
+                                        <input type="hidden" name="id">
+                                        <div class="form-group">
+                                            <label for="checked" class="col-sm-2 control-label">操作</label>
+                                            <div  class="col-sm-10">
+                                                <select id="checked" name="checked" class="form-control">
+                                                    <option value="1">通过</option>
+                                                    <option value="0">未通过</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="uncheck_reason" class="col-sm-2 control-label">未通过原因</label>
+                                            <div id="uncheck_reason" class="col-sm-10">
+                                                <input type="text" name="uncheck_reason"  class="form-control" id="uncheck_reason" placeholder="如果未通过审核,请务必填写原因">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" id="formsubmit-check">提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Modal -->
+
+                </div>
+
+
+
+ 
+
+            </section>
+        </section>
+        <!--main content end-->
+        
+        <!--sidebar right start-->
+         <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+        
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/nanoScroller/jquery.nanoscroller.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            //
+            $('#formsubmit-check').on('click',function(){
+
+                var checkedinfo = $("#checked").find("option:selected").val();
+                var uncheck_reason = $("input[name='uncheck_reason']").val();
+                if(checkedinfo==0 && uncheck_reason==''){
+                    alert('未通过审核原因不能为空');return;
+                }
+
+                $('form').eq(0).submit();
+            });
+
+
+             
+             
+            
+         
+
+
+
+        });
+
+        function check(obj){
+            var courseid=$(obj).attr('courseid');
+            var coursetitle=$(obj).attr('coursetitle');
+            var checkedinfo=$(obj).attr('checkedinfo');
+            var uncheck_reason=$(obj).attr('uncheck_reason');
+            $("select option[value='" + checkedinfo + "']").attr("selected", "selected");
+            $("#myModalLabel").text(coursetitle);
+            $("input[name='id']").val(courseid);
+            $("input[name='uncheck_reason']").val(uncheck_reason);
+            $('#check').modal('show');
+        }
+
+    </script>
+
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+</body>
+
+</html>

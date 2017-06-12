@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程管理 | 教师管理后台 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+ 
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+ 
+		 
+		<link href="__HOME__/uassets/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+		     <include file="Application/Course/View/Navbar/left.html" />
+		    <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+         	 <!--navbar-static-top start-->
+			     <include file="Application/Course/View/Navbar/top.html" />
+			    <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程管理</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Picture</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                	<div class="col-lg-3">
+                		<div class="ibox-content">
+	                		<ul class="nav nav-tabs">
+	                			<li class="list-group-item">
+							            <a href="{:U('Manage/base')}">
+							              <span>基本信息</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/detail')}">
+							              <span>详细信息</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/picture')}">
+							              <span>课程图片</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/lesson')}">
+							              <span>课时管理</span>
+							            </a>
+							          </li>
+							          <li class="list-group-item">
+							            <a href="{:U('Manage/files')}">
+							              <span>课程文件</span>
+							            </a>
+							          </li>
+                                      <li class="list-group-item">
+                                        <a href="{:U('Manage/bulletin')}">
+                                          <span>课程公告</span>
+                                        </a>
+                                      </li>
+							           
+	                		</ul>
+                	  </div>
+                	</div>
+                	<div class="col-lg-9">
+                		<div class="ibox-title">
+		                      <h5>课程文件</h5>
+		                </div>
+		                  
+                		<div class="ibox-content">
+                			<div class="row">
+                				<div class="col-md-12">
+                					<form role="form" class="form-horizontal" action="{:U('Course/manage/uploadpicture')}" enctype="multipart/form-data" method="post"> 
+                						<div class="col-md-6">
+                                <div class="image-crop" style="width:100%;">
+                                    <img alt="image" class="img-responsive" src="{$picture['uri']}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" accept="image/jpeg image/png image/gif" name="course_picture" id="inputImage" value="选择图片" >
+                               <br/>
+                                <p>你可以上传jpg, gif, png格式的文件, 图片建议尺寸至少为480x270。文件大小不能超过2M。</p>
+                            </div>
+                            
+                            <div class="col-md-12 col-md-offset-5">
+                            	<hr/>
+                            	<button class="btn btn-primary" type="submit">保存</button>  
+                            </div>
+                            
+                						
+                					</form>
+                				</div>
+                                                                 
+                            
+                            
+                      </div>  
+                    </div>
+                    
+                    
+                     
+                    
+                    
+ 
+                	</div>
+                     
+                </div>
+            </div>
+        </div>
+ 
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+     
+    
+     
+   
+     
+ 
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> {$Think.session.uname} | 个人中心 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                                <div class="widget-head-color-box navy-bg p-lg text-center">
+                                    <div class="m-b-md">
+                                    <h2 class="font-bold no-margins">
+                                        {$user['username']}
+                                    </h2>
+                                        
+                                    </div>
+                                    <img src="{$user['avatar']}" class="img-circle circle-border m-b-md" alt="profile">
+                                    <div>
+                                        <span>100 门课程</span> |
+                                        <span>350 个粉丝</span> |
+                                        <span>610 个讨论</span>
+                                    </div>
+                                </div>
+                                <div class="widget-text-box">
+                                    <h4 class="media-heading"> {$user['username']}  </h4>
+                                    <p> {$user['description']} </p>
+                                    <if condition="$Think.session.uid neq $user['id'] ">
+                                        <div class="text-right">
+                                            <if condition="$has_followed eq 'yes' ">
+                                                <a class="btn btn-xs btn-primary" frid="{$user['rid']}" fuid="{$user['uid']}" onclick="unfollow(this)"  >
+                                                    <i class="fa fa-user-plus"></i>已关注
+                                                </a> 
+                                            <else/>
+                                                <a class="btn btn-xs btn-white" frid="{$user['rid']}" fuid="{$user['uid']}" onclick="follow(this)">
+                                                    <i class="fa fa-user-plus"></i>关注
+                                                </a>
+                                            </if> 
+                                             
+                                        </div>
+                                    </if>
+                                    
+                                </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6">
+                            <if condition="$user['id'] eq $_SESSION['uid'] ">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td><button type="button" class="btn btn-danger m-r-sm">12</button> 条全部消息                           
+                                            </td>
+                                            <td><button type="button" class="btn btn-primary m-r-sm">28</button>条问答通知                                     
+                                            </td>
+                                            <td><button type="button" class="btn btn-info m-r-sm">15</button>  条论坛消息                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="btn btn-info m-r-sm">20</button>  条系统通知
+                                            </td>
+                                            <td><button type="button" class="btn btn-success m-r-sm">40</button> 封站内信件
+                                            </td>
+                                            <td><button type="button" class="btn btn-default m-r-sm">30</button> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            <else/>
+                                <h3>你正在浏览 <span class="red">{$user['username']}  </span>的信息    </h3>
+                                <h4>对方最近动态</h4>
+                                <div >
+                                    <volist name="activities" id="vol">
+                                       <p > {$vol['message']} </p>
+                                    </volist>
+                                </div>
+                                
+                            </if>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    </div>
+                         
+
+                    <div class="row">
+                    </div>
+
+                </div>
+     
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+    <script type="text/javascript">
+        function unfollow(obj){
+            var fuid = $(obj).attr('fuid');
+            var frid = $(obj).attr('frid');
+            $.post("{:U('Home/User/relationChange/type/unfollow')}", {fuid:fuid,frid:frid }, function(data, status){
+                if(data && status=='success'){
+                    alert(data);window.location.reload();
+                }
+            });
+        }
+
+        function follow(obj){
+            var fuid = $(obj).attr('fuid');
+            var frid = $(obj).attr('frid');
+            $.post("{:U('Home/User/relationChange/type/follow')}", {fuid:fuid, frid:frid}, function(data, status){
+                if(data && status=='success'){
+                    alert(data);window.location.reload();
+                }
+            });
+        }
+    </script>
+
+
+ 
+ 
+
+</body>
+
+</html>

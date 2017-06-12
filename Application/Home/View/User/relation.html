@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>  我的人脉  </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+
+             
+
+            <div class="wrapper wrapper-content">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <strong>{$page['title']} </strong>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="row">
+                       
+                    
+                        <volist name="relations" id="vol">
+                            <div class="col-lg-3">
+                                <div class="contact-box center-version">
+
+                                    <a href="{:U('Home/User/dashboard', array( 'uid'=> $vol['friend_uid'], 'rid'=>$vol['friend_rid'] ) )}">
+                                        <img alt="image" class="img-circle" src="{$vol['friend_info']['avatar']}">
+                                        <h3 class="m-b-xs"><strong> {$vol['friend_info']['name']}</strong>  <if condition="$vol['friend_rid'] eq 1" ><small class="text-danger">管理员</small><elseif condition="$vol['friend_rid'] eq 2" /><small class="text-navy">教师</small> </if>  <span class="small green ">{$vol['friend_info']['sex']}</span></h3>
+                                    </a>
+                                    <div class="contact-box-footer">
+                                        <div class="m-t-xs btn-group">
+                                            <a href="{:U('Home/User/chat/id/'.$vol['chat']['series'])}" class="btn btn-xs btn-white"><i class="fa fa-phone"></i> 聊天 </a>
+                                            <a class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> 站内信</a>
+                                            <if condition="$page['type'] neq 'fan' ">
+                                                <a class="btn btn-xs btn-primary" frid="{$vol['friend_rid']}" fuid="{$vol['friend_uid']}" onclick="unfollow(this)"  >
+                                                    <i class="fa fa-user-plus"></i>已关注
+                                                </a> 
+                                            <else/>
+                                                <a class="btn btn-xs btn-white" frid="{$vol['role_id']}" fuid="{$vol['user_id']}" onclick="follow(this)">
+                                                    <i class="fa fa-user-plus"></i>关注
+                                                </a>
+                                            </if> 
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </volist>
+                        
+
+
+                    </div>
+
+                    <div class="row">
+                    </div>
+                         
+
+                    <div class="row">
+                    </div>
+
+                </div>
+     
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <script type="text/javascript">
+        function unfollow(obj){
+            var fuid = $(obj).attr('fuid');
+            var frid = $(obj).attr('frid');
+            $.post("{:U('Home/User/relationChange/type/unfollow')}", {fuid:fuid,frid:frid }, function(data, status){
+                if(data && status=='success'){
+                    alert(data);window.location.reload();
+                }
+            });
+        }
+
+        function follow(obj){
+            var fuid = $(obj).attr('fuid');
+            var frid = $(obj).attr('frid');
+            $.post("{:U('Home/User/relationChange/type/follow')}", {fuid:fuid, frid:frid}, function(data, status){
+                if(data && status=='success'){
+                    alert(data);window.location.reload();
+                }
+            });
+        }
+    </script>
+
+
+ 
+ 
+
+</body>
+
+</html>

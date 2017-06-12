@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SpaceLab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- iCheck-->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/icheck/css/_all.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <!--mail wrapper start-->
+                               
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">{$Think.MODULE_NAME}</a> </li>
+                            <li>{$Think.CONTROLLER_NAME}</li>
+                            <li class="active">{$Think.ACTION_NAME}</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                        <h1 class="h1">门户论坛管理</h1>
+                    </div>
+                </div>  
+                 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab">板块列表</a></li>
+                                <li><a href="javascript:;" onclick="add()">添加主板块</a></li>
+                                <li ><a href="#setting" data-toggle="tab">论坛设置</a></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade in active" id="home">
+                                    <table class="table table-striped table-bordered table-hover table-condensed">
+                                        <tr>
+                                            <th>板块名</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <foreach name="data" item="v">
+                                            <tr>
+                                                <td>{$v['_name']}</td>
+                                                <td>{$v['status']}</td>
+                                                <td>
+                                                      <a href="javascript:;" forumid="{$v['id']}" forumtitle="{$v['title']}" forumdesc="{$v['description']}" forumslug="{$v['slug']}" forumicon="{$v['icon']}" onclick="edit(this)">修改</a> | <a href="{:U('Admin/Forum/del/id/'.$v['id'])}" onclick="return confirm('确认删除?')" >删除</a>  <if condition="$v['_level'] eq 2">   <else/>  ||| <a href="javascript:;" forumid="{$v['id']}" forumtitle="{$v['title']}"  onclick="add_child(this)">添加子板块</a> </if>
+                                                </td>
+                                            </tr>
+                                        </foreach>
+                                    </table>
+                                </div>
+
+                                <div class="tab-pane fade " id="setting">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">常规设置</h3>
+                                                    <div class="actions pull-right">
+                                                        <i class="fa fa-chevron-down"></i>
+                                                        <i class="fa fa-times"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <form class="form-horizontal form-border" action="{:U('Admin/Forum/setting')}" method="post" >
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">主版块 index</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">置顶帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_index_stickpost_num"  value="{$setting['forum_index_stickpost_num']}"  >
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">精华帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_index_essencepost_num" value="{$setting['forum_index_essencepost_num']}" >
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">最新帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_index_latestpost_num" value="{$setting['forum_index_latestpost_num']}"  >
+                                                                </div>
+                                                  
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">子版块 sub</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">置顶帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_sub_stickpost_num"  value="{$setting['forum_sub_stickpost_num']}"  >
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">精华帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_sub_essencepost_num" value="{$setting['forum_sub_essencepost_num']}" >
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">最新帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_sub_latestpost_num" value="{$setting['forum_sub_latestpost_num']}"  >
+                                                                </div>
+                                                  
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">版块列表 lists</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">置顶帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_lists_stickpost_num"  value="{$setting['forum_lists_stickpost_num']}"  >
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">精华帖显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_lists_essencepost_num" value="{$setting['forum_lists_essencepost_num']}" >
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">最新帖每页显示数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_lists_latestpost_num" value="{$setting['forum_lists_latestpost_num']}"  >
+                                                                </div>
+                                                  
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">发帖限制</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">每日发帖数目</span>
+                                                                    <input type="number" min='1' class="form-control" name="forum_post_limit_num"  value="{$setting['forum_post_limit_num']}"  >
+                                                                </div>                                                  
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <div class="col-sm-offset-4 col-sm-12">
+                                                                <button type="submit" class="btn btn-primary" >更新设置</button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                             
+                        </div>     
+
+                        <!-- Form Modal   添加主板块 添加子板块 -->
+                        <div class="modal fade" id="forum-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">添加板块</h4> <span id="forum_help"></span>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form" action="{:U('Admin/Forum/addHomeForum')}" method="post">
+                                            <input type="hidden" name="pid" value="0">
+                                            <div class="form-group">
+                                                <label for="title" class="col-sm-2 control-label">板块名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="title" class="form-control" id="title" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description" class="col-sm-2 control-label">描述</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="description" class="form-control" id="description" placeholder="请输入简短有力的板块描述">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="icon" class="col-sm-2 control-label">fontawesome 图标</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="icon" class="form-control" id="icon" placeholder="请输入fontawesome图标 ">
+                                                    <span class="help-block m-b-none">请到<a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>查询选择 </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="slug" class="col-sm-2 control-label">别名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="slug"  class="form-control" id="slug" placeholder="请输入别名 美化url">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="formsubmit-add">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Form Modal -->
+
+                        <!-- Form Modal   修改板块 -->
+                        <div class="modal fade" id="forum-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">修改板块</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form" action="{:U('Admin/Forum/editHomeForum')}" method="post">
+                                            <input type="hidden" name="id">
+
+                                            <div class="form-group">
+                                                <label for="title" class="col-sm-2 control-label">板块名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="title" class="form-control" id="title" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description" class="col-sm-2 control-label">描述</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="description" class="form-control" id="description" placeholder="请输入简短有力的板块描述">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="icon" class="col-sm-2 control-label">fontawesome 图标</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="icon" class="form-control" id="icon" placeholder="请输入fontawesome图标 ">
+                                                    <span class="help-block m-b-none">请到<a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>查询选择 </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="slug" class="col-sm-2 control-label">别名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="slug"  class="form-control" id="slug" placeholder="请输入别名 美化url">
+                                                </div>
+                                            </div> 
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="formsubmit-edit">提交</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Form Modal -->
+                                     
+                    </div>
+
+                    <div class="col-md-12">
+                        <a  href="{:U('Forum/Index/index')}" target="_blank" class="btn btn-primary">进入论坛进行回复</a>
+                    </div>
+
+                    <div class="col-md-12">
+                        <a  href="#" class="btn btn-primary">帖子管理</a>
+                    </div>
+                </div>
+
+
+                 
+                <!--mail wrapper end-->
+            </section>
+        </section>
+        <!--main content end-->
+         
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+         
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+ 
+  
+ 
+ 
+    
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+
+
+    <script>
+        $(function(){
+            $('#formsubmit-add').on('click',function(){
+                $('form').eq(1).submit();
+            });
+            $('#formsubmit-edit').on('click',function(){
+                $('form').eq(2).submit();
+            });
+        }); 
+
+        //添加板块
+        function add(){
+            $('#forum-add').modal('show');
+        }
+
+        // 添加子板块
+        function add_child(obj){
+            var forumid=$(obj).attr('forumid');
+            $("input[name='pid']").val(forumid);
+            $('#forum-add').modal('show');
+        }
+
+        // 修改板块
+        function edit(obj){
+            var forumid     = $(obj).attr('forumid');
+            var forumtitle  = $(obj).attr('forumtitle');
+            var forumdesc   = $(obj).attr('forumdesc');
+            var forumslug   = $(obj).attr('forumslug');
+            var forumicon   = $(obj).attr('forumicon');
+            $("input[name='id']").val(forumid);
+            $("input[name='title']").val(forumtitle);
+            $("input[name='description']").val(forumdesc);
+            $("input[name='slug']").val(forumslug);
+            $("input[name='icon']").val(forumicon);
+            $('#forum-edit').modal('show');
+        }
+    </script>
+
+
+</body>
+
+
+</html>

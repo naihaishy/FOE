@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>观看中... |  {$live['title']} </title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+        <script src="__HOME__/assets/js/html5shiv.js"></script>
+        <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <style>
+        #live-description{
+            line-height:250%;
+        }
+    </style>
+
+
+    
+
+
+
+    
+</head><!--/head-->
+
+<body  >
+      <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">直播间</h1>
+                            <p> {$live['title']} </p> <strong> 开始时间: <span style="color:green;">{$live['start']|date='Y-m-d H:i:s',###} </span> </strong>
+                             <if condition="$live['is_over'] eq 1"><p style="color:red;">已经结束 可观看录像</p></if> 
+                        </div>                                                                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#page-breadcrumb-->
+
+    <section id="blog-details" class="padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6">
+                    <div class="row">
+                         <div class="col-md-12 col-sm-12">
+                            <div class="single-blog blog-details two-column">
+                                <div class="post-thumb live-video">
+                                            
+                                        <!--    <video id="receiver" autoplay class="img-responsive" poster="__HOME__/assets/images/blog/7.jpg"> 您的浏览器不支持HTML5 video </video> -->
+                                            <if condition="$live['is_over'] eq 1">
+                                                <video controls="controls" id="live_record" class="img-responsive" poster="/Public/Live/watch/isover.jpg">
+                                                 
+                                                
+                                                    您的浏览器不支持HTML5 video</video>
+                                            <else/>
+                                                <if condition="$live['is_start'] eq 1">
+                                                    <div   id="fmsobj">
+                                                        <object width='640' height='377' id='SampleMediaPlayback' name='SampleMediaPlayback' type='application/x-shockwave-flash' classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' >
+                                                            <param name='movie' value="/Public/Live/watch/swfs/SampleMediaPlayback.swf" /> 
+                                                            <param name='quality' value='high' /> 
+                                                            <param name='bgcolor' value='#000000' /> 
+                                                            <param name='allowfullscreen' value='true' /> 
+                                                            <param name='flashvars' value= "&src=<?php echo $room['rtmp'].'/'.$live['rtmp_keys'] ?>&autoHideControlBar=true&streamType=live&autoPlay=true&verbose=true"/>
+                                                            <embed src="/Public/Live/watch/swfs/SampleMediaPlayback.swf" width='640' height='377' id='SampleMediaPlayback' quality='high' bgcolor='#000000'  name='SampleMediaPlayback' allowfullscreen='true'   pluginspage='http://www.adobe.com/go/getflashplayer'  flashvars="&src=<?php echo $room['rtmp'].'/'.$live['rtmp_keys'] ?>&autoHideControlBar=true&streamType=live&autoPlay=true&verbose=true"  type='application/x-shockwave-flash'>    </embed>
+                                                        </object>
+                                                    </div>
+                                                <else/>
+                                                    <img class="img-responsive" src="/Public/Live/watch/unstart.jpg"/>  
+                                                </if>
+                                                
+                                            </if>
+                                                                        
+
+                                </div>
+                                <div class="post-content overflow">
+                                    <h2 class="post-title bold"><a href="#"> {$live['title']} </a></h2>
+                                    <h3 class="post-author"><a href="{:U('Live/Room/more/id/'.$room['room_id'])}"> {$live['teacher_name']} </a></h3>
+                                    <p id="live-description"> {$live['description']} </p>
+                                    <div class="post-bottom overflow">
+                                        <ul class="nav navbar-nav post-nav">
+                                            <li><a href="#" title="标签"><i class="fa fa-tag"></i>{$live['tags']}</a></li>
+                                            <li><a href="#" title="正在观看人数" ><i class="fa fa-video-camera" ></i>{$live['watch_num']} </a></li>
+                                            <li><a href="#"  title="关注人数"><i class="fa fa-heart"></i>{$live['collect_num']} </a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="author-profile padding">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="{$live['teacher_avatar']}" alt="">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <h3> {$live['teacher_name']} </h3>
+                                                <p>{$live['teacher_description']} </p>
+                                                <span><a href="#"> 个人空间 </a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="response-area">
+                                    <h2 class="bold">视频推荐</h2>
+                                    <ul class="media-list">
+                                        <li class="media">
+                                            <div class="post-recommend ">
+                                                <volist name="recommend" id="rec">
+                                                    <a  href="{$rec['id']}" > 
+                                                    <img class="media-object" src="{$rec['poster_uri']}" alt="{$rec['name']}">
+                                                </a>
+                                                </volist>
+                                                
+                                                
+                                            </div>
+              
+                                        </li>
+                                       
+                                        
+                                    </ul>                   
+                                </div><!--/Response-area-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="sidebar blog-sidebar">
+                        <div class="sidebar-item  recent">
+                            <h3>评论</h3>
+                            <!--评论-->
+                            <div class="comments" >
+                                  
+                                 
+                                <div class="col-md-12" >
+                                    
+                                   <div class="well" id="dialog" style="overflow: scroll; height: 350px;width: 100%;" >
+                                       <volist name="messages" id="message">
+                                          <if condition="$message['rid'] eq '1'">
+                                            <font color="blue">{$message['uname']} :</font>
+                                          <elseif condition="$message['rid'] eq '2'"/>
+                                            <font color="red">{$message['uname']} :</font>
+                                          <else/>
+                                            <font color="black">{$message['uname']} :</font>
+                                           </if>   {$message['content']} <br/>
+                                       </volist>
+                                   </div>
+                                    
+                                   <form onsubmit="onSubmit(); return false;">
+                                        <input type="text" class="form-control" id="chatmessage" onkeydown="keydownfun(event)" />
+                                        <input type="submit" class="btn btn-default" value="发表" />
+                                   </form>         
+                                </div>
+                            </div>
+                             
+                             
+                        </div>
+
+                        <div class="sidebar-item tag-cloud">
+                            <h3>标签云</h3>
+                            <ul class="nav nav-pills">
+                                <volist name="tags" id="tag">
+                                    <li><a href="{:U('Live/Room/index', array('tag'=>$tag['tags'] ))}">{$tag['tags']}</a></li>
+                                </volist>
+                            </ul>
+                        </div>
+                        <div class="sidebar-item popular">
+                            <h3>类似直播</h3>
+                            <ul class="gallery">
+                                <volist name="similar_video" id="similar">
+                                    <li><a href="#"><img src="{$similar['poster_uri']}" alt="{$similar['name']}"><i>{$similar['name']}</i></a></li>
+                                </volist>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#blog-->
+
+    <!--footer start-->
+    <include file="Application/Home/View/Footer/footer.html" />
+        <!--footer end--> 
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script>  
+    
+
+    <script type="text/javascript" src="https://foe.zhfsky.com/Public/Chat/js/swfobject.js"></script>
+    <script type="text/javascript" src="https://foe.zhfsky.com/Public/Chat/js/web_socket.js"></script>
+    
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            document.addEventListener("DOMContentLoaded", function(event) {
+                 var isover = "{$live['is_over']}";
+                if(isover){
+                    var vList = {$vod_uri};
+                            
+                    var vLen = vList.length; // 播放列表的长度
+                    var curr = 0; // 当前播放的视频
+                    var video = document.getElementById("live_record");
+                    video.addEventListener('ended', play);
+                    play();
+                    function play(e) {
+                       video.src = vList[curr];
+                       video.load(); // 如果短的话，可以加载完成之后再播放，监听 canplaythrough 事件即可
+                       video.play();
+                       curr++;
+                       if (curr >= vLen) curr = 0; // 播放完了，重新播放
+                    }
+                }
+            });
+
+            
+        });
+    
+        
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var name= "{$user['uname']}";
+            if(name){
+                //用户已经登录
+                connect();
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+        // 如果浏览器不支持websocket，会使用这个flash自动模拟websocket协议，此过程对开发者透明
+        WEB_SOCKET_SWF_LOCATION = "https://foe.zhfsky.com/Public/Chat/swf/WebSocketMain.swf";
+        // 开启flash的websocket debug
+        WEB_SOCKET_DEBUG = true;
+        var ws, name, client_list={};
+
+        // 连接服务端
+        function connect() {
+           // 创建websocket
+           ws = new WebSocket("wss://"+document.domain+":7272");
+           // 当socket连接打开时，输入用户名
+           ws.onopen = onopen;
+           // 当有消息时根据消息类型显示不同信息
+           ws.onmessage = onmessage; 
+           ws.onclose = function() {
+              console.log("连接关闭，定时重连");
+              connect();
+           };
+           ws.onerror = function() {
+              console.log("出现错误");
+           };
+        }
+
+        // 连接建立时发送登录信息
+        function onopen()
+        {
+            var name= "{$user['uname']}";
+            if(!name) { 
+                alert('请先登录');return;
+            }
+            // 登录
+            var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"<?php echo isset($_GET['id']) ? $_GET['id'] : 1?>"}';
+            console.log("websocket握手成功，发送登录数据:"+login_data);
+            ws.send(login_data);
+        }
+
+        // 服务端发来消息时
+        function onmessage(e) {
+            console.log(e.data);
+            var data = eval("("+e.data+")");
+            switch(data['type']){
+                // 服务端ping客户端
+                case 'ping':
+                    ws.send('{"type":"pong"}');
+                    break;;
+                // 登录 更新用户列表
+                case 'login':
+                    //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
+                    say(data['client_id'], data['client_name'],  '加入了聊天室', data['time']);
+                    
+                    if(data['client_list']) {
+                        client_list = data['client_list'];
+                    } else {
+                        client_list[data['client_id']] = data['client_name']; 
+                    }
+                    //flush_client_list();
+                    console.log(data['client_name']+"登录成功");
+                    break;
+                // 发言
+                case 'say':
+                    //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                    say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                    break;
+                // 用户退出 更新用户列表
+                case 'logout':
+                    //{"type":"logout","client_id":xxx,"time":"xxx"}
+                    say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' 退出了', data['time']);
+                    delete client_list[data['from_client_id']];
+                    //flush_client_list();
+            }
+        }
+     
+
+        // 提交对话
+        function onSubmit() {
+            var name= "{$user['uname']}";
+            if(!name) { 
+                alert('请先登录');return;
+            }
+          var input = document.getElementById("chatmessage");
+          if( $.trim(input.value).length < 1 )  return;
+          if(input.value.length > 36) {
+            alert('输出太多了') ; return;
+            }
+          var to_client_id = 'all';
+          var to_client_name = '所有人';
+          save(input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r'));//保存到数据库
+          ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
+          input.value = "";
+          input.focus();
+        }
+
+
+
+        // 发言
+        function say(from_client_id, from_client_name, content, time){
+            
+            $("#dialog").append("<br/>"+ from_client_name + content );
+
+            //$("#dialog").scrollTop = $("#dialog").scrollHeight;
+            $('#dialog').scrollTop( $('#dialog')[0].scrollHeight );
+
+        }
+
+     
+        
+        //Enter 键提交
+        function keydownfun(event){
+                
+                if(event.keyCode == 13){
+                    event.preventDefault();//阻止换行
+                    onSubmit();
+                }
+            }
+      </script>
+
+      <script type="text/javascript">
+          //存储到数据库
+          function save(message){
+            var liveid = "{$Think.get.id}";
+            $.post("{:U('Live/Chat/save')}", {liveid: liveid, content:message}, function(data,status){
+                if(data && status =='success'){
+                    console.log('保存成功');
+                }
+            });
+          }
+      </script>
+   
+  
+
+</body>
+</html>

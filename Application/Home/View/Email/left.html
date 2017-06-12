@@ -1,0 +1,33 @@
+<div class="col-lg-3">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content mailbox-content">
+            <div class="file-manager">
+                <a class="btn btn-block btn-primary compose-mail" href="{:U('Home/Email/compose')}">发送邮件</a>
+                <div class="space-25"></div>
+                <h5>文件夹</h5>
+                <ul class="folder-list m-b-md" style="padding: 0">
+                    <li><a href="{:U('Home/Email/inbox')}"> <i class="fa fa-inbox "></i> 收件箱 <span class="label label-warning pull-right">{$unread_count}</span> </a></li>
+                    <li><a href="{:U('Home/Email/sendbox')}"> <i class="fa fa-envelope-o"></i> 发件箱 </a></li>
+                    <li><a href="{:U('Home/Email/inbox/type/star')}"> <i class="fa fa-certificate"></i> 星标邮件 </a></li>
+                    <li><a href="{:U('Home/Email/sendbox/type/draft')}"> <i class="fa fa-file-text-o"></i> 草稿箱 <span class="label label-danger pull-right">2</span></a></li>
+                    <li><a href="{:U('Home/Email/inbox/type/trash')}"> <i class="fa fa-trash-o"></i> 垃圾箱</a></li>
+                </ul>
+                <h5>分类</h5>
+                <ul class="category-list" style="padding: 0">
+                    <volist name="categorys" id="cat">
+                        <li><a href="#"> <i id="category_id_{$i}" class="fa fa-circle text-info"></i> {$cat['name']} </a></li>
+                    </volist>
+                    
+                </ul>
+
+                <h5 class="tag-title">标签</h5>
+                <ul class="tag-list" style="padding: 0">
+                    <volist name="tags" id="tag">
+                        <li><a href=""><i class="fa fa-tag "></i> {$tag['name']} </a></li>
+                    </volist>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

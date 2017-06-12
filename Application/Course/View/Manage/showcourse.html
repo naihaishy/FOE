@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Data Tables</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="__HOME__/uassets/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+    <!--navbar-static-side start-->
+     <include file="Application/Course/View/Navbar/left.html" />
+    <!--navbar-static-side end-->
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+	        <!--navbar-static-top start-->
+			     <include file="Application/Course/View/Navbar/top.html" />
+			    <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程列表</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Course</a>
+                        </li>
+                        <li class="active">
+                            <strong>List</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>您所开设的课程</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">Config option 1</a>
+                        </li>
+                        <li><a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+            <table class="table table-striped table-bordered table-hover " id="datatable" >
+            <thead>
+            <tr>
+                <th>课程名称</th>
+                <th>分类ID</th>
+                <th>状态</th>
+                <th>开课日期</th>
+            </tr>
+            </thead>
+            <tbody>
+							<tr>
+								<td colspan="5">正在从数据库中载入数据</td>
+							</tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>课程名称</th>
+                <th>分类ID</th>
+                <th>状态</th>
+                <th>开课日期</th>
+            </tr>
+            </tfoot>
+            </table>
+
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="__HOME__/uassets/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="__HOME__/uassets/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__HOME__/uassets/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="__HOME__/uassets/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <style>
+
+    </style>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+
+            /* Init DataTables */
+            var oTable = $('#datatable').DataTable({
+            	//基本配置
+            	
+            	//ajax
+            	"bProcessing": true,
+							"bServerSide": true,
+							"sAjaxSource": "__CONTROLLER__/showCourseAjax",
+            	//语言
+              "oLanguage": {
+									"sUrl": "__HOME__/uassets/js/plugins/dataTables/cn.txt"
+							}
+            });
+            
+            
+        });
+
+    </script>
+
+</body>
+
+</html>

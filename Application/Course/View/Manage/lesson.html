@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>课程管理 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+             <include file="Application/Course/View/Navbar/left.html" />
+            <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+             <!--navbar-static-top start-->
+                 <include file="Application/Course/View/Navbar/top.html" />
+                <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>课程管理</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Manage</a>
+                        </li>
+                        <li class="active">
+                            <strong>Lesson</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <div class="ibox-content">
+                            <ul class="nav nav-tabs">
+                                <li class="list-group-item">
+                                        <a href="{:U('Manage/base')}">
+                                          <span>基本信息</span>
+                                        </a>
+                                      </li>
+                                      <li class="list-group-item">
+                                        <a href="{:U('Manage/detail')}">
+                                          <span>详细信息</span>
+                                        </a>
+                                      </li>
+                                      <li class="list-group-item">
+                                        <a href="{:U('Manage/picture')}">
+                                          <span>课程图片</span>
+                                        </a>
+                                      </li>
+                                      <li class="list-group-item">
+                                        <a href="{:U('Manage/lesson')}">
+                                          <span>课时管理</span>
+                                        </a>
+                                      </li>
+                                      <li class="list-group-item">
+                                        <a href="{:U('Manage/files')}">
+                                          <span>课程文件</span>
+                                        </a>
+                                      </li>
+                                      <li class="list-group-item">
+                                          <a href="{:U('Manage/bulletin')}">
+                                            <span>课程公告</span>
+                                          </a>
+                                        </li>
+                                       
+                            </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="ibox-title">
+                            <h5>课时管理</h5>
+                            <div class="ibox-tools">
+                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#createchapter"><i class="fa fa-plus"></i>章节</button>
+ 
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                        <foreach name="chapter" item="cha">
+                            <table class="table   table-bordered table-hover table-condensed">
+                                {$cha['title']}  <a href="javascript:;" chapterid="{$cha['id']}" onclick="add_les(this)">添加课时</a> |  <a href="javascript:;" chapterid="{$cha['id']}" onclick="del_cha(this)">删除该章</a>
+                                <thead>
+                                </thead>        
+                                <tbody>
+                                    <volist name="cha['lesson']" id="les">
+                                        <tr>
+                                            <td>{$les['title']} </td>
+                                            <td><if condition="$les['status'] eq 'published' "><span style="color:green">已发布</span> &nbsp;&nbsp;&nbsp; <a href="javascript:;" lessonid="{$les['id']}" onclick="close_les(this)">关闭课时</a><else/><span style="color:red">未发布</span> &nbsp; &nbsp; &nbsp;<a href="javascript:;" lessonid="{$les['id']}" onclick="pulish_les(this)">发布课时</a></if></td>
+                                            <td>
+                                                <a href="javascript:;" lessonid="{$les['id']}" onclick="del_les(this)" >删除</a>|
+                                              <a href="javascript:;" lessonid="{$les['id']}" lessontitle="{$les['title']}" onclick="edit_les(this)">编辑</a>
+                                              <a href="javascript:;" lessonid="{$les['id']}" lessontitle="{$les['title']}" onclick="add_res(this)">添加资料</a>
+                                            </td>
+                                        </tr>
+                                    </volist>   
+                                </tbody>
+                            </table>
+                    </foreach>
+                      </div>
+                        
+                    </div>
+                     
+                </div>
+            </div>
+        </div>
+        
+         
+
+        </div>
+        </div>
+
+                <!--模态框-->
+                
+                    <!--添加章-->
+                    <div class="modal fade" id="createchapter" tabindex="-1" role="dialog" aria-labelledby="myModalLabela">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">添加章</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form method="post" action="{:U('Manage/addChapter')}" role="form" class="form-horizontal">
+                                <input type="hidden" name="pid" value="0">
+                                <div class="form-group"><label class="col-sm-2 control-label">章标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="title"   class="form-control" />
+                        </div>
+                    </div>
+                            </form>      
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="form-addc">添加</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--添加章end-->
+                    
+                    
+                     
+                    
+                    
+                    <!--添加课时-->
+                    <div class="modal fade" id="createlesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabelc">
+                      <div class="modal-dialog lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">添加课时</h4>
+                          </div>
+                          <div class="modal-body">
+                            <form method="post" action="{:U('Manage/addLesson')}" role="form" class="form-horizontal">
+                                <input type="hidden" name="chapter_id" value="0">
+                                <div class="form-group"><label class="col-sm-2 control-label">课时标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="title" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="col-sm-2 control-label">课时摘要</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" name="summary" class="form-control" ></textarea>
+                        </div>
+                    </div>
+                            </form>      
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="form-addles">添加</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--添加课时end-->
+                    
+                    <!--完善/编辑课时-->
+                    <div class="modal fade" id="editlesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabeld">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">完善信息---<span id="lesson-title" style="color:rgb(26,179,148);"></span></h4> 
+                          </div>
+                          <div class="modal-body">
+                             <form method="post" action="{:U('Course/Manage/completeLesson') }" class="form-horizontal" >
+                                 
+                                <div class="form-group"><label class="col-sm-2 control-label">类型</label>
+                                    <div class="col-sm-10" id="chose-type">
+                                        <input type="radio" name="type" value="video"   checked="checked" />视频
+                                        <input type="radio" name="type" value="text"    />图文
+                                        <input type="radio" name="type" value="test"    />测试
+                                    </div>
+                                </div><br/>
+                    
+                                <!--视频类型-->
+                                <div class="form-group " id="video_lesson">
+                                    <label class="col-md-2 control-label">视频</label>
+                                    <div class="col-md-10"><span id="media_title" style="color:green;"></span> </div><br/><br/>
+                                    <input type="hidden" id="media_id" name="media_id" value="0" />
+                                    <input type="hidden" id="lesson_id" name="lesson_id" value="0" />
+                                    <div class="col-md-12" id="media_chose">
+                                        
+                                        <div class="tabs-container">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a data-toggle="tab" href="#video-tab-1"> 上传视频</a></li>
+                                                <li class=""><a data-toggle="tab" href="#video-tab-2">从课程文件中选择</a></li>
+                                                <li class=""><a data-toggle="tab" href="#video-tab-3">导入网络视频</a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                              <div id="video-tab-1" class="tab-pane active">
+                                                <div class="panel-body">
+                                                   <div id="my-awesome-dropzone" class="dropzone" >
+                                                      <div class="dropzone-previews"></div>
+                                                      <button type="submit" class="btn btn-primary pull-right">开始上传!</button>
+                                                    </div>
+                                                    <div>
+                                                      <div class="m text-left">
+                                                        <small> 
+                                                            <span style="color:green">支持mp4格式的视频文件</span><br/>
+                                                            <span style="color:green">上传仅一个视频 且文件大小不能超过</span><span style="color:red"> <php> echo ini_get('upload_max_filesize');</php></span><br/>
+                                                            <span style="color:green">建议先在本地修改为清晰明了的文件名</span>
+                                                        </small> 
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              <div id="video-tab-2" class="tab-pane">
+                                              <div class="panel-body">
+                                                  <select id="media_idb" class="form-control m-b" name="media_idb">
+                                                  <option value="0">请选择文件</option>
+                                                      <volist name='videofiles' id='vol'>
+                                                          <option value="{$vol.id}">{$vol.title}</option>
+                                                      </volist>
+                                                   </select>
+                                              </div>
+                                              </div>
+                                              <div id="video-tab-3" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <div class="form-group"><label class="col-sm-2 control-label">课时标题</label>
+                                                          <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="支持优酷、土豆、腾讯等网站视频"/>
+                                                                <span class="input-group-btn"> 
+                                                                <button type="button" class="btn btn-primary">Unfinished...</button> 
+                                                                </span>
+                                                          </div>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                            </div> 
+                                                                 
+                                    </div>
+                                </div>
+                                
+
+                                
+                                <!--图文类型-->
+                                <div class="form-group" id="text_lesson">
+                                    <label class="col-md-2 control-label">内容</label>
+                                    <div class="col-md-10"></div><br/><br/>                       
+                                    <div class="col-md-12">                              
+                                      <div class="form-group">
+                                        <div class="col-md-12"><textarea id="text_content" name="content"></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+
+                                <!--测试类型-->
+                                <div class="form-group" id="test_lesson">    
+                                    <div class="col-md-12">                      
+                                      <div class="form-group">
+                                        <div class="col-md-12">
+                                            
+                                            <select id="exercise_id" class="form-control m-b" name="exercise_id">
+                                                <option value="0">请选择试卷</option>
+                                                <volist name='papers' id='vol'>
+                                                    <option value="{$vol.id}">{$vol.title}</option>
+                                                </volist>
+                                             </select> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+
+                              
+                            </form>  
+  
+                                  
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="form-editles">保存</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--完善/编辑课时end-->
+                    
+                    <!---添加课时资料-->
+                    <div class="modal fade" id="addresource" tabindex="-1" role="dialog" aria-labelledby="myModalLabeld">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">添加课时资料---<span id="lesson-title" style="color:rgb(26,179,148);"></span></h4> 
+                          </div>
+                          <div class="modal-body">
+                             <form method="post" action="{:U('Course/Manage/addLessonMaterial') }" class="form-horizontal" >
+                                 
+                                <div class="form-group ">
+                                    <label class="col-md-2 control-label">资料</label>
+                                    <div class="col-md-10"><span id="material_title" style="color:green;"></span> </div><br/><br/>
+                                    <input type="hidden" id="res_lesson_id" name="lesson_id" value="0" />
+                                    <input type="hidden" id="res_file_id" name="file_id" value="0" />
+                                    <div class="col-md-12" id="material_chose">
+                                        
+                                        <div class="tabs-container">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a data-toggle="tab" href="#material-tab-1"> 上传资料</a></li>
+                                                <li class=""><a data-toggle="tab" href="#material-tab-2">从课程文件中选择</a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div id="material-tab-1" class="tab-pane active">
+                                                Unfinished...
+                                                </div>
+                                                <div id="material-tab-2" class="tab-pane">
+                                                    <div class="panel-body">
+                                                        <select id="file_id" class="form-control m-b" name="file_id">
+                                                        <option value="0">请选择文件</option>
+                                                            <volist name='materialfiles' id='vol'>
+                                                                <option value="{$vol.id}">{$vol.title}</option>
+                                                            </volist>
+                                                         </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            </div> 
+                                                                 
+                                    </div>
+                                </div>
+                  </form>  
+  
+                                  
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="form-addres">保存</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!---添加课时资料end-->
+                    
+                    
+                 
+                
+                
+                
+                
+                
+                
+                
+                
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+    <!-- DROPZONE -->
+    <script src="__HOME__/uassets/js/plugins/dropzone/dropzone.js"></script>
+    
+    <!--ckeditor  -->
+    <script src="__HOME__/uassets/plugins/ckeditor/ckeditor.js"></script>
+
+
+   
+    
+    
+    <script>
+        $(document).ready(function(){
+            
+             //视频上传处理 获取fid及信息 
+            Dropzone.options.myAwesomeDropzone = {
+                    url:"{:U('Course/File/upload',array('cid'=>session('course_id')))}",
+                                paramName: "file",
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                parallelUploads: 1,
+                maxFiles: 1,
+                maxFilesize:500,
+                acceptedFiles:'video/mp4',
+                addRemoveLinks:true,
+                dictRemoveFile:'删除',
+
+                // Dropzone settings
+                init: function() {
+                    var myDropzone = this;
+                    /*var myDropzone = $("#my-awesome-dropzone").dropzone({
+                        
+                    });*/
+
+                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on("sendingmultiple", function() {
+                    });
+                    this.on("successmultiple", function(files, response) {
+                    });
+                    this.on("errormultiple", function(files, response) {
+                    });
+                    this.on("success", function(file, serverResponse){
+                        var obj = eval ("(" + serverResponse + ")");
+                        var fid =  obj.fid.split(",")[0];
+                        $('#media_title').text(' ');
+                        $.post("{:U('Course/Manage/getOneMediaAjax')}",{fid:fid},function(data,status){
+                            //alert(data);
+                            if(data && status=='success'){
+                                $('#media_title').text(data.title);
+                                $("#media_id").val(fid);
+                                $('#media_chose').hide();
+                            }                       
+                        })
+                        
+                    });
+                }
+
+            }
+            
+            //选择框 视频 fid
+            $('#media_idb').change(function(){
+                var media_idb = $("#media_idb").find("option:selected").val();
+                var media_idbtitle = $("#media_idb").find("option:selected").text();
+                $('#media_title').text(media_idbtitle);
+              $("#media_id").val(media_idb);
+              $('#media_chose').hide();
+              
+            });
+
+        
+            
+            //选择框 资料 fid
+            $('#file_id').change(function(){
+                var file_id = $("#file_id").find("option:selected").val();
+                var file_title = $("#file_id").find("option:selected").text();
+                $('#material_title').text(file_title);
+                $("#res_file_id").val(file_id);
+            });
+
+       });
+    </script>
+    
+    <script>
+        $(function(){
+            
+            $('#form-addc').on('click',function(){
+                  $('form').eq(1).submit();
+              });
+              
+              $('#form-addles').on('click',function(){
+                  $('form').eq(2).submit();
+              });
+              
+              $('#form-editles').on('click',function(){
+                  $('form').eq(3).submit();
+              });
+              
+              $('#form-addres').on('click',function(){
+                  $('form').eq(4).submit();
+              });
+
+          }); 
+            
+            
+ 
+            
+            //添加课时
+            function add_les(obj){
+                var chapterid=$(obj).attr('chapterid');
+                $("input[name='chapter_id']").val(chapterid);
+                $('#createlesson').modal('show');
+            }
+            //删除课时
+            function del_les(obj){
+                var lessonid=$(obj).attr('lessonid');
+                var url="{:U('Manage/delLesson')}";
+                $.post( 
+                    url,
+                    {lid:lessonid},
+                    function(data,status){
+                        if( data && status=='success'){
+                            alert('删除成功');
+                            window.location.reload();
+                        }else{
+                            alert('删除失败');
+                        }
+                    });
+            }
+            
+            /*
+             * 编辑课时 
+             * ajax post获取该课时信息
+             */
+            function edit_les(obj){
+                var lessonid=$(obj).attr('lessonid');
+                var lessontitle=$(obj).attr('lessontitle');
+                $('#lesson-title').text(lessontitle);
+                $('#lesson_id').val(lessonid);
+
+                
+
+                var url="{:U('Course/Manage/getOneLesson')}";
+                $.post(
+                    url,{lid:lessonid},
+                    function(data,status){
+                        if( data && status=='success'){
+                            CKEDITOR.instances.text_content.setData( data.content);
+                            //初始化select option radio
+                            $("#exercise_id").find("option[value='" + data.exercise_id + "']").attr("selected", "selected");
+
+                            $(":radio[value='" + data.type + "']").attr("checked","checked");
+
+                            $('#media_title').text(data.media_title);
+                            $('#media_id').val(data.media_id);
+                            $('#media_title').after("<a href='javascript:;' onclick='edit_mediaid(this)'>编辑</a>");
+                            $('#media_chose').hide();
+                        }
+                    }
+                );
+                $('#editlesson').modal('show');
+                
+            }
+            //关闭modal 清除数据
+            $('#editlesson').on('hide.bs.modal', function () {
+                   $('#media_title').siblings().remove();
+            });
+            
+            //编辑媒体文件
+            function edit_mediaid(obj){
+                $('#media_chose').show();
+                //$('#media_title').text(' ');//清除之前文件信息 重新选择媒体文件
+                $('#media_id').val('0');
+            } 
+            
+            //添加课时资料
+            function add_res(obj){
+                var lessonid = $(obj).attr('lessonid');
+                $('#res_lesson_id').val(lessonid);
+                var url = "{:U('Course/Manage/getOneMediaAjax')}";
+                $.post(
+                    url,{lid:lessonid},
+                    function(data,status){
+                        if( data && status=='success'){
+                            $('#material_title').text(data.mtitle);
+                            $('#res_file_id').val(data.mid);
+                            
+                        }
+                    }
+                );
+                
+        
+                
+                $('#addresource').modal('show');
+            } 
+            
+            //关闭课时
+            function close_les(obj){
+                var lessonid=$(obj).attr('lessonid');
+                var url="{:U('Manage/closeLesson')}";
+                $.post( 
+                    url,
+                    {lid:lessonid},
+                    function(data,status){
+                        if(data && status=='success'){
+                            alert('关闭成功');
+                            window.location.reload();
+                        }else{
+                            alert('关闭失败');
+                        }
+                    });
+            }
+            
+            //发布课时
+            function pulish_les(obj){
+                var lessonid=$(obj).attr('lessonid');
+                var url="{:U('Manage/publishLesson')}";
+                $.post( 
+                    url,
+                    {lid:lessonid},
+                    function(data,status){
+                        if(data && status=='success'){
+                            alert('发布成功');
+                            window.location.reload();
+                        }else{
+                            alert('发布失败');
+                        }
+                    });
+            }
+            
+            //删除章节
+            function del_cha(obj){
+                var chapterid=$(obj).attr('chapterid');
+                var url="{:U('Manage/delChapter')}";
+                $.post( 
+                    url,
+                    {chid:chapterid},
+                    function(data,status){
+                        if(data && status=='success'){
+                            alert('删除成功');
+                            window.location.reload();
+                        }else{
+                            alert('删除失败');
+                        }
+                    });
+            }
+            
+    </script>
+    
+     
+    <script>
+        //类型选择 视频 图文 测试
+        $(document).ready(function(){
+            $("#text_lesson").hide();
+            $("#test_lesson").hide();  
+            CKEDITOR.replace('text_content',{ height:'150px', filebrowserImageUploadUrl: "{:U('Files/Ckeditor/upload/type/image/domain/course')}",   });
+
+            hidentype();
+
+
+        });
+        
+        $(":radio[name='type']").on('click',function(){
+            hidentype();
+        });
+
+
+        function hidentype(){
+           var type=$("input[name='type']:checked").val();
+             switch(type){
+                case 'video':
+                    $("#video_lesson").show();
+                    $("#text_lesson").hide();  
+                    $("#test_lesson").hide();                   
+                break;
+                case 'text':
+                    $("#text_lesson").show();
+                    $("#video_lesson").hide();
+                    $("#test_lesson").hide();       
+                break;
+                case 'test':
+                    $("#test_lesson").show(); 
+                    $("#text_lesson").hide();
+                    $("#video_lesson").hide();      
+                break;
+                
+             }
+        }
+
+
+
+    </script>
+    
+    
+    
+    
+    
+     
+ 
+</body>
+
+</html>

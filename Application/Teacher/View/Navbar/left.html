@@ -1,0 +1,116 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element"> <span>
+                    <img alt="image" class="img-responsive img-circle" src="{$_SESSION['avatar']}" />
+                     </span>
+                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{$_SESSION['uname']}</strong>
+                     </span>  
+                </div>
+                <div class="logo-element">
+                    {$_SESSION['logo']}
+                </div>
+            </li>
+           
+            <li>
+                <a href="{:U('Teacher/Index/index')}"><i class="fa fa-dashboard"></i> <span class="nav-label">仪表盘</span></a>
+            </li>
+            
+            <li>
+                <a href="#"><i class="fa fa-book"></i> <span class="nav-label">课程</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Course/Manage/index')}">所有课程</a></li>
+                    <li><a href="{:U('Course/Manage/addCourse')}">添加课程</a></li>
+                    
+                </ul>
+            </li>
+            
+            <li>
+                <a href="#"><i class="fa fa-file"></i> <span class="nav-label">文件</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Course/File/index')}">所有文件</a></li>
+                    <li><a href="{:U('Course/File/manager')}">文件管理</a></li>
+                    <li><a href="{:U('Course/File/upload')}">上传文件</a></li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">试卷</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Course/Paper/index')}">所有试卷</a></li>
+                    <li><a href="{:U('Course/Paper/add')}">添加试卷</a></li>
+                    <li><a href="{:U('Course/Paper/manage')}">试卷管理</a></li>
+                    <li><a href="{:U('Course/Paper/review')}">试卷批阅</a></li>
+                    <li><a href="{:U('Course/Paper/statics')}">成绩统计</a></li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">题库</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Course/Question/index')}">所有题目</a></li>
+                    <li><a href="{:U('Course/Question/manage')}">题目管理</a></li>
+                    <li><a href="{:U('Course/Question/add')}">添加题目</a></li>
+                </ul>
+            </li>
+            
+            
+            <li>
+                <a href="#"><i class="fa fa-question"></i> <span class="nav-label">问答</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Course/Lquestion/index')}">所有问题</a></li>
+                </ul>
+            </li>    
+            <li>
+                <a href="#"><i class="fa fa-youtube-play"></i> <span class="nav-label">直播</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Live/Manage/index')}">直播列表</a></li>
+                    <li><a href="{:U('Live/Record/open')}">创建直播</a></li>
+                    <li><a href="{:U('Live/Setting/index')}">参数设置</a></li>
+                    <li><a href="{:U('Live/Statics/index')}">统计管理</a></li>
+                    <li><a href="{:U('Live/Help/index')}">直播帮助</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{:U('Teacher/Help/index')}"><i class="fa fa-hand-o-up"></i> <span class="nav-label">使用手册</span> </a>
+            </li>
+            <li>
+                <a href="{:U('Teacher/Forum/index')}"><i class="fa fa-commenting-o"></i> <span class="nav-label">论坛</span> </a>
+            </li>
+            <li>
+                <a href="{:U('Teacher/Chat/index')}"><i class="fa fa-commenting-o"></i> <span class="nav-label">聊天室</span> </a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-envelope-o"></i> <span class="nav-label">站内信</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Teacher/Email/inbox')}">收件箱</a></li>
+                    <li><a href="{:U('Teacher/Email/sendbox')}">发件箱</a></li>
+                    <li><a href="{:U('Teacher/Email/compose')}">撰写信件</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-bell-o"></i> <span class="nav-label">消息通知</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Teacher/Message/index/type/all')}"> 全部通知</a></li>
+                    <li><a href="{:U('Teacher/Message/index/type/forum')}">论坛通知</a></li>
+                    <li><a href="{:U('Teacher/Message/index/type/system')}">系统通知</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">设置</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{:U('Teacher/Setting/general')}">常规</a></li>
+                    <li><a href="{:U('Teacher/Setting/email')}">邮件</a></li>
+                    <li><a href="{:U('Teacher/Setting/privacy')}">隐私</a></li>
+                    <li><a href="{:U('Teacher/Setting/inform')}">通知</a></li>
+                    <li><a href="{:U('Teacher/Setting/account')}">账号</a></li>
+                    <li><a href="{:U('Teacher/Setting/profile')}">我的个人资料</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>

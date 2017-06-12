@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{$course['title']} | FOE</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+        <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+        <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+        <script src="__HOME__/assets/js/html5shiv.js"></script>
+        <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+     <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">课程介绍</h1>
+                            <p>课程基本信息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#action-->
+
+    <section id="portfolio-information" class="padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <if condition="$course['has_picture'] eq 1">
+                         <img src="{$course['picture_path']}" class="img-responsive" alt="{$course.title}">
+                    <else/>
+                         <img src="__HOME__/assets/images/portfolio/default.png" class="img-responsive" alt="{$course.title}">
+                    </if>
+                </div>
+                <div class="col-sm-6">
+                    <div class="project-name overflow">
+                        <h2 class="bold">{$course['title']}</h2>
+                        <ul class="nav navbar-nav navbar-default">
+                            <li><a href="#"><i class="fa fa-clock-o"></i>February11,2014</a></li>
+                            <li><a href="__CONTROLLER__/category/id/{$course['category_id']}"><i class="fa fa-tag"></i>{$course['category_name']}</a></li>
+                        </ul>
+                    </div>
+                    <div class="project-info overflow">
+                        <h3>课程描述</h3>
+                        <p> {$course['description']|htmlspecialchars_decode}</p>
+                    </div>
+                    <div class="skills overflow">
+                        <h3>所需知识</h3>
+                        <ul class="nav navbar-nav navbar-default">
+                            <for start="0" end="count($course['require_skills'])" >
+                                <li><a href="#"><i class="fa fa-check-square"></i>{$course['require_skills'][$i]}</a></li>
+                                                    </for>                          
+                        </ul>
+                    </div>
+                    <div class="client overflow">
+                        <h3>开课日期</h3>
+                        <ul class="nav navbar-nav navbar-default">
+                            <li><a href="#"><i class="fa fa-bolt"></i>{$course['course_start_date']|date='Y-m-d',###}</a></li>
+                        </ul>
+                    </div>
+                    <div class="live-preview">
+                        <if condition="$joined eq 1"><a href="{:U('Course/Index/learn',array('id'=>$recent_learn ) ) }" class="btn btn-common uppercase">继续学习</a><else/><a href="{:U('Course/Index/join',array('course_id'=>$course['id'] ) ) }" class="btn btn-common uppercase">加入学习</a></if>
+                        <if condition="$followed eq 1"><a href="{:U('Course/Index/follow',array('id'=>$course['id'] ) ) }" class="btn btn-common uppercase">取消关注</a><else/><a href="{:U('Course/Index/follow',array('id'=>$course['id'] ) ) }" class="btn btn-common uppercase">关注课程</a></if>
+                        &nbsp;&nbsp;&nbsp;
+                        <if condition="$_SESSION['rid'] eq 2">                      
+                             <a href="{:U('Course/Manage/base/id/'.$course['id'])}" class="btn btn-common uppercase">修改课程</a>                             
+                        </if>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+     <!--/#portfolio-information-->
+     
+     <!--课时列表-->
+     <section id="portfolio-information" class="padding-top">
+        <div class="container">
+            <h2>课时列表</h2>
+             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <volist name='lesson' id='vol'>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse"  data-parent="#accordion" href="#collapse{$vol.id}" aria-expanded="true" aria-controls="collapseOne">
+                               {$vol.title}
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse{$vol.id}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body"> 
+                            <volist name="vol['list']" id="les">
+                                <p><a href="{:U('Index/learn',array('id'=>$les['id'] ))}">{$les.title}</a></p>
+                            </volist>
+                           
+                          </div>
+                        </div>
+                      </div>
+                </volist>              
+            </div>
+        </div>
+    </section>
+
+    <!--公告列表-->
+     <section id="portfolio-bulletin" class="padding-top">
+        <div class="container">
+            <h2>课程公告</h2>
+             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <volist name='bulletins' id='vol'>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse"  data-parent="#accordion" href="#collapse{$vol.id}" aria-expanded="true" aria-controls="collapseOne">
+                               {$vol.title}
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapse{$vol.id}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body"> 
+                             {$vol['content']}
+                           
+                          </div>
+                        </div>
+                      </div>
+                </volist>              
+            </div>
+        </div>
+    </section>
+
+
+    
+
+
+    <!--footer start-->
+    <include file="Application/Home/View/Footer/footer.html" />
+    <!--footer end--> 
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script>  
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> onlineJudge </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+    <style type="text/css" media="screen">
+        #editor { 
+            height: 300px;
+            position: relative;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+            <div class="wrapper wrapper-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6"><label class="col-md-2 control-label">代码</label>
+                            <div id="editor"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group"><label class="col-md-2 control-label">选择题目</label>
+                                    
+                                <div class="col-md-10">
+                                    <select class="form-control m-b" name="problem_id" id="problem_id" onchange="chosepro(this)">
+                                        <option value="0">请选择题目</option>
+                                        <volist name="problems" id="vol">
+                                            <option value="{$vol['problem_id']}">{$vol['title']}</option>
+                                        </volist>
+                                        
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-md-2 control-label">描述 </label>
+                                  <div class="col-md-10"><span id="description" ></span></div>
+                            </div><hr/>
+                        </div><hr/>
+
+                        <div class="col-md-6">
+                            <div class="form-group"><label class="col-md-2 control-label">样例输入</label>
+                                  <div class="col-md-10"><span id="sample_input" ></span></div>
+                            </div><hr/>
+                            <div class="form-group"><label class="col-md-2 control-label">样例输出 </label>
+                                  <div class="col-md-10"><span id="sample_output" ></span></div>
+                            </div><hr/>
+                           
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group"><label class="col-md-2 control-label">时间限制</label>
+                                  <div class="col-md-10"><span id="time_limit" ></span>秒</div>
+                            </div><hr/>
+                            <div class="form-group"><label class="col-md-2 control-label">内存限制 </label>
+                                  <div class="col-md-10"><span id="memory_limit" ></span>MB</div>
+                            </div><hr/>
+                           
+                        </div>
+
+
+                        <button type="button" class="btn btn-primary" onclick="submit()"> 提交</button>
+                    </div>
+                         
+
+                    <div class="row">
+                        <div class="col-md-6">
+                             
+                            运行结果<br/><span id="oj_test_result" class="red"></span>  <hr/>
+                            时间消耗<br/><span id="oj_test_time" class="red"></span> <hr/>
+                            内存消耗<br/><span id="oj_test_memory" class="red"></span> <hr/>
+                            错误    <br/><span id="oj_test_error" class="red"></span> <hr/>
+                        </div>
+                    </div>
+
+                </div>
+     
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <!--ace-->
+    <script src="//cdn.bootcss.com/ace/1.2.6/ace.js"></script>
+
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chaos");
+        editor.getSession().setMode("ace/mode/c_cpp");
+        editor.setValue("#include <stdio.h> \r int main(){ \r int a, b; \r scanf(\"%d%d\", &a, &b); \r printf(\"%d\\n\", a+b); \r return 0;}");
+        document.getElementById('editor').style.fontSize='20px';
+
+    </script>
+    <script type="text/javascript">
+
+        function chosepro(obj){
+            var problem_id = $(obj).find("option:selected").val();
+            $.post("{:U('Course/Oj/getProblem')}", {pid:problem_id}, function(data,status){
+                if(data && status=='success'){
+                    $("#description").html(data.description);
+                    $("#sample_input").html(data.sample_input);
+                    $("#sample_output").html(data.sample_output);
+                    $("#time_limit").html(data.time_limit);
+                    $("#memory_limit").html(data.memory_limit);
+
+                }
+            } );
+        }
+
+
+        function submit(){
+
+            var ojsource = editor.getValue();
+            //alert(ojsource);
+            var ojpid = $("#problem_id").find("option:selected").val();
+            if(ojpid ==0){alert('请先选择题目');return;}
+            if(ojsource.length < 6){  alert('代码太短');return;  } 
+            datas ={pid:ojpid,source:ojsource};
+            url =  "{:U('Course/Oj/ojAjaxTest')}";
+
+            //初始化
+            $('#oj_test_result').html('OJ运行中...');
+            $('#oj_test_time').html(' ');
+            $('#oj_test_memory').html(' ');
+            $('#oj_test_error').html(' ');
+
+            $.post(url, datas ,function(data, status){
+            if(data && status=='success'){
+                    $('#oj_test_result').html(data.result);
+                    $('#oj_test_time').html(data.time);
+                    $('#oj_test_memory').html(data.memory);
+                    $('#oj_test_error').html(data.error);
+                }
+            });
+        }
+
+    </script>
+
+
+ 
+ 
+
+</body>
+
+</html>

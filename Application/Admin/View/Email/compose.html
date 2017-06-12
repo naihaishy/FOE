@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理员后台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+
+
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+    <style type="text/css">
+        #postcontent{
+            height: 450px;
+        }
+    </style>
+
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <!--mail wrapper start-->
+                <div class="row">
+                	
+               			<!--发送邮件开始-->
+                    <div class="col-md-12 col-sm-12" id="view-mail-wrapper">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <header>
+                                    <h2>New Message</h2>
+                                </header>
+                                <div class="row view-mail-header">
+                                    <div class="col-md-12">
+                                        <div class="view-mail-reply pull-right">
+                                            <button class="btn btn-sm btn-primary" id="send" onclick="send()">发送</button>
+                                            <button class="btn btn-default btn-sm tooltips" id="discard" data-original-title="Discard" data-toggle="tooltip" data-placement="top" title="取消"><i class="fa fa-times"></i> Discard
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    	 <form class="form-horizontal" method="post" action="{:U('Admin/Email/compose')}" enctype="multipart/form-data" >
+                                            <div class="form-group"><label class="col-sm-2 control-label">收件人:</label>
+                                                <div class="col-sm-10"><input type="text" class="form-control" name="to_uid" placeholder="请输入对方用户ID " /></div>
+                                            </div>
+                                            <div class="form-group"><label class="col-md-2 control-label">对方身份</label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control m-b" name="to_rid">
+                                                        <option value="3">学生</option>
+                                                        <option value="2">教师</option>
+                                                        <option value="1">管理员</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-2 control-label">主题:</label>
+                                                <div class="col-sm-10"><input type="text" class="form-control" name="subject"></div>
+                                            </div>
+
+                                            <div class="form-group"><label class="col-md-2 control-label">内容</label>
+                                                <div class="col-md-10"><textarea  id="postcontent" name="content" class="form-control"></textarea><span class="help-block m-b-none">....</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group"><label class="col-md-2 control-label">添加附件</label>
+                                                <div class="col-md-10"><input type="file"  name="attachment" class="form-control" /><span class="help-block m-b-none">多个文件请打包</span>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+                    <!--发送邮件结束-->
+                </div>
+                </div>
+                <!--mail wrapper end-->
+            </section>
+        </section>
+        <!--main content end-->
+
+        <!--sidebar right start-->
+         <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Level JS-->
+
+
+
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('postcontent');
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/email')}";
+            editor.config.uploadImgFileName = 'upload'
+            editor.create();
+        });
+
+        function send(){
+            var postcontent = $("#postcontent").val();
+            var receiver    = $("input[name='to_uid']").val();
+            var subject     = $("input[name='subject']").val();
+            if(!receiver){
+               alert('请输入收件人信息');return; 
+            } 
+            if(!subject){
+               alert('请输入主题');return; 
+            }
+            if(!postcontent){
+               alert('请输入正文内容');return; 
+            }
+            $('form').eq(0).submit();
+        }
+
+
+        //给取消按钮绑定点击事件
+       $('#discard').on('click',function(){
+            //处理事件程序
+            window.location.href="{:U('Admin/Email/inbox')}";
+       });
+
+    </script>
+
+ 
+    
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+</body>
+
+</html>

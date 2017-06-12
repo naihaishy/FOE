@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> 聊天室 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+<div id="wrapper">
+
+ 
+
+    <div id="page-wrapper" class="gray-bg">
+        
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <!--NAV-->
+            <include file="Application/Home/View/User/nav-header.html" />
+        </div>
+
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                        <div class="ibox chat-view">
+
+                            <div class="ibox-title">
+                                <small class="pull-right text-muted">你的好友 </small>
+                                 聊天室
+                            </div>
+
+
+                            <div class="ibox-content">
+
+                                <div class="row">
+
+                                    <div class="col-md-9" id="chat_box">
+                                        <div class="chat-discussion" id="dialog">
+
+
+                                        <volist name="messages" id="message">
+
+                                            <if condition="$message['uid'] eq $_SESSION['uid'] ">
+                                                <div class="chat-message right" style="word-break:break-all;">
+                                                    <img class="message-avatar" src="{$_SESSION['avatar']}" alt="" >
+                                                    <div class="message" >
+                                                        <a class="message-author" href="javascript:;"> {$_SESSION['uname']} </a>
+                                                        <span class="message-date">   {$message['time']|date='H:i:s',###} </span>
+                                                        <span class="message-content" style="word-break:break-all;">
+                                                            {$message['content']}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            <else/>
+
+                                                <div class="chat-message left" style="word-break:break-all;">
+                                                    <img class="message-avatar" src="{$friends[0]['friend_info']['avatar']}" alt="" >
+                                                    <div class="message">
+                                                        <a class="message-author" href="javascript:;"> {$friends[0]['friend_info']['name']}</a>
+                                                        <span class="message-date"> {$message['time']|date='H:i:s',###}</span>
+                                                        <span class="message-content">
+                                                        {$message['content']} 
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </if>
+                                        </volist>
+                                            
+                                            
+                                      
+                                           
+                                            
+
+                                        </div>
+
+                                    </div>
+                                     
+                                    <div class="col-md-3" id="chat_user">
+                                        <div class="chat-users">
+
+
+                                            <div class="users-list"  >
+
+                                                <volist name="friends"  id="friend">
+                                                    <div class="chat-user">
+                                                        <if condition="$friend['online'] eq 'on' " ><span class="pull-right label label-primary">在线</span></if>
+                                                        <img class="chat-avatar" src="{$friend['friend_info']['avatar']}" alt="" >
+                                                        <div class="chat-user-name">
+                                                            <a href="{:U('Home/User/chat/id/'.$friend['chat']['series'])}"> {$friend['friend_info']['name']}</a>
+                                                        </div>
+                                                    </div>
+                                                </volist>
+                                                
+                                            
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="chat-message-form">
+                                            <form onsubmit="onSubmit(); return false;">
+                                                <div class="form-group">
+                                                    <textarea id="message" type="text" autofocus class="form-control message-input" name="message" placeholder="Enter message text" onkeydown="keydownfun(event)"></textarea>
+                                                   
+                                                    <button type="button" class="btn btn-primary pull-right" onclick="onSubmit()" > 发送 </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                </div>
+
+            </div>
+
+
+        </div>
+         
+
+    </div>
+
+    <div class="small-chat-box fadeInRight animated">
+
+        <div class="heading" draggable="true">
+            <small class="chat-date pull-right">
+                02.19.2015
+            </small>
+            Small chat
+        </div>
+
+        <div class="content">
+
+            <div class="left">
+                <div class="author-name">
+                    Monica Jackson <small class="chat-date">
+                    10:02 am
+                </small>
+                </div>
+                <div class="chat-message active">
+                    Lorem Ipsum is simply dummy text input.
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="author-name">
+                    Mick Smith
+                    <small class="chat-date">
+                        11:24 am
+                    </small>
+                </div>
+                <div class="chat-message">
+                    Lorem Ipsum is simpl.
+                </div>
+            </div>
+            <div class="left">
+                <div class="author-name">
+                    Alice Novak
+                    <small class="chat-date">
+                        08:45 pm
+                    </small>
+                </div>
+                <div class="chat-message active">
+                    Check this stock char.
+                </div>
+            </div>
+            <div class="right">
+                <div class="author-name">
+                    Anna Lamson
+                    <small class="chat-date">
+                        11:24 am
+                    </small>
+                </div>
+                <div class="chat-message">
+                    The standard chunk of Lorem Ipsum
+                </div>
+            </div>
+            <div class="left">
+                <div class="author-name">
+                    Mick Lane
+                    <small class="chat-date">
+                        08:45 pm
+                    </small>
+                </div>
+                <div class="chat-message active">
+                    I belive that. Lorem Ipsum is simply dummy text.
+                </div>
+            </div>
+
+
+        </div>
+        <div class="form-chat">
+            <div class="input-group input-group-sm"><input type="text" class="form-control"> <span class="input-group-btn"> <button
+                    class="btn btn-primary" type="button">Send
+            </button> </span></div>
+        </div>
+
+    </div>
+    <div id="small-chat">
+
+        <span class="badge badge-warning pull-right">5</span>
+        <a class="open-small-chat">
+            <i class="fa fa-comments"></i>
+
+        </a>
+    </div>
+</div>
+
+
+
+<!-- Mainly scripts -->
+<script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+<script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+<script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="__HOME__/uassets/js/inspinia.js"></script>
+<script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var series = "{$series}";
+        var name= "{$_SESSION['uname']}";
+        if(series) $("#chat_user").addClass('hidden-xs'); //手机端隐藏用户列表 (已经进入双方聊天界面) 保留聊天框
+        if(!series) $("#chat_box").addClass('hidden-xs'); //手机端隐藏聊天框   (尚未进入双方聊天界面) 保留用户列表
+        if(series.length < 7 ) return; 
+        if(name)    connect();  //用户已经登录
+    });
+
+    if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+    // 如果浏览器不支持websocket，会使用这个flash自动模拟websocket协议，此过程对开发者透明
+    WEB_SOCKET_SWF_LOCATION = "https://foe.zhfsky.com/Public/Chat/swf/WebSocketMain.swf";
+    // 开启flash的websocket debug
+    WEB_SOCKET_DEBUG = true;
+    var ws, name, client_list={};
+
+    // 连接服务端
+    function connect() {
+       // 创建websocket
+       ws = new WebSocket("wss://"+document.domain+":7272");
+       // 当socket连接打开时，输入用户名
+       ws.onopen = onopen;
+       // 当有消息时根据消息类型显示不同信息
+       ws.onmessage = onmessage; 
+       ws.onclose = function() {
+          console.log("连接关闭，定时重连");
+          connect();
+       };
+       ws.onerror = function() {
+          console.log("出现错误");
+       };
+    }
+
+    // 连接建立时发送登录信息
+    function onopen() {
+        var name= "{$_SESSION['uname']}";
+        if(!name) { 
+            alert('请先登录');return;
+        }
+        // 登录
+        var series_room_id = "{$series}";
+        var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":" '+ series_room_id +'"}';
+        console.log("websocket握手成功，发送登录数据:"+login_data);
+        ws.send(login_data);
+    }
+
+    // 服务端发来消息时
+    function onmessage(e) {
+        console.log(e.data);
+        var data = eval("("+e.data+")");
+        switch(data['type']){
+            // 服务端ping客户端
+            case 'ping':
+                ws.send('{"type":"pong"}');
+                break;;
+            // 登录 更新用户列表
+            case 'login':
+                //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
+                say(data['client_id'], data['client_name'],  '加入了聊天室', data['time']);
+                
+                if(data['client_list']) {
+                    client_list = data['client_list'];
+                } else {
+                    client_list[data['client_id']] = data['client_name']; 
+                }
+                //flush_client_list();
+                console.log(data['client_name']+"登录成功");
+                break;
+            // 发言
+            case 'say':
+                //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                break;
+            // 用户退出 更新用户列表
+            case 'logout':
+                //{"type":"logout","client_id":xxx,"time":"xxx"}
+                say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' 退出了', data['time']);
+                delete client_list[data['from_client_id']];
+                //flush_client_list();
+        }
+    }
+ 
+
+    // 提交对话
+    function onSubmit() {
+        var name= "{$_SESSION['uname']}";
+        if(!name) { 
+            alert('请先登录');return;
+        }
+      var input = document.getElementById("message");
+      if( $.trim(input.value).length < 1 )  return;
+
+      if(input.value.length > 254) {
+        alert('输出太多了') ; return;
+        }
+      var to_client_id = 'all';
+      var to_client_name = '所有人';
+      save(input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r'));//保存到数据库
+      ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
+      input.value = "";
+      input.focus();
+    }
+
+
+
+    // 发言
+    function say(from_client_id, from_client_name, content, time){
+        
+        var name= "{$_SESSION['uname']}";
+        if(from_client_name == name){
+            //自己
+            var avatar = "{$_SESSION['avatar']}";
+            var messdiv = $("<div class='chat-message right'><img class='message-avatar' src='"+ avatar +"' ><div class='message'><a class='message-author' href='javascript:;'>"+ from_client_name +" </a><span class='message-date'> "+ time +"</span> <span class='message-content'> "+ content +"</span></div></div>");
+        }else{
+            //对方
+            var avatar = "{$friends[0]['friend_info']['avatar']}";
+            var messdiv = $("<div class='chat-message left'><img class='message-avatar' src='"+ avatar +"' ><div class='message'><a class='message-author' href='javascript:;'>"+ from_client_name +" </a><span class='message-date'> "+ time +"</span> <span class='message-content'> "+ content +"</span></div></div>");
+        }
+        
+        $("#dialog").append(messdiv);
+        $('#dialog').scrollTop( $('#dialog')[0].scrollHeight );
+
+    }
+
+ 
+    
+    //Enter 键提交
+    function keydownfun(event){  
+        if(event.keyCode == 13){
+            event.preventDefault();//阻止换行
+            onSubmit();
+        }
+    }
+
+    //存储到数据库
+    function save(message){
+        var series = "{$series}";
+        $.post("{:U('Chat/Room/save')}", {series:series,content:message}, function(data,status){
+            if(data && status =='success'){
+                console.log('保存成功');
+            }
+        });
+      }
+</script>
+
+
+
+</body>
+
+</html>

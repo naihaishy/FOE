@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> 发表帖子  | FOE</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #postcontent{
+            height: 450px;
+        }
+    </style>
+
+
+    <!--[if lt IE 9]>
+        <script src="__HOME__/assets/js/html5shiv.js"></script>
+        <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+      <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title"> 发帖 </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#action-->
+
+    <section id="projects" class="padding-top">
+        <div class="container">
+             <div class="row">
+                 <form class="form-horizontal" action="{:U('Forum/Post/add')}" method="post" enctype="multipart/form-data"> 
+                                
+                    <div class="form-group"><label class="col-md-2 control-label">标题</label>
+                         <div class="col-md-10"><input type="text" name="title" class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-md-2 control-label">所属板块</label>
+                        <div class="col-md-10">
+                            <select class="form-control m-b" name="forum_id">
+                                <option value="0">请选择板块</option>
+                                <volist name='forum' id='vol'>
+                                    <option value="{$vol.id}">{$vol.title} --- {$vol['ptitle']}</option>
+                                </volist>
+                                 
+                          </select>
+                        </div>
+                    </div>
+
+               
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-md-2 control-label">内容</label>
+                        <div class="col-md-10"><textarea  id="postcontent" name="content" class="form-control"></textarea><span class="help-block m-b-none">....</span>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-md-2 control-label">标签</label>
+                        <div class="col-md-10"><input type="text"  name="tags" class="form-control" placeholder="例如:  Python,PHP" /><span class="help-block m-b-none">多个标签请用英文逗号（,）分开</span>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-md-2 control-label">添加附件</label>
+                        <div class="col-md-10"><input type="file"  name="attachment" class="form-control" /><span class="help-block m-b-none">多个文件请打包</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary  col-md-offset-10">发布</button>
+                </form>
+             </div>
+        </div>
+    </section>
+    <!--/#projects-->
+
+    <div class="col-md-12" style="padding-bottom: 30px;"></div>
+
+
+ 
+
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script> 
+
+
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('postcontent');
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/forum')}";
+            editor.config.uploadImgFileName = 'upload'
+            editor.create();
+
+
+            //初始化select option radio
+            /*var chose = "{$chose}";
+            $("select option[value='" + chose + "']").attr("selected", "selected");*/
+
+
+        });
+    </script>
+
+
+
+
+
+</body>
+</html>

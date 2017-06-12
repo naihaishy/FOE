@@ -1,0 +1,336 @@
+<html>
+    <head>
+        <title>{$lesson['title']}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//vjs.zencdn.net/5.11/video-js.min.css" rel="stylesheet">
+        
+        <style>
+            li{
+                list-style:none;
+            }
+        </style>
+        
+         
+    </head>
+    
+    <body>
+        <div class="container" style="padding-top: 3%;">
+        <h3><a href="{:U('Course/Index/details/id/'.$lesson['course_id'])}"> {$course['title']} </a></h3>
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <h3> {$lesson['title']}</h3>
+                    <if condition="$lesson['type'] eq 'video'">
+                        <video  id="my-player"  class="video-js"  controls   preload="auto"  height="360px"   data-setup='{}'>
+                          <source src="{$media['uri']}"></source>
+                        </video>
+                     <elseif condition="$lesson['type'] eq 'text'"/>   
+                     <div class="text_content">{$lesson['content']|htmlspecialchars_decode=###}</div> 
+                         
+                    </if>
+
+                    <div>
+                        <hr />
+                        
+                        <h4 ><a href="{:U('Course/Index/details',array('id'=>$lesson['course_id']) )}" class="pull-left">返回上一页</a></h4>
+                        
+                    </div>
+
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a data-toggle="tab" href="#lesson-tab-list"> 课时目录</a></li>
+                          <li class=""><a data-toggle="tab" href="#lesson-tab-question">问答</a></li>
+                          <li class=""><a data-toggle="tab" href="#lesson-tab-note">笔记</a></li>
+                          <li class=""><a data-toggle="tab" href="#lesson-tab-resource">资料</a></li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <!--课时目录-->
+                            <div id="lesson-tab-list" class="tab-pane active">
+                                <div class="col-sm-12">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <volist name='allLesson' id='vol'>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingOne">
+                                                  <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse"  data-parent="#accordion" href="#collapse{$vol.id}" aria-expanded="ture" aria-controls="collapseOne">
+                                                       {$vol.title}
+                                                    </a>
+                                                  </h4>
+                                                </div>
+                                                <div id="collapse{$vol.id}" class="panel-collapse collapse in"  role="tabpanel" aria-labelledby="headingOne">
+                                                  <div class="panel-body"> 
+                                                    <volist name="vol['list']" id="les">
+                                                        <p><a href="{:U('Index/learn',array('id'=>$les['id'] ))}">{$les.title}</a></p>
+                                                    </volist>
+                                                   
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </volist>              
+                                    </div>
+                                     
+                                </div>
+                            </div>
+
+                            <!--问答-->
+                            <div id="lesson-tab-question" class="tab-pane"><br/>
+                                <form method="post" action="" class="form-horizontal" > 
+                                    <input  id="question-lessonid" type="hidden" name="lesson_id" value="{$lesson['id']}"/>
+                                    <div class="form-group"><label class="col-md-2 control-label">我要提问</label>
+                                          <div class="col-md-10">
+                                            <input class="form-control" id="question-title" type="text" name="title" />
+                                          </div>
+                                    </div>
+                                    <div class="form-group" id="questiontexearea"><label class="col-md-2 control-label">问题</label>
+                                        <div class="col-md-10"><textarea   name="content"></textarea></div>
+                                    </div>
+                                    <div class="form-group"> 
+                                      <div class="col-md-12 col-md-offset-10"><button class="btn btn-primary" type="button" id="add-question">添加</button></div>
+                                    </div>
+                                </form> 
+                                 
+                                <h4>问题列表</h4>
+                                <div id="question-list">
+                                    <volist name="questions" id="vol">
+                                        <ul id="question-id-{$vol['id']}">
+                                            <i class="glyphicon glyphicon-tag"></i> {$vol['title']}
+                                            <li >{$vol['content']|htmlspecialchars_decode=###}   <a href="javascript:;" questionid="{$vol['id']}" onclick="answer(this)">回答</a> </li> 
+                                        </ul>
+                                    </volist>
+                                </div>
+                                
+                                
+                                <!---回答问题-->
+                                <div class="modal fade" id="answer-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabela">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">回答</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form  role="form" class="form-horizontal">
+                                            <input type="hidden" name="question_id" value="0">
+                                            <div class="form-group"> 
+                                                <div class="col-sm-12">
+                                                    <textarea  name="answer"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>      
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="add-answer">添加</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div><!--modal end-->
+                                            
+                            </div>
+                            
+                            <!--笔记-->
+                            <div id="lesson-tab-note" class="tab-pane"><br/>
+                                <form method="post" action="" class="form-horizontal" > 
+                                    <input  id="note-lessonid" type="hidden" name="lesson_id" value="{$lesson['id']}"/>
+                                    
+                                    <div class="form-group" id="notetextarea">
+                                  <div class="col-md-12"><textarea id="note_content" name="content">{$note['content']}</textarea></div>
+                              </div>
+                              
+                              <div class="form-group"> 
+                                  <div class="col-md-12 col-md-offset-10"><button class="btn btn-primary" type="button" id="update-note">更新</button></div>
+                              </div>
+                                </form> 
+                                
+                            </div>
+                            <!--资料-->
+                            <div id="lesson-tab-resource" class="tab-pane  ">
+                                <div class="form-group"> 
+                                  <div class="col-md-12 col-md-offset-2">
+                                     <volist name="materials" id="mate">
+                                            <a href="{$mate['uri']}" >{$mate['title']}</a>
+                                     </volist>
+                                  </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                 
+                    
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+               
+            </div>
+     </div>
+        
+        
+        
+        <!--custom script-->
+        <script src="__HOME__/assets/js/jquery.js"></script>
+        <script src="__HOME__/assets/js/bootstrap.min.js"></script>
+        
+        <!--video js -->
+        <script src="//vjs.zencdn.net/5.11/video.min.js"></script>
+        
+        <!--ckeditor  -->
+    <script src="__HOME__/assets/plugins/ckeditor/ckeditor.js"></script>
+    
+    <!---Home learn.js
+        <script src="__HOME__/assets/js/course/learn.js"></script>-->
+        
+        <script>
+            
+        $(document).ready(function() {
+                
+              //$('[data-toggle="popover"]').popover();//popover初始化
+              $('#questiontexearea').hide();
+            CKEDITOR.replace('content',{ height:'150px'  });
+            CKEDITOR.replace('answer',{ height:'150px'  });
+              CKEDITOR.replace('note_content',{ height:'150px'  });
+            })
+        //问题    
+        $('#question-title').focus(function(){
+            $('#questiontexearea').show();
+        });
+        $('#question-title').blur(function(){
+            if(! $("#question-title").val() ){
+                $('#questiontexearea').hide();
+            }
+        });
+
+        
+        
+        //提交问题
+        $('#add-question').on('click',function(){
+            var url="{:U('Course/Index/addQuestions')}";
+            var q_lessonid =$("#question-lessonid").val();
+            var q_title   =$("#question-title").val();
+            var q_content = CKEDITOR.instances.content.getData();
+            
+            $.post( 
+                url,
+                {   lesson_id:q_lessonid,
+                    content:q_content,
+                    title:q_title
+                },
+                function(data,status){
+                if(data && status=='success' ){
+                    alert('添加成功');
+                    $('#questiontexearea').hide();//隐藏文本框
+                    $("#question-title").val(' ');//清空问题标题
+                    //将新提交的问题显示在问题列表
+                    $cont=$('<ul></ul>');
+                    $cont.attr('id',"question-id-"+data);
+                    $cont_i=$('<i></i>');
+                    $cont_i.addClass('glyphicon glyphicon-tag');
+                    
+                    $cont_li=$('<li></li>');
+                    $cont_li_a=$('<a></a>');
+                    $cont_li_a.attr('onclick','answer(this)');
+                    $cont_li_a.attr('href','javascript:;');
+                    $cont_li_a.text('回答');
+                    $cont_li_a.attr('questionid',data);
+                    
+                    $cont_li.append(q_content, $cont_li_a);
+                    $cont.append($cont_i, q_title, $cont_li);
+                    
+                    $('#question-list').append($cont);
+                    
+                }
+                });
+        }); 
+        
+        //回答问题
+        function answer(obj){
+            var questionid=$(obj).attr('questionid');
+            $("input[name='question_id']").val(questionid);
+            $('#answer-modal').modal('show');
+        }
+        
+        $('#add-answer').on('click',function(){
+            var url="{:U('Course/Index/addAnswers')}";
+            var a_questionid =$("input[name='question_id']").val();
+            var a_content  = CKEDITOR.instances.answer.getData();
+            
+            $.post( 
+                url,
+                {   question_id:a_questionid,
+                    answer:a_content
+                },
+                function(data,status){
+                if(data && status=='success' ){
+                    alert('回答成功');
+                    $('#answer-modal').modal('hide');//关闭模态框  暂时没解决数据清楚问题 
+                    
+                    $("#question-id-"+a_questionid).remove();//删除该问题的显示
+                    
+                    $.post(
+                                "{:U('Course/Index/getOneQuestion')}",
+                                {lid: $("#question-lessonid").val() },
+                                function(data,status){
+                                    if(data[0]['content'] && status=='success' ){
+                                        //alert(data[0]['id']);return;
+                                        $cont=$('<ul></ul>');
+                                        $cont.attr('id',"question-id-"+data[0]['id']);
+                                        $cont_i=$('<i></i>');
+                                        $cont_i.addClass('glyphicon glyphicon-tag');
+                                        
+                                        $cont_li=$('<li></li>');
+                                        $cont_li_a=$('<a></a>');
+                                        $cont_li_a.attr('onclick','answer(this)');
+                                        $cont_li_a.attr('href','javascript:;');
+                                        $cont_li_a.text('回答');
+                                        $cont_li_a.attr('questionid',data[0]['id'] );
+                                        
+                                        $cont_li.append(data[0]['content'] ,$cont_li_a);
+                                        $cont.append($cont_i, data[0]['title'], $cont_li);
+                                        
+                                        $('#question-list').append($cont);
+                                        
+                                    }
+                    });//再获取一个问题
+                    
+                }
+                });
+        });
+        
+
+        //更新笔记
+        $('#update-note').on('click',function(){
+            var url="{:U('Course/Index/updateNote')}";
+            var n_lessonid =$("#note-lessonid").val();
+            var n_content = CKEDITOR.instances.note_content.getData();
+            
+            $.post( 
+                url,
+                {   lesson_id:n_lessonid,
+                    content:n_content,
+                },
+                function(data,status){
+                    if(data && status=='success' ){
+                        alert('更新成功');
+                    }
+                });
+        }); 
+
+        $(".text_content").find("img").each(function(){
+            $(this).addClass("img-responsive");
+            $(this).removeAttr("style");
+            $(this).css("width", "100%");
+        });
+        
+        
+        
+        
+        </script>
+ 
+    </body>
+</html>

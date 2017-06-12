@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>隐私设置 | 教师管理后台 Page</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>隐私设置</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>
+                             Setting
+                        </li>
+                        <li class="active">
+                            <strong>privacy</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content">
+                
+                <div class="row">
+                    <form method="post" action="{:U('Teacher/Setting/privacy')}">
+                        <!--说明-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                <h4>说明</h4>
+                                    <div class="form-horizontal" >
+                                        {$direction}                                                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--主页-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>主页 </h5><small> 他人在我的个人主页所能看到的内容</small>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input id="checkbox1" type="checkbox" name="privacy_hide_email"  >
+                                                <label for="checkbox1"> 隐藏邮件地址 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>如果不想被打扰请勾选  默认不隐藏</span> </div>
+                                        </div>
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input id="checkbox2" type="checkbox" name="privacy_hide_all" >
+                                                <label for="checkbox2"> 隐藏个人全部信息 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>不允许任何人看到您的任何信息, 不建议使用 默认不隐藏 </span> </div>
+                                        </div>
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input id="checkbox3" type="checkbox" name="privacy_hide_online" >
+                                                <label for="checkbox3"> 隐藏在线状态 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>默认情况下当您在线时,您的状态会显示在您的主页显示为在线 默认不隐藏</span> </div>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!--课程-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>课程 </h5><small></small>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input id="checkbox4" type="checkbox" name="privacy_hide_course"  >
+                                                <label for="checkbox4"> 隐藏所开课程 </label>
+                                            </div>
+                                            <div class="col-md-6"><span>强烈不建议开启 默认不隐藏</span> </div>
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <button type="submit" class="btn btn-primary col-md-offset-9">保存</button>
+                    </form>
+                    
+                </div>
+                    
+                    
+                
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //初始化select option radio checkbox
+            var setting   = {$setting};//json格式
+            $.each(setting, function(key,val){
+                if(val =='on'){
+                    $(":checkbox[name='"+ key +"']").attr("checked", "checked");
+                }
+            });
+        });
+    </script>
+ 
+
+
+</body>
+
+</html>

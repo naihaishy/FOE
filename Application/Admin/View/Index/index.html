@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理员后台</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- Vector Map  -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/jvectormap/css/jquery-jvectormap-1.2.2.css">
+    <!-- ToDos  -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/todo/css/todos.css">
+    <!-- Morris  -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/morris/css/morris.css">
+ 
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <!--tiles start-->
+                <div class="row">
+                    <if condition="$watch['student'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-red">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-from="0" data-to="{$count['student']}" data-speed="5000"></h1>
+                                    <p>位学员</p>
+                                </div>
+                                <div class="icon"><i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+                    
+                    <if condition="$watch['course'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-turquoise">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-from="0" data-to="{$count['course']}" data-speed="5000"></h1>
+                                    <p>门课程</p>
+                                </div>
+                                <div class="icon"><i class="fa fa-book"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+                    
+                    <if condition="$watch['teacher'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-blue">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-from="0" data-to="{$count['teacher']}" data-speed="5000"></h1>
+                                    <p>位教师</p>
+                                </div>
+                                <div class="icon"><i class="fa fa fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+                    
+                    <if condition="$watch['university'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-purple">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-to="{$count['university']}" data-speed="5000"></h1>
+                                    <p>所学校</p>
+                                </div>
+                                <div class="icon"><i class="fa fa-bar-chart-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+
+                    <if condition="$watch['forum'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-blue">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-to="{$count['forumpost']}" data-speed="5000"></h1>
+                                    <p>个门户帖子</p>
+                                </div>
+                                <div class="icon"><i class="fa fa-comments"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+                    <if condition="$watch['forum'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-yellow">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-to="{$count['tforumpost']}" data-speed="5000"></h1>
+                                    <p>个教师帖子</p>
+                                </div>
+                                <div class="icon"><i class="fa fa-comments-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+
+                    <if condition="$watch['news'] eq 'yes'">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="dashboard-tile detail tile-purple">
+                                <div class="content">
+                                    <h1 class="text-left timer" data-to="{$count['news']}" data-speed="5000"></h1>
+                                    <p>条新闻</p>
+                                </div>
+                                <div class="icon"><i class="fa fa-bar-chart-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+
+
+                    
+                </div>
+                <!--tiles end-->
+                 
+                
+            </section>
+        </section>
+        <!--main content end-->
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html"/>
+        <!--sidebar right end-->
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Level JS-->
+    <script src="__ADMIN__/SpaceLab/assets/plugins/countTo/jquery.countTo.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/weather/js/skycons.js"></script>
+   
+   
+    <!-- Vector Map  -->
+    <script src="__ADMIN__/SpaceLab/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- ToDo List  -->
+    <script src="__ADMIN__/SpaceLab/assets/plugins/todo/js/todos.js"></script>
+    <!--Load these page level functions-->
+    <script>
+    $(document).ready(function() {
+        app.timer();
+        
+       
+    });
+    </script>   
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end--> 
+
+</body>
+
+</html>

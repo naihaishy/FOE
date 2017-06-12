@@ -1,0 +1,85 @@
+<header id="header">      
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 overflow">
+                   <div class="social-icons pull-right">
+                        <ul class="nav nav-pills">
+                        		<li><a href=""><i class="fa fa-share-alt" title="分享"></i></a></li>
+                            <li><a href=""><i class="fa fa-weibo" title="微博登录"></i></a></li>
+                            <if condition="!isset($_SESSION['uid'])">
+                                <li><a href="" onclick="toQzoneLogin()"><i class="fa fa-qq" title="QQ登录"></i></a></li>
+                            </if>
+                            
+                            <li><a href=""><i class="fa fa-wechat" title="微信登录"></i></a></li>
+                            <li><a href="{:U('Teacher/Index/index')}" alt="用户"><i class="fa fa-users" title="教师中心"></i></a></li>
+                            <if condition="isset($_SESSION['uid'])">
+                        		<li><a href="{:U('Home/User/index')}" alt="用户"><i class="fa fa-user" title="用户中心"></i></a></li>
+                        		<li><a href="{:U('Home/User/logout')}" alt="退出"><i class="fa fa-sign-out" title="退出"></i></a></li>
+                            <else />
+                                <li><a href="{:U('Home/Index/signup')}" alt="注册"><i class="fa fa-plus-square-o" title="注册账号"></i></a></li>
+                                <li><a href="{:U('Home/Index/login')}" alt="登录"><i class="fa fa-sign-in" title="账号登录"></i></a></li>
+                            </if>
+                        </ul>
+                    </div> 
+                </div>
+             </div>
+        </div>
+        <div class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="{:U('Home/Index/index')}">
+                        <h1><img src="__HOME__/assets/images/logo.png" alt="logo"></h1>
+                    </a>
+                    
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{:U('Home/Index/index')}">首页</a></li>
+                        <li class="dropdown"><a href="{:U('Course/Index/category')}">课程  </a></li>
+                        <li><a href="{:U('Forum/Index/index')}">论坛</a></li> 
+                        <li><a href="{:U('University/Index/index')}">院校</a></li>                      
+                        <li><a href="{:U('Live/Room/index')}">直播</a></li>   
+                        <li><a href="{:U('Home/News/index')}">新闻</a></li>            
+                    </ul>
+                </div>
+                <div class="search">
+                    <form role="form">
+                        <i class="fa fa-search"></i>
+                        <div class="field-toggle">
+                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+<script type="text/javascript">
+    var childWindow;
+    function toQzoneLogin() {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            //移动设备一般阻止open
+             window.location.href = "{:U('Api/Qqcon/login')}";
+        }else{
+            childWindow = window.open("{:U('Api/Qqcon/login')}","TencentLogin","width=450,height=320,menubar=0,scrollbars=1, resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+        }
+
+    } 
+    function closeChildWindow(){
+        childWindow.close();
+    }
+
+
+
+
+</script>
+
+

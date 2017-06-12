@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>课程中心 | FOE</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet">  
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+	<link href="__HOME__/assets/css/main.css" rel="stylesheet">
+	<link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+	    <script src="__HOME__/assets/js/html5shiv.js"></script>
+	    <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+	  <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">课程中心</h1>
+                            <p> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#action-->
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+                <ul class="portfolio-filter text-center">
+                    <li><a class="btn btn-default active" href="#" data-filter="*">所有</a></li>
+                    <volist name="category" id="vol">
+                    	<li><a class="btn btn-default" href="#" data-filter=".{$vol['slug']}">{$vol['name']}</a></li>
+                    </volist>
+                </ul><!--/#portfolio-filter-->
+                    
+                <div class="portfolio-items">
+                	<volist name="course" id="vol">
+                		<div class="col-xs-6 col-sm-4 col-md-3 portfolio-item {$vol['slug']}">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb">
+                                    <if condition="$vol['has_picture'] eq 1">
+                                    		 <img src="{$vol['picture_path']}" class="img-responsive" alt="{$vol.title}">
+                                    	<else/>
+                                    		 <img src="__HOME__/assets/images/portfolio/default.png" class="img-responsive" alt="{$vol.title}">
+                                    	</if>
+                                </div>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li><a href="{:U('Course/Index/details',array('id'=>$vol['id'])  ) }"><i class="fa fa-link"></i></a></li>
+                                        <li>
+                                        	<if condition="$vol['has_picture'] eq 1">
+                                        		<a href="{$vol['picture_path']}" data-lightbox="example-set">
+                                    			<else/>
+                                    				<a href="__HOME__/assets/images/portfolio/default.png" data-lightbox="example-set">	
+                                        	</if>
+                                        	<i class="fa fa-eye"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="portfolio-info ">
+                                <h2>{$vol['title']}</h2>
+                            </div>
+                        </div>
+                    </div>
+                	</volist>
+                            
+                    
+                </div>
+                <div class="portfolio-pagination">
+                    <ul class="pagination">
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#portfolio-->
+
+
+    <!--footer start-->
+    <include file="Application/Home/View/Footer/footer.html" />
+		<!--footer end--> 
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script>    
+</body>
+</html>

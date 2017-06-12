@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SpaceLab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">{$Think.MODULE_NAME}</a> </li>
+                            <li>{$Think.CONTROLLER_NAME}</li>
+                            <li class="active">{$Think.ACTION_NAME}</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                        <h1 class="h2">邮箱配置</h1>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">更新系统配置</h3>
+                                <div class="actions pull-right">
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal form-border" action="{:U('Admin/Setting/email/type/config')}" method="post" >
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">SMTP 设置</label>
+                                        <div class="col-sm-6">
+                                                <div class="input-group">
+                                                <span class="input-group-addon">SMTP 主机地址</span>
+                                                <input type="text" class="form-control" name="smtp_host"  value="{$data['smtp_host']}"  >
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">SMTP 主机端口</span>
+                                                <input type="text" class="form-control" name="smtp_port" value="{$data['smtp_port']}"  >
+                                            </div>                                        
+                                                           
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">账号设置</label>
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">发信邮箱帐号</span>
+                                                <input type="text" class="form-control" name="smtp_user" value="{$data['smtp_user']}" >
+                                                <span class="input-group-addon">@xxx.com</span>
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">发信邮箱密码</span>
+                                                <input type="text" class="form-control" name="smtp_pass" value="{$data['smtp_pass']}" >
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">发件人EMAIL</span>
+                                                <input type="text" class="form-control" name="from_email" value="{$data['from_email']}" >
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">发送邮件昵称</span>
+                                                <input type="text" class="form-control" name="from_name" value="{$data['from_name']}" >
+                                            </div>
+                                             
+                                        </div>
+                                    </div>
+                                     
+                                          
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-4 col-sm-12">
+                                            <button type="submit" class="btn btn-primary">更新系统设置</button>
+                                        </div>
+                                    </div>
+                                     
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">发送测试邮件</h3>
+                                <div class="actions pull-right">
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal form-border" action="{:U('Admin/Setting/email/type/test')}" method="post" >
+                                    <input type="hidden" class="form-control" name="email_from_name" value="{$data['from_name']}" >
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">测试邮件</label>
+                                        <div class="col-sm-6">
+                                                <div class="input-group">
+                                                <span class="input-group-addon">主题</span>
+                                                <input type="text" class="form-control" name="mail_test_subject" value="Email config Test"  >
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">收件人</span>
+                                                <input type="email" class="form-control" name="mail_test_send_to"   >
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">内容</span>
+                                                <input type="text" class="form-control" name="mail_test_content" value="This is a letter of test. Do not reply."   >
+                                            </div>                                     
+                                                           
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="form-group">
+                                          
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-4 col-sm-12">
+                                                <button type="submit" class="btn btn-primary">发送测试邮件</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+             
+            </section>
+        </section>
+        <!--main content end-->
+        
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+        
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+
+    <!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+    <!--footer end--> 
+</body>
+
+</html>

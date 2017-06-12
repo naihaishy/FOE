@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>  {$email['subject']} </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #postcontent{
+            height: 450px;
+        }
+    </style>
+
+
+</head>
+
+<body  class="top-navigation">
+
+    <div id="wrapper">
+
+         
+        <div id="page-wrapper" class="gray-bg ">
+            <div class="row border-bottom white-bg">
+            <!--header nav-->
+            <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <!--原文-->
+                    <div id="mail_origin" class="col-lg-12 animated fadeInRight">
+                        <div class="mail-box-header">
+                            <div class="pull-right tooltip-demo">
+                                <if condition="$email['to_uid']  eq  $_SESSION['uid'] "><a href="javascript:;" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="回复" onclick="reply(this)" ><i class="fa fa-reply"></i> 回复</a></if>
+                                <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Print email" onclick="javascript:window.print();"><i class="fa fa-print"></i> </a>
+                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </a>
+                            </div>
+                            <a href="{:U('Home/Email/inbox')}" class="btn btn-primary" >返回</a>
+                            <div class="mail-tools tooltip-demo m-t-md">
+
+
+                                <h3>
+                                    <span class="font-noraml">主题: </span>{$email['subject']} 
+                                </h3>
+                                <h4>
+                                    <span class="pull-right font-noraml">{$email['post_time']|date='Y-m-d H:i:s',###} </span>
+                                    <span class="font-noraml">发件人: </span>{$email['sender']['name']} <br/>
+                                    <span class="font-noraml">收件人: </span> {$email['receiver']['name']}
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="mail-box">
+                                <div class="mail-body" >
+                                     {$email['content']} 
+                                       
+                                </div>
+                                <notempty name="email['attachment_id']">
+                                    <div class="mail-attachment">
+                                        <p>
+                                            <span><i class="fa fa-paperclip"></i> 附件</span>
+                                            <a href="{$email['file']['uri']}">下载</a>
+                                        </p>
+
+                                        <div class="attachment">
+                                            <div class="file-box">
+                                                <div class="file">
+                                                    <a href="{$email['file']['uri']}">
+                                                        <span class="corner"></span>
+                                                        <div class="icon">
+                                                            <i class="fa fa-file"></i>
+                                                        </div>
+                                                        <div class="file-name">
+                                                            {$email['file']['name']}
+                                                            <br/>                                                    
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                          
+                                          
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </notempty>
+                                 
+
+                                <div class="mail-body text-right tooltip-demo">
+                                        <if condition="$email['to_uid']  eq  $_SESSION['uid'] "><a class="btn btn-sm btn-white" href="javascript:;" onclick="reply(this)"><i class="fa fa-reply"></i> 回复 </a></if>
+                                        <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="打印" class="btn btn-sm btn-white" onclick="javascript:window.print();"><i class="fa fa-print"></i> 打印</button>
+                                        <button title="" data-placement="top" data-toggle="tooltip" data-original-title="垃圾箱" class="btn btn-sm btn-white"><i class="fa fa-trash-o"></i> 删除</button>
+                                </div>
+                                <div class="clearfix"></div>
+
+
+                        </div>
+                    </div>
+
+                    <!--回复-->
+                    <div id="mail_reply" class="col-lg-12 animated fadeInRight hidden">
+                        <div class="mail-box-header">
+                            <button type="button" class="btn btn-default pull-right" onclick="reply(this)" >取消</button>
+                        </div>
+                        <div  class="mail-box">
+                            <form class="form-horizontal" method="post" action="{:U('Home/Email/compose')}" enctype="multipart/form-data" >
+                                <input type="hidden" name="to_uid" value="{$email['from_uid']}" />
+                                <input type="hidden" name="to_rid" value="{$email['from_rid']}" />
+                             
+                                <div class="form-group"><label class="col-md-2 control-label">主题:</label>
+                                    <div class="col-md-8"><input type="text" class="form-control" name="subject" value="回复: {$email['subject']}"></div>
+                                    <div class="col-md-2"></div>
+                                </div>
+
+                                <div class="form-group"><label class="col-md-2 control-label">内容</label>
+                                    <div class="col-md-8"><textarea  id="postcontent" name="content" class="form-control"></textarea><span class="help-block m-b-none">....</span></div>
+                                    <div class="col-md-2"></div>   
+                                </div>
+
+                                <div class="form-group"><label class="col-md-2 control-label">添加附件</label>
+                                    <div class="col-md-8"><input type="file"  name="attachment" class="form-control" /><span class="help-block m-b-none">多个文件请打包</span></div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary col-lg-offset-10">发送</button>
+                            </form>
+                         </div> 
+                    </div>
+
+
+                </div>
+
+
+                     
+                        
+                    
+
+
+            </div>
+         
+         
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('postcontent');
+            var mail_origin_subject = "{$email['subject']}";
+            var mail_origin_content = "{$email['content']}";
+            var mail_origin_from = "{$email['sender']['name']}";
+            var mail_origin_to = "{$email['receiver']['name']}";
+            var mail_origin_time = "{$email['post_time']|date='Y年m月d日 H:i:s',###}";
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/email')}";
+            editor.config.uploadImgFileName = 'upload'
+            editor.create();
+            editor.$txt.html("<br/><br/><br/><br/><br/><br/><div>-----------原始邮件------------<br/><blockquote><br/><b>发件人:</b>"+ mail_origin_from +"<br/><br/><b> 收件人:</b>"+ mail_origin_to +"<br/><br/><b>发送时间:</b>" + mail_origin_time+ "<br/><br/><b>主题:</b>" + mail_origin_subject + "<br/></blockquote><br/><br/>" +mail_origin_content +"</div>");
+        });
+        function reply(){
+            $("#mail_origin").toggleClass('hidden');
+            $("#mail_reply").toggleClass('hidden');
+        }
+    </script>
+
+ 
+</body>
+
+</html>

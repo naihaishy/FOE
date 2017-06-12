@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> {$teacher['username']} 的直播列表 | 直播 </title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+        <script src="__HOME__/assets/js/html5shiv.js"></script>
+        <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+      <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">直播</h1>
+                            <p ><strong style="color:green;">{$teacher['username']}</strong> 的所有直播 </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#action-->
+    
+    <section id="blog" class="padding-top padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="masonery_area">
+                    <volist name="lives" id="vol">
+                        <div class="col-md-3 col-sm-4">
+                        <div class="single-blog two-column">
+                            <div class="post-thumb">
+                                <a href="{:U('Live/Watch/index',array('id'=>$vol['id']) )}"><img src="{$vol['poster_uri']}" class="img-responsive" alt=""></a>
+                                <div class="post-overlay">
+                                    <span class="uppercase"><a href="#">21 <br><small>四月</small></a></span>
+                                </div>
+                            </div>
+                            <div class="post-content overflow">
+                                <ul class="nav nav-justified post-nav">
+                                    <li><a href="#"><i class="fa fa-tag"></i>{$vol['tags']}</a></li>
+                                </ul>
+                                <h2 class="post-title bold"><a href="blogdetails.html">{$vol['title']} </a></h2>
+                                <h3 class="post-author"><a href="{:U('Live/Room/more/id/'.$vol['room_id'])}"> 主讲: {$teacher['username']} </a></h3>
+                                <p>{$vol['description']|subtext=50 }  </p>
+                                <a href="{:U('Live/Watch/index',array('id'=>$vol['id']) )}" class="read-more">查看详情 </a>
+                                <div class="post-bottom overflow">
+                                    <ul class="nav nav-justified post-nav">
+                                        <li><a href="#" title="观看人数"><i class="fa fa-video-camera"></i>{$vol['watch_num']} </a></li>
+                                        <li><a href="#" title="关注人数" ><i class="fa fa-heart"></i>{$vol['collect_num']} </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        
+                    </volist> 
+                    
+                    
+                </div>
+                <center>{$show}</center>
+            </div>
+        </div>
+    </section>
+    <!--/#blog-->
+
+    <!--footer start-->
+    <include file="Application/Home/View/Footer/footer.html" />
+        <!--footer end--> 
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/audio.min.js"></script>
+    <script>
+      audiojs.events.ready(function() {
+        var as = audiojs.createAll();
+      });
+    </script>
+    <script type="text/javascript" src="__HOME__/assets/js/masonry.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script>    
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Empty Page</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>直播参数</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Live</a>
+                        </li>
+                        <li>
+                             Setting
+                        </li>
+                        <li class="active">
+                            <strong>index</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                	<div class="col-md-12">
+                		<h3> 直播房间号 </h3>
+                		{$data['room_id']} <hr/>
+                		
+                		
+                		<h3>RTMP推流地址</h3>
+                		<span style="color:green;"> <strong> {$data['rtmp']} </strong></span><hr/>
+                		
+                	</div>
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-12">
+                		<h3>软件下载地址</h3>
+                		<span style="color:green;"> <a href="//cdn.zhfsky.com/OBS-Studio-18.0.1-Full-Installer.exe" target="_blank">OBS</a> </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                		<span style="color:green;"> <a href="http://doc.zhfsky.com/a/OBS-Studio-18.0.1-Full-Installer.exe" target="_blank">备用下载</a> </span>
+                		<hr/>
+                		<h3> 软件使用说明</h3>
+                		  <a href="https://foe.zhfsky.com/index.php/Teacher/Help/view/id/1"> 直播软件OBS使用说明</a> <br/>
+                		  <a href="https://foe.zhfsky.com/index.php/Teacher/Help/view/id/2"> 直播RTMP推流的设置</a>  
+                	</div>
+                </div>
+                
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+</body>
+
+</html>

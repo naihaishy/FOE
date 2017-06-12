@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>图片上传</title>
+		<link rel="stylesheet" type="text/css" href="__HOME__/assets/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="col-md-12">
+				<form class="form-horizontal" method="post" action="{:U('Files/Ckeditor/upload/type/image')}" enctype="multi/form-data">
+					<div class="form-group"><label class="col-md-2 control-label">上传图片</label>
+	              	<div class="col-md-6"><input type="file" name="imgfile" class="form-control"></div>
+	              	<div class="col-md-4"></div>
+	              	<button type="submit" class="btn btn-primary">提交</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

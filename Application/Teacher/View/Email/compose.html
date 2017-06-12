@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>撰写信件 | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <!--wangEditor-->
+    <link href="__HOME__/uassets/plugins/wangEditor/dist/css/wangEditor.min.css" rel="stylesheet">
+    <style type="text/css">
+        #postcontent{
+            height: 450px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12 animated fadeInRight">
+                    <div class="mail-box-header">
+                        <div class="pull-right tooltip-demo">
+                            <a href="javascript:;" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="保存为草稿"><i class="fa fa-pencil"></i> 草稿</a>
+                            <a href="{:U('Teacher/Email/inbox')}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="关闭"><i class="fa fa-times"></i> 关闭</a>
+                        </div>
+                        <h2>
+                            撰写邮件
+                        </h2>
+                    </div>
+                    <div class="mail-box">
+
+
+                        <div class="mail-body">
+
+                            <form class="form-horizontal" method="post" action="{:U('Teacher/Email/compose')}" enctype="multipart/form-data" >
+                                <div class="form-group"><label class="col-sm-2 control-label">收件人:</label>
+                                    <div class="col-sm-10"><input type="text" class="form-control" name="to_uid" placeholder="请输入对方用户ID " /></div>
+                                </div>
+                                <div class="form-group"><label class="col-md-2 control-label">对方身份</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control m-b" name="to_rid">
+                                            <option value="3">学生</option>
+                                            <option value="2">教师</option>
+                                            <option value="1">管理员</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">主题:</label>
+                                    <div class="col-sm-10"><input type="text" class="form-control" name="subject"></div>
+                                </div>
+
+                                <div class="form-group"><label class="col-md-2 control-label">内容</label>
+                                    <div class="col-md-10"><textarea  id="postcontent" name="content" class="form-control"></textarea><span class="help-block m-b-none">....</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"><label class="col-md-2 control-label">添加附件</label>
+                                    <div class="col-md-10"><input type="file"  name="attachment" class="form-control" /><span class="help-block m-b-none">多个文件请打包</span>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="mail-body text-right tooltip-demo">
+                            <a href="javascript:;" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="发送" onclick="send()"><i class="fa fa-reply"></i> 发送</a>
+                            <a href="javascript:;" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="取消"><i class="fa fa-times"></i> 取消</a>
+                            <a href="javascript:;" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="保存为草稿"><i class="fa fa-pencil"></i> 保存为草稿</a>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2015
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="__HOME__/uassets/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!--wangEditor-->
+    <script src="__HOME__/uassets/plugins/wangEditor/dist/js/wangEditor.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = new wangEditor('postcontent');
+            editor.config.uploadImgUrl = "{:U('Files/Wangeditor/upload/type/image/domain/email')}";
+            editor.config.uploadImgFileName = 'upload'
+            editor.create();
+        });
+
+        function send(){
+            var postcontent = $("#postcontent").val();
+            var receiver    = $("input[name='to_uid']").val();
+            var subject     = $("input[name='subject']").val();
+            if(!receiver){
+               alert('请输入收件人信息');return; 
+            } 
+            if(!subject){
+               alert('请输入主题');return; 
+            }
+            if(!postcontent){
+               alert('请输入正文内容');return; 
+            }
+            $('form').eq(1).submit();
+        }
+    </script>
+
+</body>
+
+</html>

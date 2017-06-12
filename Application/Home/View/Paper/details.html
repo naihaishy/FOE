@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{$paper['title']}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animation CSS -->
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    
+    <style>
+    	.input_class{
+    		-web-kit-appearance:none;
+  			-moz-appearance: none;
+  			font-size:1.4em;
+				border-radius:4px;
+				border:1px solid #c8cccf;
+				color:red;
+				outline:0;
+    	}
+    	.radio-meta{
+    		color:#000;
+    	}
+    </style>
+    
+</head>
+<body id="page-top" class="landing-page">
+<div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">考试</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="page-scroll" href="#page-top">考试须知</a></li>
+                        <li><a class="page-scroll" href="#radio">单选题</a></li>
+                        <li><a class="page-scroll" href="#multi">多选题</a></li>
+                        <li><a class="page-scroll" href="#check">判断题</a></li>
+                        <li><a class="page-scroll" href="#fill">填空题</a></li>
+                        <li><a class="page-scroll" href="#prog">程序题</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</div>
+
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>考试须知</h1>
+                    <hr/>
+                    <p>本场考试共计{$paper['time_limit'][0]} <if condition="$paper['time_limit'][0] eq 'h'">小时<else/>分钟 </if>
+                    	满分{$paper['total_scores']}分 
+                    	及格{$paper['pass_line']}分 
+                    	可提交{$paper['alow_times']}次
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" name="paper_id" value="{$paper['id']}" />
+	<section id="radio"  class="container  ">
+	    <div class="row">
+	        <div class="col-lg-12 text-center">
+	            <div class="navy-line"></div>
+	            <h1>单选题<br/> <span class="navy">  </span> </h1>
+	            <p>共{$numarr['radio']}题 每题{$unitarr['radio']}分 共{$numarr['radio']*$unitarr['radio']}分 </p>
+	        </div>
+	    </div>
+	    <div class="row">
+	    	<volist  name="exam['radio']" id="radio">
+	    		<div class="col-md-12">
+	            <div class="col-md-6">
+		             <span style="color:green;">第 {$key+1} 题</span> {$radio['stem']|htmlspecialchars_decode=###}
+	            </div>
+	            <div class="col-md-6">
+	               <volist name="radio['metas']" id="meta">
+	               		<ul>
+	               			<span class="radio-meta" metaid="{$i}" > </span>
+	               			<if condition="$radio['answer'] eq $i" >
+	               				<input type="radio" id="radio-ans-{$radio['id']}" value="{$i}" checked="checked" name="ans[{$radio['id']}]">
+	               			<else/>
+	               				<input type="radio" id="radio-ans-{$radio['id']}" value="{$i}" disabled name="ans[{$radio['id']}]">	
+	               			</if>
+	               			{$meta}
+	               		</ul>  	               		
+	               </volist>
+	            </div>
+	            <div class="col-md-12">
+	            	<strong><if condition="$myresult[$radio['id']]['res'] eq 'yes' "><span style="color:green;">回答正确</span> <else/> <span style="color:red;">回答错误</span> </if></strong>
+	            	<notempty name="radio['analysis']">
+	            		<h3 style="color:red;">解析</h3>
+	            		<span style="color:red;"> {$radio['analysis']|htmlspecialchars_decode=###}</span>
+	            	</notempty>    	
+	            </div>
+	        </div>
+	    	</volist>
+	    	
+	        
+	    </div>
+	</section>
+
+
+	<section id="multi"  class=" gray-section">
+	    <div class="row">
+	        <div class="col-lg-12 text-center">
+	            <div class="navy-line"></div>
+	            <h1>多选题<br/> <span class="navy">  </span> </h1>
+	            <p>共{$numarr['multi']}题 每题{$unitarr['multi']}分 共{$numarr['multi']*$unitarr['multi']}分 </p>
+	        </div>
+	    </div>
+	    <div class="row">
+	    	<volist  name="exam['multi']" id="vol">
+	    		<div class="col-md-12">
+	            <div class="col-md-6">
+	             <span style="color:green;">第{$i}题</span> {$vol['stem']|htmlspecialchars_decode=###}
+	            </div>
+	            <div class="col-md-6">
+	            </div>
+	            <div class="col-md-12">
+	            
+	            	<strong><if condition="$myresult[$vol['id']]['res'] eq 'yes' "><span style="color:green;">回答正确</span> <else/> <span style="color:red;">回答错误</span></if></strong>
+	            	<notempty name="vol['analysis']">
+	            		<h3 style="color:red;">解析</h3>
+	            		<span style="color:red;"> {$vol['analysis']|htmlspecialchars_decode=###}</span>
+	            	</notempty>    	
+	            </div>
+	        </div>
+	    	</volist >
+	        
+	    </div>
+	</section>
+
+
+
+	<section id="check" class="container  ">
+	    <div class="row">
+	        <div class="col-lg-12 text-center">
+	            <div class="navy-line"></div>
+	            <h1>判断题<br/> <span class="navy">  </span> </h1>
+	            <p>共{$numarr['check']}题 每题{$unitarr['check']}分 共{$numarr['check']*$unitarr['check']}分 </p>
+	        </div>
+	    </div>
+	    
+	    <div class="row">
+	    	<volist  name="exam['check']" id="vol">
+	    		<div class="col-md-12">
+	            <div class="col-md-6">
+	               <span style="color:green;">第{$i}题</span>  {$vol['stem']|htmlspecialchars_decode=###}
+	            </div>
+	            <div class="col-md-6">
+	            	<if condition="$vol['answer'] eq true">
+	            		<div class="radio radio-success">
+		                  <input type="radio" id="check-right-{$vol['id']}" value="true" checked="checked" name="ans[{$vol['id']}]"  aria-label="正确">
+		                  <label>正确</label>
+		              </div>
+		              <div class="radio radio-danger">
+		                  <input type="radio" id="check-wrong-{$vol['id']}" value="false" disabled name="ans[{$vol['id']}]"   aria-label="错误">
+		                  <label>错误</label>
+		              </div>
+		            <else/>
+		            	<div class="radio radio-success">
+		                  <input type="radio" id="check-right-{$vol['id']}" value="true" disabled name="ans[{$vol['id']}]"  aria-label="正确">
+		                  <label>正确</label>
+		              </div>
+		              <div class="radio radio-danger">
+		                  <input type="radio" id="check-wrong-{$vol['id']}" value="false" checked="checked" name="ans[{$vol['id']}]"   aria-label="错误">
+		                  <label>错误</label>
+		              </div>  
+	            	</if>
+	            	
+	            </div>
+	            <div class="col-md-12">
+	            	<strong><if condition="$myresult[$vol['id']]['res'] eq 'yes' "> <span style="color:green;">回答正确</span> <else/> <span style="color:red;">回答错误</span> </if></strong>
+	            	<notempty name="vol['analysis']">
+	            		<h3 style="color:red;">解析</h3>
+	            		<span style="color:red;"> {$vol['analysis']|htmlspecialchars_decode=###}</span>
+	            	</notempty>    	
+	            </div>
+	        </div>
+	    	</volist>
+	    </div>
+	    
+	 
+	</section>
+
+	<section id="fill"  class=" gray-section">
+	    <div class="row">
+	        <div class="col-lg-12 text-center">
+	            <div class="navy-line"></div>
+	            <h1>填空题<br/> <span class="navy">  </span> </h1>
+	            <p>共{$numarr['fill']}题 每题{$unitarr['fill']}分 共{$numarr['fill']*$unitarr['fill']}分 </p>
+	        </div>
+	    </div>
+	    
+	    <div class="row">
+	    	<volist  name="exam['fill']" id="vol">
+	    		<div class="col-md-12">
+	            <div class="col-md-6">
+	               <span style="color:green;">第{$i}题</span> {$vol['stem']|htmlspecialchars_decode=###}
+	            </div>
+	            <div class="col-md-6">
+
+	            </div>
+	            <div class="col-md-12">
+	            	<strong><if condition="$myresult[$vol['id']]['res'] eq 'yes' "> <span style="color:green;">回答正确</span> <else/> <span style="color:red;">回答错误</span> </if></strong>
+	            	<notempty name="vol['analysis']">
+	            		<h3 style="color:red;">解析</h3>
+	            		<span style="color:red;"> {$vol['analysis']|htmlspecialchars_decode=###}</span>
+	            	</notempty>    	
+	            </div>
+	        </div>
+	    	</volist>
+	    </div>
+	    
+	 
+	</section>
+
+	<section id="prog"  class="container">
+	    <div class="row">
+	        <div class="col-lg-12 text-center">
+	            <div class="navy-line"></div>
+	            <h1>程序题<br/> <span class="navy">  </span> </h1>
+	            <p>共{$numarr['prog']}题 每题{$unitarr['prog']}分 共{$numarr['prog']*$unitarr['prog']}分 </p>
+	        </div>
+	    </div>
+	    
+	    <div class="row">
+	    	<volist  name="exam['prog']" id="vol">
+	    		<div class="col-md-12">
+	            <div class="col-md-6">
+	               <span style="color:green;">第{$i}题</span> <strong>{$vol['metas']['title']}</strong><br/>
+	               <strong>描述</strong><br/> 		{$vol['stem']}  						 <hr/>
+	               <strong>输入</strong><br/>		  {$vol['metas']['input']}		<br/><hr/>
+	               <strong>输出</strong><br/>		  {$vol['metas']['output']}		<br/><hr/>
+	               <strong>样例输入</strong><br/> {$vol['metas']['sample_input']}<br/><hr/>
+	               <strong>样例输出</strong><br/> {$vol['metas']['sample_output']}<br/><hr/>
+	            </div>
+	            <div class="col-md-6"><br/><br/><br/>
+                    <textarea  data-editor='c_cpp' data-ojpid="{$vol['metas']['ojpid']|trim}" name="ans[{$vol['id']}]" id="oj_source_{$vol['metas']['ojpid']|trim}" class="form-control"> {$vol['answer']} </textarea><br/>
+                    
+                    <button type="button" class="btn" id="oj_test_{$vol['metas']['ojpid']|trim}" >检验</button>
+                    <span id="oj_test_re_{$vol['metas']['ojpid']|trim}" style="color:red;"></span><br/>
+                    <span id="oj_test_ti_{$vol['metas']['ojpid']|trim}"></span><br/>
+                    <span id="oj_test_me_{$vol['metas']['ojpid']|trim}"></span><br/>
+                    <div class="runerror hidden" id="oj_test_er_{$vol['metas']['ojpid']|trim}"></div><br/>
+                    
+                </div>
+	            <div class="col-md-12">
+	            	<strong><if condition="$myresult[$vol['id']]['res'] eq 'yes' "> <span style="color:green;">回答正确</span> <else/> <span style="color:red;">回答错误</span> </if></strong>
+	            	<notempty name="vol['analysis']">
+	            		<h3 style="color:red;">解析</h3>
+	            		<span style="color:red;"> {$vol['analysis']|htmlspecialchars_decode=###}</span>
+	            	</notempty>    	
+	            </div>
+	        </div>
+	    	</volist>
+	    </div>
+	    
+	 
+	</section>
+
+	<section id="submit" class="gray-section contact">
+	    <div class="container">
+	    	
+		    	<div class="row m-b-lg">
+		            <div class="col-lg-12 text-center">
+		                <div class="navy-line"></div>
+		                 
+		            </div>
+		      </div>
+	    	
+	    	
+	    		<div class="row">
+	            <div class="col-lg-12 text-center">
+	                <a href="{:U('Home/Index/index')}" class="btn btn-primary" >返回首页</a>
+	            </div>
+	        </div>
+ 
+	        <div class="row" style="padding-bottom:10%;">
+	        	
+	        </div>
+	        <div class="row">
+	            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+	                <p><strong>&copy; 2017 FOE </strong><br/> 本试卷为自动组卷，根据教师相关设置进行程序组卷.</p>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+
+
+<!-- Mainly scripts -->
+<script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+<script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+
+<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+
+<script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+<script src="__HOME__/uassets/js/plugins/wow/wow.min.js"></script>
+
+<!--ace-->
+<script src="//cdn.bootcss.com/ace/1.2.6/ace.js"></script>
+
+<script type="text/javascript">
+	//将编辑器p标签删除
+    $(function(){
+        $("p").each(function(){
+            var content=$(this).html();
+            $(this).replaceWith(content);
+        })
+    })
+
+    //初始化ace编辑器
+    $(document).ready(function(){
+
+        $('textarea').each(function(){
+            var textarea = $(this);
+            var mode = textarea.data('editor');
+            var editDiv = $('<div>', {
+                position: 'absolute',
+                width: textarea.width(),
+                height: '300px',
+                'class': textarea.attr('class')
+            }).insertBefore(textarea);
+
+            textarea.css('visibility', 'hidden');//隐藏textarea
+
+            var editor = ace.edit(editDiv[0]);
+            //editor.renderer.setShowGutter(false);
+            editor.getSession().setValue(textarea.val());
+            editor.setTheme("ace/theme/chrome");
+            editor.setFontSize(20);
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            editor.getSession().setMode("ace/mode/" + mode);
+            // editor.setTheme("ace/theme/idle_fingers");
+            
+            //ojajax 检验按钮
+            textarea.siblings(":button").eq(0).on('click',function(e){
+                //alert(editor.getSession().getValue());
+                url     =   "{:U('Course/Oj/ojAjaxTest')}";
+                ojpid   =   textarea.data('ojpid');
+                ojsource =  editor.getSession().getValue();
+                if(ojsource.length < 6){
+                    alert('代码太短');return;
+                } 
+                datas ={pid:ojpid,source:ojsource};
+                //初始化
+                $('#oj_test_re_'+ojpid).html('OJ运行中...');
+                $('#oj_test_ti_'+ojpid).html(' ');
+                $('#oj_test_me_'+ojpid).html(' ');
+                
+                $('#oj_test_er_'+ojpid).removeClass('hidden');
+
+                var runerroreditort = ace.edit('oj_test_er_'+ojpid);
+                runerroreditort.setOptions({
+                        maxLines: 1000,
+                        autoScrollEditorIntoView: true,
+                        theme: "ace/theme/clouds",
+                        showPrintMargin: false,
+                        mode: "ace/mode/c_cpp"
+                    });
+                runerroreditort.setFontSize(16);
+                runerroreditort.setReadOnly(true);
+                runerroreditort.getSession().setValue(' '); 
+                
+                $.post(url, datas ,function(data, status){
+                    if(data && status=='success'){
+                        $('#oj_test_re_'+ojpid).html(data.result);
+                        $('#oj_test_ti_'+ojpid).html('消耗时间:'+data.time+'ms');
+                        $('#oj_test_me_'+ojpid).html('消耗内存:'+data.memory+'KB');
+                        runerroreditort.getSession().setValue(data.error);
+                    }
+                });
+
+            
+            });
+
+
+            // copy back to textarea on form submit...
+            textarea.closest('form').submit(function () {
+                textarea.val(editor.getSession().getValue());
+            })
+
+
+        });
+        
+    });
+
+</script>
+
+<!-- <script>
+	//ajax oj 
+	function check_oj(obj){
+		
+		url =  "{:U('Course/Oj/ojAjaxTest')}";
+		ojpid = $(obj).attr('ojpid');
+		ojsource = $('#oj_source_'+ ojpid).val();
+		datas ={pid:ojpid,source:ojsource};
+		//初始化
+		$('#oj_test_re_'+ojpid).html('OJ运行中...');
+		$('#oj_test_ti_'+ojpid).html(' ');
+		$('#oj_test_me_'+ojpid).html(' ');
+		$('#oj_test_er_'+ojpid).html(' ');
+				
+		$.post(url, datas ,function(data, status){
+			if(data && status=='success'){
+				$('#oj_test_re_'+ojpid).html(data.result);
+				$('#oj_test_ti_'+ojpid).html(data.time);
+				$('#oj_test_me_'+ojpid).html(data.memory);
+				$('#oj_test_er_'+ojpid).html(data.error);
+			}
+		});
+	}
+	 
+</script> -->
+
+
+
+
+<script>
+	$(document).ready(function(){
+		var metas =$(".radio-meta");
+	 	for($i=0;$i < metas.length; $i++){
+	 		var metaid =metas.eq($i).attr('metaid');
+	 		switch(metaid){
+	 			case '1':
+	 				metachar ='A';
+	 			break;
+	 			case '2':
+	 				metachar ='B';
+	 			break;	
+	 			case '3':
+	 				metachar ='C';
+	 			break;
+	 			case '4':
+	 				metachar ='D';
+	 			break;
+	 			case '5':
+	 				metachar ='E';
+	 			break;
+	 			case '6':
+	 				metachar ='F';
+	 			break;
+	 			case '7':
+	 				metachar ='G';
+	 			break;
+	 		}
+	 		$(".radio-meta").eq($i).text(metachar);
+	 	}
+	});
+	
+</script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('body').scrollspy({
+            target: '.navbar-fixed-top',
+            offset: 80
+        });
+
+        // Page scrolling feature
+        $('a.page-scroll').bind('click', function(event) {
+            var link = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $(link.attr('href')).offset().top - 50
+            }, 500);
+            event.preventDefault();
+        });
+    });
+
+    var cbpAnimatedHeader = (function() {
+        var docElem = document.documentElement,
+                header = document.querySelector( '.navbar-default' ),
+                didScroll = false,
+                changeHeaderOn = 200;
+        function init() {
+            window.addEventListener( 'scroll', function( event ) {
+                if( !didScroll ) {
+                    didScroll = true;
+                    setTimeout( scrollPage, 250 );
+                }
+            }, false );
+        }
+        function scrollPage() {
+            var sy = scrollY();
+            if ( sy >= changeHeaderOn ) {
+                $(header).addClass('navbar-scroll')
+            }
+            else {
+                $(header).removeClass('navbar-scroll')
+            }
+            didScroll = false;
+        }
+        function scrollY() {
+            return window.pageYOffset || docElem.scrollTop;
+        }
+        init();
+
+    })();
+
+    // Activate WOW.js plugin for animation on scrol
+    new WOW().init();
+
+</script>
+<script>
+	$(document).ready(function(){
+		$("input[type='text']").addClass('input_class');
+		$("input[type='text']").attr('disabled','disabled');
+	});
+</script>
+
+</body>
+</html>

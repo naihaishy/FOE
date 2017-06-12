@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Empty Page</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>说明</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Live</a>
+                        </li>
+                        <li>
+                             Setting
+                        </li>
+                        <li class="active">
+                            <strong>index</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content">
+            	
+            	
+            	<!--直播重要信息-->  
+								<div class="row">
+            			<div class="col-lg-12">
+            				<div class="ibox float-e-margins">
+            					<div class="ibox-title">
+                            <h5>本场直播重要信息 </h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                      </div>
+                      <div class="ibox-content">
+                      		<div  class="form-horizontal"  >
+				            				<div class="form-group"><label class="col-md-2 control-label" style="color:red;">RTMP推流地址</label>
+				                        <div class="col-md-6"> 
+				                        	<div class="alert alert-success" role="alert" id="rtmp">  {$data['rtmp']} </div>
+				                        </div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+
+				                    <div class="form-group" id="start_date"><label class="col-md-2 control-label" style="color:red;">RTMP流密钥</label>
+				                    	<div class="col-md-6">			                       
+						                      <div class="alert alert-success" role="alert" id="rtmp_keys">  {$data['rtmp_keys']} </div>
+				                    	</div>
+				                    	<div class="col-md-4"></div>
+											      </div>
+				                     
+				            		  </div>
+                      </div>
+            				</div>
+            			</div>
+            			
+            		</div>
+            		
+            		<!--直播基本信息-->            	
+            		<div class="row">
+            			<div class="col-lg-12">
+            				<div class="ibox float-e-margins">
+            					<div class="ibox-title">
+                            <h5>本场直播基本信息 </h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                      </div>
+                      <div class="ibox-content">
+                      		<div  class="form-horizontal"  >
+				            				<div class="form-group"><label class="col-md-2 control-label">直播名称</label>
+				                        <div class="col-md-6"><input type="text" disabled value="{$data['name']}" class="form-control"></div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    
+				                    
+				                    
+				                    
+				                    <div class="form-group" id="start_date"><label class="col-md-2 control-label">直播日期</label>
+				                    	<div class="col-md-6">
+						                      <input type="text" disabled class="form-control" value="{$data['start']|date='Y-m-d',###}" />
+				                    	</div>
+				                    	<div class="col-md-4"></div>
+											      </div>
+											      
+				                    <div class="form-group"><label class="col-md-2 control-label">开始时间</label>
+				                    	<div class="col-md-6">
+					                        <input type="text" class="form-control"   disabled value="{$data['start']|date='H:i:s',###}" />
+				                    	</div>
+				                    	<div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    <div class="form-group"><label class="col-md-2 control-label">内容简介</label>
+				                        <div class="col-md-6">
+				                        	<span >{$data['description']} </span>
+				                        </div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+				                    
+				                    <div class="form-group"><label class="col-md-2 control-label">直播封面</label>
+		                            <img class="img-responsive" src="{$data['poster_uri']}" />
+				                    </div>
+				                    
+				                    <div class="form-group"><label class="col-md-2 control-label">标签</label>
+				                        <div class="col-md-6">
+				                        	<volist name="data['tags']" id="tag">
+				                        		<span style="color:green;">{$tag}</span> &nbsp;
+				                        	</volist>
+				                        </div>
+				                        <div class="col-md-4"></div>
+				                    </div>
+				                    
+				                     
+				            		  </div>
+                      </div>
+            				</div>
+            			</div>
+            			
+            		</div>
+            		
+            		
+                <div class="row">
+                	<div class="col-md-12">
+                		<h3>软件下载地址</h3>
+                		<span style="color:green;"> <a href="//cdn.zhfsky.com/OBS-Studio-18.0.1-Full-Installer.exe" target="_blank">OBS</a> </span>
+                		<span style="color:green;"> <a href="http://doc.zhfsky.com/a/OBS-Studio-18.0.1-Full-Installer.exe" target="_blank">备用下载</a> </span>
+                		<hr/>
+                		<h3>软件使用说明</h3>
+                		  <a href="https://foe.zhfsky.com/index.php/Teacher/Help/view/id/1"> 直播软件OBS使用说明</a> <br/>
+                		  <a href="https://foe.zhfsky.com/index.php/Teacher/Help/view/id/2"> 直播RTMP推流的设置</a>  
+                	</div>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+   
+ 
+ 
+
+
+</body>
+
+</html>

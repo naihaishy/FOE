@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>通知设置 | 教师管理后台 Page</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+            
+
+            <div class="wrapper wrapper-content">
+                
+                <div class="row">
+                    <form method="post" action="{:U('Home/Setting/inform')}">
+                        <!--说明-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                <h4>说明</h4>
+                                    <div class="form-horizontal" >
+                                        <p> 本设置主要指后台个人<span class="green"><strong>消息通知</strong></span>里消息的来源设置。不通过邮件告知个人，若想接受邮件通知,请前往<a href="{:U('Home/Setting/email')}">邮件设置</a></p>      
+                                        <p> 通过本设置可以选择<span class="red"><strong>接收</strong></span>哪些系统消息或者提醒</p>                                                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--课程通知-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>课程 </h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group"><div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="inform_course_question_nswer"   >
+                                                <label  > 当有人回答我的课程提问时</label>
+                                            </div>
+                                            <div class="col-md-6"><span></span> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!--直播-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>直播 </h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="inform_follow_create_live"  >
+                                                <label  > 当我关注的教师创建一个直播时 </label>
+                                            </div>
+                                             
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="inform_foloow_live_later"   >
+                                                <label  > 当我关注的直播还有3天,1天时就要开始时 </label>
+                                            </div>
+                                             
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--论坛通知-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>论坛 </h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="inform_forum_post_reply"  >
+                                                <label  > 我发表的帖子有人回复时 </label>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--later start course-->
+                                                <input   type="checkbox" name="inform_forum_quote_reply"   >
+                                                <label  > 有人引用了我的回复 </label>
+                                            </div>
+                                            
+                                        </div>
+ 
+                                        <div class="form-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--later start course-->
+                                                <input   type="checkbox" name="inform_forum_post_essence" >
+                                                <label > 我发表的帖子被加精华时 </label>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--later start course-->
+                                                <input   type="checkbox" name="inform_forum_post_unessence" >
+                                                <label > 我发表的帖子被取消精华时 </label>
+                                            </div>
+                                            
+                                             
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--answe accept-->
+                                                <input   type="checkbox" name="inform_forum_post_stick"   >
+                                                <label  > 我发表的帖子被置顶时 </label>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--answe accept-->
+                                                <input   type="checkbox" name="inform_forum_post_unstick"   >
+                                                <label  > 我发表的帖子被取消置顶时 </label>
+                                            </div>
+                                             
+                                             
+                                        </div>  
+                                        <div class="form-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--later end course-->
+                                                <input   type="checkbox" name="inform_forum_post_delete"   >
+                                                <label  >我发表的帖子被删除时</label>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary"><!--later end course-->
+                                                <input   type="checkbox" name="inform_forum_post_edit"   >
+                                                <label  >我发表的帖子被编辑时</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--系统消息-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>系统消息 </h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal" >
+                                        <div class="form-group">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="inform_account_login"   >
+                                                <label  > 登录提醒</label>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-5 checkbox checkbox-primary">
+                                                <input   type="checkbox" name="inform_account_changepass"  >
+                                                <label  > 修改密码提醒 </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    
+                        <button type="submit" class="btn btn-primary col-md-offset-9">保存</button>
+                    </form>
+                    
+                </div>
+                    
+                    
+                
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+
+            //label
+            var checkboxs = $(":checkbox");
+            $.each(checkboxs, function(index){
+                $(this).attr('id', 'checkbox'+index);
+                $(this).next().attr('for', 'checkbox'+index);
+            });
+
+
+            //初始化select option radio checkbox
+            var setting   = {$setting};//json格式
+            //alert(setting);
+            $.each(setting, function(key,val){
+                if(val =='on'){
+                    $(":checkbox[name='"+ key +"']").attr("checked", "checked");
+                }
+            });
+
+
+            
+
+        });
+    </script>
+ 
+
+
+</body>
+
+</html>

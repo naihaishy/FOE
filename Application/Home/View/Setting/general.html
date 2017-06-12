@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>常规设置 | 教师管理后台 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+
+    <!-- Toastr style -->
+    <link href="__HOME__/uassets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+</head>
+
+<body class="">
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>常规设置</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>
+                             Setting
+                        </li>
+                        <li class="active">
+                            <strong>general</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content">
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>管理后台界面设置</h3>
+                        <form method="post" action="{:U('Teacher/Setting/general')}" class="form-horizontal" enctype="multipart/form-data" >
+                            
+                            <!--布局设置-->
+                            <div class="col-md-6 skin-setttings">
+                                <div class="setings-item"><strong>菜单折叠</strong> 
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                            <label class="onoffswitch-label" for="collapsemenu">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setings-item"><strong>固定侧边栏</strong> 
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar">
+                                            <label class="onoffswitch-label" for="fixedsidebar">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setings-item"><strong>顶部导航栏</strong> 
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                            <label class="onoffswitch-label" for="fixednavbar">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setings-item"><strong>盒子布局</strong> 
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                            <label class="onoffswitch-label" for="boxedlayout">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setings-item"><strong>固定页脚</strong> 
+                                    <div class="switch">
+                                        <div class="onoffswitch">
+                                            <input type="checkbox" name="fixedfooter" class="onoffswitch-checkbox" id="fixedfooter">
+                                            <label class="onoffswitch-label" for="fixedfooter">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            <!--主题设置-->
+                            <div class="col-md-6">
+                                <div class="title"><h4>主题</h4></div>
+                                <div class="setings-item default-skin">
+                                        <span class="skin-name ">
+                                             <a href="#" class="s-skin-0">
+                                                 默认
+                                             </a>
+                                        </span>
+                                </div>
+                                <div class="setings-item blue-skin">
+                                        <span class="skin-name ">
+                                            <a href="#" class="s-skin-1">
+                                                明亮蓝色
+                                            </a>
+                                        </span>
+                                </div>
+                                <div class="setings-item ultra-skin">
+                                        <span class="skin-name ">
+                                            <a  href="#" class="s-skin-2">
+                                                材质
+                                            </a>
+                                        </span>
+                                </div>
+                                <div class="setings-item yellow-skin">
+                                        <span class="skin-name ">
+                                            <a href="#" class="s-skin-3">
+                                                黄色/紫色
+                                            </a>
+                                        </span>
+                                </div>
+                                
+                            </div>
+                        </form>
+                           
+                         
+                    </div>
+                    <button type="button" class="btn  col-md-offset-10" id="save_config"> 保存</button>    
+                </div><hr/>
+                    
+                    
+                
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+
+    <!-- Toastr script -->
+    <script src="__HOME__/uassets/js/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+    // Config box
+
+    // Enable/disable fixed top navbar
+    $('#fixednavbar').click(function () {
+        if ($('#fixednavbar').is(':checked')) {
+            $(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
+            $("body").removeClass('boxed-layout');
+            $("body").addClass('fixed-nav');
+            $('#boxedlayout').prop('checked', false);
+
+            if (localStorageSupport) {
+                localStorage.setItem("boxedlayout",'off');
+            }
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixednavbar",'on');
+            }
+        } else {
+            $(".navbar-fixed-top").removeClass('navbar-fixed-top').addClass('navbar-static-top');
+            $("body").removeClass('fixed-nav');
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixednavbar",'off');
+            }
+        }
+    });
+
+    // Enable/disable fixed sidebar
+    $('#fixedsidebar').click(function () {
+        if ($('#fixedsidebar').is(':checked')) {
+            $("body").addClass('fixed-sidebar');
+            $('.sidebar-collapse').slimScroll({
+                height: '100%',
+                railOpacity: 0.9
+            });
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixedsidebar",'on');
+            }
+        } else {
+            $('.sidebar-collapse').slimscroll({destroy: true});
+            $('.sidebar-collapse').attr('style', '');
+            $("body").removeClass('fixed-sidebar');
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixedsidebar",'off');
+            }
+        }
+    });
+
+    // Enable/disable collapse menu
+    $('#collapsemenu').click(function () {
+        if ($('#collapsemenu').is(':checked')) {
+            $("body").addClass('mini-navbar');
+            SmoothlyMenu();
+
+            if (localStorageSupport) {
+                localStorage.setItem("collapse_menu",'on');
+            }
+
+        } else {
+            $("body").removeClass('mini-navbar');
+            SmoothlyMenu();
+
+            if (localStorageSupport) {
+                localStorage.setItem("collapse_menu",'off');
+            }
+        }
+    });
+
+    // Enable/disable boxed layout
+    $('#boxedlayout').click(function () {
+        if ($('#boxedlayout').is(':checked')) {
+            $("body").addClass('boxed-layout');
+            $('#fixednavbar').prop('checked', false);
+            $(".navbar-fixed-top").removeClass('navbar-fixed-top').addClass('navbar-static-top');
+            $("body").removeClass('fixed-nav');
+            $(".footer").removeClass('fixed');
+            $('#fixedfooter').prop('checked', false);
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixednavbar",'off');
+            }
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixedfooter",'off');
+            }
+
+
+            if (localStorageSupport) {
+                localStorage.setItem("boxedlayout",'on');
+            }
+        } else {
+            $("body").removeClass('boxed-layout');
+
+            if (localStorageSupport) {
+                localStorage.setItem("boxedlayout",'off');
+            }
+        }
+    });
+
+    // Enable/disable fixed footer
+    $('#fixedfooter').click(function () {
+        if ($('#fixedfooter').is(':checked')) {
+            $('#boxedlayout').prop('checked', false);
+            $("body").removeClass('boxed-layout');
+            $(".footer").addClass('fixed');
+
+            if (localStorageSupport) {
+                localStorage.setItem("boxedlayout",'off');
+            }
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixedfooter",'on');
+            }
+        } else {
+            $(".footer").removeClass('fixed');
+
+            if (localStorageSupport) {
+                localStorage.setItem("fixedfooter",'off');
+            }
+        }
+    });
+
+    // SKIN Select
+    $('.spin-icon').click(function () {
+        $(".theme-config-box").toggleClass("show");
+    });
+
+    // Default skin
+    $('.s-skin-0').click(function () {
+        $("body").removeClass("skin-1");
+        $("body").removeClass("skin-2");
+        $("body").removeClass("skin-3");
+        if (localStorageSupport) {
+            localStorage.setItem("skinconfig",'skin-0');
+        }
+    });
+
+    // Blue skin
+    $('.s-skin-1').click(function () {
+        $("body").removeClass("skin-2");
+        $("body").removeClass("skin-3");
+        $("body").addClass("skin-1");
+        if (localStorageSupport) {
+            localStorage.setItem("skinconfig",'skin-1');
+        }
+    });
+
+    // Inspinia ultra skin
+    $('.s-skin-2').click(function () {
+        $("body").removeClass("skin-1");
+        $("body").removeClass("skin-3");
+        $("body").addClass("skin-2");
+        if (localStorageSupport) {
+            localStorage.setItem("skinconfig",'skin-2');
+        }
+    });
+
+    // Yellow skin
+    $('.s-skin-3').click(function () {
+        $("body").removeClass("skin-1");
+        $("body").removeClass("skin-2");
+        $("body").addClass("skin-3");
+        if (localStorageSupport) {
+            localStorage.setItem("skinconfig",'skin-3');
+        }
+    });
+
+    if (localStorageSupport) {
+        var collapse = localStorage.getItem("collapse_menu");
+        var fixedsidebar = localStorage.getItem("fixedsidebar");
+        var fixednavbar = localStorage.getItem("fixednavbar");
+        var boxedlayout = localStorage.getItem("boxedlayout");
+        var fixedfooter = localStorage.getItem("fixedfooter");
+
+        if (collapse == 'on') {
+            $('#collapsemenu').prop('checked','checked')
+        }
+        if (fixedsidebar == 'on') {
+            $('#fixedsidebar').prop('checked','checked')
+        }
+        if (fixednavbar == 'on') {
+            $('#fixednavbar').prop('checked','checked')
+        }
+        if (boxedlayout == 'on') {
+            $('#boxedlayout').prop('checked','checked')
+        }
+        if (fixedfooter == 'on') {
+            $('#fixedfooter').prop('checked','checked')
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $("#save_config").on('click',function(){
+        if(localStorageSupport){
+            var collapse     = localStorage.getItem("collapse_menu");
+            var fixedsidebar = localStorage.getItem("fixedsidebar");
+            var fixednavbar  = localStorage.getItem("fixednavbar");
+            var boxedlayout  = localStorage.getItem("boxedlayout");
+            var fixedfooter  = localStorage.getItem("fixedfooter");
+            var skinconfig   = localStorage.getItem("skinconfig");
+            $.post(
+                "{:U('Teacher/Setting/general')}",
+                {   collapse:collapse, 
+                    fixedsidebar:fixedsidebar, 
+                    fixednavbar:fixednavbar, 
+                    boxedlayout:boxedlayout, 
+                    fixedfooter:fixedfooter, 
+                    skinconfig:skinconfig
+                },
+                 function(data, status){
+                if(data && status=='success'){
+                    toastr.success(' ','更新成功!');
+                    toastr.options = {
+                          "closeButton": true,
+                          "progressBar": true,
+                          "positionClass": "toast-top-right",
+                          "onclick": null,
+                          "showDuration": "300",
+                          "hideDuration": "1000",
+                          "timeOut": "1000",
+                          "extendedTimeOut": "600",
+ 
+                        }
+                }else{
+                    toastr.warning(' ','没有任何改变!');
+                    toastr.options = {
+                          "closeButton": true,
+                          "debug": false,
+                          "progressBar": true,
+                          "preventDuplicates": false,
+                          "positionClass": "toast-top-right",
+                          "showDuration": "300",
+                          "hideDuration": "1000",
+                          "timeOut": "1000",
+                          "extendedTimeOut": "600",
+ 
+                        }
+                }
+
+            });
+
+        }
+    });
+</script>
+
+
+</body>
+
+</html>

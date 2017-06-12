@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{$forum['title']} | 教师管理后台</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!--Navbar static left -->
+        <include file="Application/Course/View/Navbar/left.html" />
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <!--Navbar static top -->
+        <include file="Application/Course/View/Navbar/top.html" />
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>论坛</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Teacher</a>
+                        </li>
+                        <li>
+                            Forum 
+                        </li>
+                        <li class="active">
+                            <strong>index</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content animated fadeInRight">
+
+                        <div class="ibox-content m-b-sm border-bottom">
+                            <div class="p-xs">
+                                <div class="pull-left m-r-md">
+                                    <i class="fa fa-globe text-navy mid-icon"></i>
+                                </div>
+                                <h2> {$forum['title']} </h2>
+                                <span> {$forum['description']}</span>
+                            </div>
+                        </div>
+                        <!--该主版块下的所有子版块-->
+                        <div class="ibox-content forum-container">
+                            
+                            <div class="forum-title">
+                                <div class="pull-right forum-desc">
+                                    <samll>总有: {$total_post_count}个帖子</samll>
+                                </div>
+                                <h3> 子版块 </h3>
+                            </div>
+                            <volist name="subforum" id="vol"><!--开始遍历-->
+                                <div class="forum-item active">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="forum-icon">
+                                                <i class="fa fa-shield"></i>
+                                            </div>
+                                            <a href="{:U('Teacher/Forum/lists/id/'.$vol['id'])}" class="forum-item-title"> {$vol['title']} </a>
+                                            <div class="forum-sub-title">{$vol['description']} </div>
+                                        </div>
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">
+                                                {$vol['view_count']}
+                                            </span>
+                                            <div>
+                                                <small>查看</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">
+                                                {$vol['reply_count']}
+                                            </span>
+                                            <div>
+                                                <small>回复</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 forum-info">
+                                            <span class="views-number">
+                                                {$vol['post_count']}
+                                            </span>
+                                            <div>
+                                                <small>帖子</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+         
+
+
+            <div class="footer">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2015
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+
+</body>
+
+</html>

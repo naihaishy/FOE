@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>更新判断题 | 教师管理后台 </title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+ 
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+ 
+ 
+ 
+    
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--navbar-static-side start-->
+         <include file="Application/Course/View/Navbar/left.html" />
+            <!--navbar-static-side end-->
+    
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+             <!--navbar-static-top start-->
+             <include file="Application/Course/View/Navbar/top.html" />
+                <!--navbar-static-top end-->
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>编辑判断题</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Course</a>
+                        </li>
+                        <li>
+                            <a>Question</a>
+                        </li>
+                        <li class="active">
+                            <strong>Edit</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>题目信息</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form method="post" action="{:U('Question/edit',array('type'=>'check', 'qid'=>$question['id'] ) ) }" class="form-horizontal" >
+                                 
+                                 
+                                <div class="form-group"><label class="col-md-2 control-label">所属课程</label>
+                                    
+                                    <div class="col-md-10">
+                                        <select class="form-control m-b" name="course_id">
+                                            <option value="0">请选择课程</option>
+                                                <volist name='course' id='vol'>
+                                                    <option value="{$vol.id}">{$vol.title}</option>
+                                                </volist>
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">题干内容 <br/><br/><br/></label>
+                                      <div class="col-md-10"><textarea id="stem" name="stem">{$question['stem']|htmlspecialchars_decode=###}</textarea></div>
+                                </div>
+ 
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">题目解析</label>
+                                      <div class="col-md-10"><textarea id="analysis" name="analysis"> {$question['analysis']|htmlspecialchars_decode=###} </textarea> </div>
+                                      <span class="col-md-12 col-md-offset-2" style="color:green;">
+                                         可空,若填则可帮助学生理解
+                                      </span>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">答案</label>
+                                      <div class="col-md-10">
+                                        <input   type="radio" name="answer" value="true" />正确
+                                        <input   type="radio" name="answer" value="false" />错误
+                                      </div>
+                                </div>
+ 
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">难易程度</label>
+                                      <div class="col-md-10">
+                                        <input   type="radio" name="difficulty" value="easy" checked="checked" />容易
+                                        <input   type="radio" name="difficulty" value="normal" />中等
+                                        <input   type="radio" name="difficulty" value="hard" />困难
+                                      </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group"><label class="col-md-2 control-label">备注</label>
+                                      <div class="col-md-10">
+                                        <input class="form-control"  type="text" name="remarks" value="{$question['remarks']}" placeholder="例如：C语言期末考试A卷第5题" />
+                                        <span  class="help-block">方便您区分题目 选填</span>
+                                      </div>
+                                </div>
+                                
+                                
+                                
+           
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-md-12 col-md-offset-10">
+                                            <button class="btn btn-primary" type="submit">更新</button>
+                                                                               
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+        </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+    
+    <!--ckeditor  -->
+    <script src="__HOME__/uassets/plugins/ckeditor/ckeditor.js"></script>
+    
+ 
+    
+    <script>
+        $(document).ready(function() {
+            CKEDITOR.replace('stem');
+            CKEDITOR.replace('analysis',{ height:'120px'  });
+            
+            //初始化select option radio
+                var courseid = "{$question['course_id']}";
+                $("select option[value='" + courseid + "']").attr("selected", "selected");
+                var difficulty = "{$question['difficulty']}";
+                $(":radio[value='" + difficulty + "']").attr("checked","checked");
+                var answer = "{$question['answer']}";
+                $(":radio[value='" + answer + "']").attr("checked","checked");
+         });
+         
+         
+  
+         
+         
+    </script>
+ 
+   
+ 
+ 
+ 
+</body>
+
+</html>

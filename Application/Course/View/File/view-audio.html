@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>{$file['title']}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+		 
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="col-md-12">
+				
+			</div>
+			<div class="col-md-12"> 
+				 <audio src="{$file['uri']}" controls="controls" autoplay="autoplay">您的浏览器不支持Audio
+				 </audio>
+			</div>
+		</div>
+		
+		<div>
+			<h3>{$file['title']}</h3><hr />
+			
+			<h4 id="back" onclick="back()"><a href="">返回上一页</a></h4>
+			
+		</div>
+		<script>
+			function back(){
+				window.history.back();
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SpaceLab</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__ADMIN__/SpaceLab/assets/img/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Fonts from Font Awsome -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/font-awesome.min.css">
+    <!-- CSS Animate -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/animate.css">
+    <!-- Custom styles for this theme -->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/css/main.css">
+    <!-- iCheck-->
+    <link rel="stylesheet" href="__ADMIN__/SpaceLab/assets/plugins/icheck/css/_all.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+    <!-- Feature detection -->
+    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="__ADMIN__/SpaceLab/assets/js/html5shiv.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <section id="container">
+        <!--header start-->
+        <include file="Application/Admin/View/Header/tpl-header.html" />
+        <!--header end-->
+        
+        <!--sidebar start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar.html" />
+        <!--sidebar end-->
+        
+        <!--main content start-->
+        <section class="main-content-wrapper">
+            <section id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--breadcrumbs start -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">Dashboard</a>
+                            </li>
+                            <li>学员</li>
+                            <li class="active">添加学员</li>
+                        </ul>
+                        <!--breadcrumbs end -->
+                        <h1 class="h1">添加学员</h1>
+                    </div>
+                </div>
+
+ 
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">基本信息</h3>
+                                <div class="actions pull-right">
+                                    <i class="fa fa-chevron-down"></i>
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal form-border" id="add_user_form" method="post" action="{:U('Student/add')}">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">学员姓名</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="user_name" name="user_name" class="form-control" placeholder="请输入学员姓名 必填">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">初始密码</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" readonly="readonly" class="form-control" value="初始密码将系统随机生成 发送至注册邮箱">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">电子邮箱</label>
+                                        <div class="col-sm-6">
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="请输入电子邮箱 必填">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">手机号码</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="tel" name="tel" class="form-control" placeholder="请输入手机号码 必填">
+                                        </div>
+                                    </div>
+                            				<div class="form-group">
+                                        <label class="col-sm-3 control-label">学员昵称</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="nick_name" name="nick_name" class="form-control" placeholder="请输入学员昵称 可留空">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">备注</label>
+                                        <div class="col-sm-6">
+                                            <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                  		<div class="col-md-3"></div>
+                                  		<div class="col-md-3">
+                                  			<input type="submit" class="btn btn-success btn-trans" value="提交"/>
+                                  		</div>
+                                  		<div class="col-md-2"></div>
+                                  		<div class="col-md-4">
+                                  			<input type="reset"  class="btn btn-default  btn-trans" value="重置"/> 
+                                  		</div>
+                                   	 	  
+                                   		 
+                                    </div>  
+                                     
+                                </form>
+																
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+
+            </section>
+        </section>
+        <!--main content end-->
+        <!--sidebar right start-->
+        <include file="Application/Admin/View/Sidebar/tpl-sidebar-right.html" />
+        <!--sidebar right end-->
+    </section>
+    <!--Global JS-->
+    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <!--Page Level JS-->
+    <script src="__ADMIN__/SpaceLab/assets/plugins/validation/js/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script type="text/javascript">
+    	
+    </script>
+		<script type="text/javascript">
+ 
+
+        $(document).ready(function() {
+            $('#add_user_form').validate({
+                rules: {
+                    user_name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    tel: {
+                   		 	required: true,
+                    		digits:true,
+                    		rangelength:[10,12]                        
+                    }                  
+                },
+                messages: {
+							      user_name: {
+							        required:  "请输入学员姓名",
+							        minlength: "用户名必需至少有两位"
+							      },
+							      tel:{
+							      	required:"请输入11位手机号码",
+							      	rangelength:"手机号码暂时都是11位数的~"	
+							      },
+							      email: "请输入一个正确的邮箱"
+							    }
+            });
+        });
+    </script>
+    
+<!--footer start-->
+     <include file="Application/Admin/View/Index/tpl-footer.html" />
+<!--footer end-->     
+</body>
+
+</html>

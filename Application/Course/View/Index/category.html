@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>课程分类--{$_SESSION['cat_title_head']} | FOE</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/lightbox.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/animate.min.css" rel="stylesheet"> 
+        <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+        <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+        <script src="__HOME__/assets/js/html5shiv.js"></script>
+        <script src="__HOME__/assets/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__HOME__/assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__HOME__/assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__HOME__/assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__HOME__/assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+      <!--header start-->
+    <include file="Application/Home/View/Header/header.html" />
+    <!--header end-->
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">全部课程</h1>
+                            <p>分类搜索>>> {$_SESSION['cat_title_head']} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#action-->
+
+    <section id="projects" class="padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8">
+                    <div class="row">
+                        <volist name="course" id="vol">
+                            <div class="col-xs-6 col-sm-6 col-md-4 portfolio-item">
+                            <div class="portfolio-wrapper">
+                                <div class="portfolio-single">
+                                    <div class="portfolio-thumb">
+                                        <if condition="$vol['has_picture'] eq 1">
+                                             <img src="{$vol['picture_path']}" class="img-responsive" style="width:262px;height: 150px;" alt="{$vol.title}">
+                                        <else/>
+                                             <img src="__HOME__/assets/images/portfolio/default.png" class="img-responsive"  style="width:262px;height: 150px;" alt="{$vol.title}">
+                                        </if>
+                                        
+                                    </div>
+                                    <a href="__CONTROLLER__/details/id/{$vol.id}" class="portfolio-view" title="查看{$vol.title}详细介绍"></a>
+                                </div>
+                                <div class="portfolio-info ">
+                                    <h2>{$vol.title}</h2>
+                                </div>
+                            </div>
+                          </div>   
+                        </volist>
+                                    
+                    </div>
+                        <div class="portfolio-pagination">
+                            <ul class="pagination">
+                                {$show}
+                            </ul>
+                        </div>    
+                </div>
+                <div class="col-md-3 col-sm-4">
+                    <div class="sidebar portfolio-sidebar">
+                        <div class="sidebar-item categories">
+                            <h3>课程分类</h3>
+                            <ul class="nav navbar-stacked">
+                                    <li><a href="__CONTROLLER__/category">全部<span class="pull-right">(<php>echo $_SESSION['course_count'];</php>)</span></a></li> 
+                                    <volist name='category' id='vol'>
+                                        <li><a href="__CONTROLLER__/category/id/{$vol.id}">{$vol.name}<span class="pull-right">({$vol.count})</span></a></li> 
+                                    </volist> 
+                            </ul>
+                        </div>
+                        <div class="sidebar-item  recent">
+                            <h3>新开的课程</h3>
+                            <volist name="latest_courses" id="vol">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <if condition="$vol['has_picture'] eq 1">
+                                             <a href="#"><img src="{$vol['picture_path']}"   style="height: 52px;" alt="{$vol.title}"></a>
+                                        <else/>
+                                             <a href="#"><img src="__HOME__/assets/images/portfolio/default.png" style="height: 52px;"  alt="{$vol.title}"></a>
+                                        </if>
+                                         
+                                    </div>
+                                    <div class="media-body">
+                                        <h4><a href="{:U('Course/Index/details/id/'.$vol['id'])}">{$vol['title']} </a></h4>
+                                        <p>发布于 {$vol['release_date']|date='Y-m-d',###} </p>
+                                    </div>
+                                </div>
+                            </volist>
+                            
+                             
+                        </div>
+                        <div class="sidebar-item popular">
+                            <h3>受欢迎的课程</h3>
+                            <ul class="gallery">
+                            <volist name="popular_courses" id="vol">
+                                <li><a href="{:U('Course/Index/details/id/'.$vol['id'])}">
+                                    <if condition="$vol['has_picture'] eq 1">
+                                         <img src="{$vol['picture_path']}" class="img-responsive" style="width:75px;height: 42px;"  alt="{$vol.title}">
+                                    <else/>
+                                         <img src="__HOME__/assets/images/portfolio/default.png"  class="img-responsive" style="width:75px;height: 42px;" alt="{$vol.title}">
+                                    </if>
+                                     {$vol['title']}
+                                    </a></li>
+                            </volist>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#projects-->
+
+
+    <!--footer start-->
+    <include file="Application/Home/View/Footer/footer.html" />
+    <!--footer end--> 
+
+
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/lightbox.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/wow.min.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/main.js"></script>   
+</body>
+</html>

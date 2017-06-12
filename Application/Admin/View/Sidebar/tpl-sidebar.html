@@ -1,0 +1,31 @@
+<!--sidebar start-->
+        <aside class="sidebar">
+            <div id="leftside-navigation" class="nano">
+                <ul class="nano-content">
+                    <li>
+                        <a href="{:U('Admin/Index/index')}"><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
+                    </li>
+                    
+
+                    <volist name="sidebar" id="vol">
+                        <li class="sub-menu">
+                            <a href="javascript:void(0);"><i class="fa fa-{$vol['ico']}"></i><span>{$vol['name']}</span>
+                            <notempty name="vol['subsidebar']"><i class="arrow fa fa-angle-right pull-right"></i></notempty></a>
+                            <ul>
+                                <volist name="vol['subsidebar']" id="sub">
+                                    <li class="sidebar_left" mca="{$sub['mca']}" ><a href="{:U($sub['mca'])}">{$sub['name']}</a>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </li>
+                    </volist>
+ 
+                   
+                </ul>
+            </div>
+
+        </aside>
+        <!--sidebar end-->
+
+        
+ 

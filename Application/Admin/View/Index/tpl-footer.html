@@ -1,0 +1,58 @@
+<div class="footer">Powered By Naihai</div>
+
+
+<script type="text/javascript">
+            
+        //获取未读邮件数目+前5条内容 (sendtime)
+        
+    function getEmailCount(){
+        //发送ajax请求
+        $.get("{:U('Header/showEmailUnreadCount')}",function(data,status){
+            //处理程序
+            if(data && status=='success'){
+                $('#new-messages,#new-messages2,#new-messages3,#new-messages4,#user-inbox').html(data); 
+            }
+            
+            });
+        }
+     
+  //jquery代码 定时器
+    $(function(){
+         
+        // 监听 visibility change 事件
+        document.addEventListener('visibilitychange', function() {
+          // 页面变为不可见时触发
+          if (document.visibilityState == 'hidden') { 
+            setInterval('getEmailCount()',300000);
+          }
+
+          // 页面变为可见时触发
+          if (document.visibilityState == 'visible') { 
+            setInterval('getEmailCount()', 5000);
+          }
+        });
+
+      
+        
+    });
+    
+    //改变左侧边栏的active class
+    $(document).ready(function(){
+        $(".sidebar_left").each(function(){
+            var mca = $(this).attr('mca');
+            var current = "{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/{$Think.ACTION_NAME}";    
+            if(mca==current){
+                $(this).addClass('active');
+                $(this).parent().slideDown();
+            }
+        });
+    });
+    
+    
+    
+    
+    
+    
+    
+</script>
+

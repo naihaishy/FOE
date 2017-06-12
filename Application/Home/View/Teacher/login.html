@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>教师登录 | FOE</title>
+    <link href="__HOME__/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="__HOME__/assets/css/main.css" rel="stylesheet">
+    <link href="__HOME__/assets/css/responsive.css" rel="stylesheet">
+     
+    <link rel="shortcut icon" href="__HOME__/assets/images/ico/favicon.ico">
+    <style>
+    	.logo-image{
+    		margin-top: 50px;
+    		margin-bottom: 25px;
+    	}
+    	#login-footer{
+    		padding-top:30px;
+    	}
+    </style>
+ 
+</head><!--/head-->
+
+<body>
+    <div class="logo-image">                                
+       <a href="{:U('Index/index')}"><img class="img-responsive" src="__HOME__/assets/images/logo.png" alt=""> </a> 
+       <h2 class="text-center">教师登录</h2>
+    </div>
+     <section id="login-form">        
+         <div class="container">
+            <div class="row">
+            	<div class="col-md-12">
+            		<div class="col-md-3"></div>
+            		<div class="col-md-6">
+            			<form class="form-horizontal" action="{:U('Teacher/checkLogin')}" method="post">
+                    <div class="form-group"><label class="col-lg-2 control-label">邮箱</label>
+                        <div class="col-lg-10"><input type="email" name="email" placeholder="登录邮箱" class="form-control"> <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="col-lg-2 control-label">密码</label>
+                        <div class="col-lg-10"><input type="password" name="password" placeholder="请输入登录密码" class="form-control"><span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="col-lg-2 control-label">验证码</label>
+                        <div class="col-lg-10"><input type="text" name="captcha" placeholder="请输入下面验证码" class="form-control"> 
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="col-lg-2 control-label"></label>                        
+                        <div class="col-lg-10"><img src='__CONTROLLER__/captcha' onclick="this.src='__CONTROLLER__/captcha/t/'+Math.random()" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="i-checks"><label> <input type="checkbox"> 记住我?</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-sm btn-white" type="submit">登录</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <span class="help-block m-b-none"><a href="{:U('Teacher/signup')}">立即注册</a> | <a href="{:U('Index/forgetpass')}">找回密码</a></span>                            
+                        </div>
+                    </div>
+                </form>
+            		</div>
+            		<div class="col-md-3"></div>
+            	</div>
+            	
+                
+                 
+            </div>
+        </div>       
+    </section>
+     
+
+    <section id="login-footer" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <p>&copy; FOE 2017. All Rights Reserved.</p>
+                    <p>Designed by <a target="_blank" href="https://naihai.tk">Naihai</a></p>
+                </div>
+            </div>
+        </div>       
+    </section>
+    
+
+    <script type="text/javascript" src="__HOME__/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="__HOME__/assets/js/bootstrap.min.js"></script>
+
+ 
+    
+</body>
+</html>

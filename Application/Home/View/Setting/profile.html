@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> 我的个人资料 |  个人中心</title>
+
+    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    
+    <link href="__HOME__/uassets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="__HOME__/uassets/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    
+
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <!--NAV-->
+                <include file="Application/Home/View/User/nav-header.html" />
+                
+            </div>
+   
+
+            <div class="wrapper wrapper-content">
+                
+                <form action="{:U('Home/Setting/profile')}" method="post" enctype="multipart/form-data">
+                    <div class="row">
+
+                        
+                        <!--基本信息-->
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>基本信息</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal form-border" >
+                                        <div class="form-group"> 
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">姓名 </span>
+                                                    <input type="text" class="form-control"  name="truename" value="{$profile['truename']}"  >
+                                                </div><br/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">用户名 </span>
+                                                    <input type="text" class="form-control"  name="username"  value="{$profile['username']}"  >
+                                                </div><br/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">邮箱 </span>
+                                                    <input type="email" class="form-control" name="email" readonly="readonly" value="{$profile['email']}"  >
+                                                    <if condition="$profile['enabled'] eq 1"><span class="input-group-addon green">@已激活</span><else/><span class="input-group-addon red">@未验证</span><a href="javascript:;" class="input-group-addon">点击验证</a></if>
+                                                </div><br/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">手机 </span>
+                                                    <input type="text" class="form-control" readonly="readonly" value="{$profile['tel']}"  >
+                                                    <span class="input-group-addon" style="color:green;">@已绑定</span>
+                                                </div><br/>
+                                            </div>
+                                            <div class="col-md-12">
+                                                 <label>头像</label>
+                                                    <notempty name="profile['avatar']"><img src="{$profile['avatar']}" class="img-responsive" alt="头像" /></notempty>
+                                                    <input type="file" class="form-control" name="avatar"/>  
+                                                    <sapn class="green">建议头像上次大小为 64x64px </sapn>                                             
+                                                <br/>
+                                            </div>
+                                             
+                                            
+                                        </div>
+                                         
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!--详细信息-->               
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>详细信息</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal form-border" >
+                                        <div class="form-group"> 
+                                             
+
+                                            <div class="col-md-12">
+                                                 <label>自我介绍</label>
+                                                 <textarea name="description" id="description">{$profile['description']}</textarea>
+                                                 
+                                            </div>
+
+                                             
+                                            
+                                             
+                                            
+                                        </div>
+                                         
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--其他信息-->               
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>其他信息</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="form-horizontal form-border" >
+                                        <div class="form-group"> 
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">上次登录时间 </span>
+                                                    <input type="text" class="form-control"  readonly="readonly" value="{$profile['last_login_time']|date='Y-m-d H:i:s',###}"  />
+                                                </div><br/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">上次登录IP </span>
+                                                    <input type="text" class="form-control"  readonly="readonly" value="{$profile['last_login_ip']}"  />                                                 
+                                                </div><br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary col-md-offset-9">保存</button> 
+                        </div>
+                    </div>
+
+                    
+                    
+                </form>     
+                
+
+               
+                    
+                    
+              
+            </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
+    <script src="__HOME__/uassets/js/bootstrap.min.js"></script>
+    <script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="__HOME__/uassets/js/inspinia.js"></script>
+    <script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+
+    <!--ckeditor  -->
+    <script src="__HOME__/uassets/plugins/ckeditor/ckeditor.js"></script>
+    
+    <script type="text/javascript">
+        function bindaccount(obj){
+            window.open('');
+        }
+
+        $("#formsubmit-edit").on('click',function(){
+            $('form').eq(1).submit();
+        });
+
+        $(document).ready(function(){
+            CKEDITOR.replace('description',{ height:'200px', filebrowserImageUploadUrl: "{:U('Files/Ckeditor/upload/type/image/domain/user')}",  });
+        });
+    </script>
+ 
+ 
+
+
+</body>
+
+</html>
