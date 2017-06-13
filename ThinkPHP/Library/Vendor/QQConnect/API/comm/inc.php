@@ -1,0 +1,2 @@
+<?php die('forbidden'); ?>
+{"appid":"101381559","appkey":"9882af1ef04f62732839cc9eed455a1f","callback":"https://foe.zhfsky.com/index.php/Api/Qqcon/callback","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}
