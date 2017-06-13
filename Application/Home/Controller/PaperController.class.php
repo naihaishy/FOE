@@ -293,9 +293,9 @@ class PaperController extends Controller{
                     'has_reviewed'=>0,
                 );
              
-            $check = M('CoursePaperTest')->where(array('paper_id'=>$post['paper_id'], 'user_id'=>session('uid'))->find();//检查是否已经存在 两次考试 ？ 
+            $check = M('CoursePaperTest')->where(array('paper_id'=>$post['paper_id'], 'user_id'=>session('uid')) )->find();//检查是否已经存在 两次考试 ？ 
             if($check){
-                M('CoursePaperTest')->where(array('paper_id'=>$post['paper_id'], 'user_id'=>session('uid'))->save($data);
+                M('CoursePaperTest')->where(array('paper_id'=>$post['paper_id'], 'user_id'=>session('uid')) )->save($data);
             }else{
                 M('CoursePaperTest')->add($data);
             }
@@ -319,7 +319,7 @@ class PaperController extends Controller{
     public function result($post, $paper_id){
         $score = $this->calculate($post, $paper_id);
         $data  =  array('score'=>$score, 'has_reviewed'=>1);
-        M('CoursePaperTest')->where(array('paper_id'=>$paper_id, 'user_id'=>session('uid'))->setField($data);
+        M('CoursePaperTest')->where(array('paper_id'=>$paper_id, 'user_id'=>session('uid')) )->setField($data);
         $this->success('你的成绩为:'.$score, U('Home/Paper/details',array('pid'=>$paper_id )), 6);
     }
     
@@ -422,7 +422,7 @@ class PaperController extends Controller{
 
        //保存记录
        $result = json_encode($res);
-       M('CoursePaperTest')->where(array('paper_id'=>$paper_id, 'user_id'=>session('uid'))->setField('result', $result);
+       M('CoursePaperTest')->where(array('paper_id'=>$paper_id, 'user_id'=>session('uid')) )->setField('result', $result);
 
       
     
