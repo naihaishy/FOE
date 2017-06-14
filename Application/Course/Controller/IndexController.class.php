@@ -142,24 +142,24 @@ class IndexController extends Controller {
     * @param  
     * @return  
     */
-    public function join($course_id){
+    public function join($cid){
         
-        if(!is_login() ){
-            $this->error('请先登录',U('Home/Index/login'),3);
-        }
-        if(!is_student() ){
-            $this->error('该账号非学员账号','',1);
-        }
+        if(!is_login() )  $this->error('请先登录',U('Home/Index/login'),3);
+        
+        if(!is_student() )  $this->error('该账号非学员账号','',1); 
+        
         $uid =  session('uid');
+
         //查找是否已经加入学习 
+
+        $course_id = $cid;
         $map=array(
             'user_id'=>$uid,
             'course_id'=>$course_id,
         );
         $hasjoined = D('CourseLessonLearn')->where($map)->find();
-        if($hasjoined){
-            $this->error('你已经加入该课程的学习','',1);
-        }
+        if($hasjoined)    $this->error('你已经加入该课程的学习','',1);
+        
         //补全信息
         $data = array(
                 'user_id'   =>$uid,

@@ -84,10 +84,10 @@
                         </ul>
                     </div>
                     <div class="live-preview">
-                        <if condition="$joined eq 1"><a href="{:U('Course/Index/learn',array('id'=>$recent_learn ) ) }" class="btn btn-common uppercase">继续学习</a><else/><a href="{:U('Course/Index/join',array('course_id'=>$course['id'] ) ) }" class="btn btn-common uppercase">加入学习</a></if>
+                        <if condition="$joined eq 1"><a href="{:U('Course/Index/learn',array('id'=>$recent_learn ) ) }" class="btn btn-common uppercase">继续学习</a><else/><a href="{:U('Course/Index/join',array('cid'=>$course['id'] ) ) }" class="btn btn-common uppercase">加入学习</a></if>
                         <if condition="$followed eq 1"><a href="{:U('Course/Index/follow',array('id'=>$course['id'] ) ) }" class="btn btn-common uppercase">取消关注</a><else/><a href="{:U('Course/Index/follow',array('id'=>$course['id'] ) ) }" class="btn btn-common uppercase">关注课程</a></if>
                         &nbsp;&nbsp;&nbsp;
-                        <if condition="$_SESSION['rid'] eq 2">                      
+                        <if condition="$Think.session.rid eq 2">                      
                              <a href="{:U('Course/Manage/base/id/'.$course['id'])}" class="btn btn-common uppercase">修改课程</a>                             
                         </if>
                     </div>
