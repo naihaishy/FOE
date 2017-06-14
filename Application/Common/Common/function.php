@@ -9,7 +9,8 @@ function sayhello(){
  *@return 返回站点链接
  */
 function sitesname(){
-    return "<a href='https://foe.zhfsky.com'>Free Online Education</a>";
+    $name = C('SITE_NAME');
+    return "<a href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."'>".$name."</a>";
 }
 
 /**
@@ -53,8 +54,8 @@ function think_send_mail($to, $name, $subject = '', $body = '', $attachment = nu
 }
 
 /**
-    *上传文件名 命名规则 暂且只用于Course
-    */
+ *上传文件名 命名规则 暂且只用于Course
+ */
 function file_save_name($filename){
     $filename=substr($filename,0,strrpos($filename,'.'));//去掉后缀名 .xxx
     return strtolower(generate_password(6)).'_'.$filename;
@@ -65,7 +66,6 @@ function file_save_name($filename){
  * 密码生成函数
  *  
  */
-
 function generate_password( $length = 10 ) {
     
     // 密码字符集，可任意添加你需要的字符
@@ -74,10 +74,6 @@ function generate_password( $length = 10 ) {
     $password = '';
     for ( $i = 0; $i < $length; $i++ ) 
     {
-        // 这里提供两种字符获取方式
-        // 第一种是使用 substr 截取$chars中的任意一位字符；
-        // 第二种是取字符数组 $chars 的任意元素
-        // $password .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
         $password .= $chars[ mt_rand(0, strlen($chars) - 1) ];
     }
     return $password;
@@ -88,7 +84,6 @@ function generate_password( $length = 10 ) {
  * 字符串生成函数
  *  
  */
-
 function generate_rand_string( $length = 10 ) {
     $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     $string = '';

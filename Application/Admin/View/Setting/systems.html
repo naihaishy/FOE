@@ -69,58 +69,47 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal form-border" action=" " method="post" >
-                                     
-                                         
-                            		<div class="form-group"><label class="col-md-2 control-label">网站状态</label>
+                                <form class="form-horizontal form-border" action="{:U('Admin/Setting/systems')}" method="post" >
+    
+                            		<div class="form-group">
+                                        <label class="col-md-2 control-label">网站状态</label>
                                           <div class="col-md-10">
                                             <input   type="radio" name="web_status" value="open" checked="checked" />开启
                                             <input   type="radio" name="web_status" value="close" />关闭
                                           </div>
                                     </div>
-                                     
-                                            
-                                     
-                              
-                                         
-                                     
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">用户注册</label>
-                                        <div class="col-sm-6">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">允许注册电子邮箱后缀名</span>
-                                                <input type="text" class="form-control" name="email" value="{$data['email']}" >
-                                                <span class="input-group-addon">@xxx.com</span>
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">是否强制输入手机号码</span>
-                                                <input type="text" class="form-control" name="tel" value="{$data['tel']}" >
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">密码强度要求</span>
-                                                <input type="text" class="form-control" name="tel" value="{$data['tel']}" >
-                                            </div>
-                                             
+                                        <label class="col-md-2 control-label">网站关闭时提示文字</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="site_close_texts" value="{$data['site_close_texts']}" > 
+                                            <span class="text-help">仅在网站关闭时显示</span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">用户登录</label>
-                                        <div class="col-sm-6">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">允许多个设备同时在线</span>
-                                                <input type="text" class="form-control"  > 
-                                                   
-                                            </div>
-                                            
-                                            
-                                            <div class="form-group">
-				                                        <div class="col-sm-offset-4 col-sm-12">
-				                                            <button type="button" class="btn btn-primary">更新系统设置</button>
-				                                        </div>
-				                                    </div>
+                                        <label class="col-md-2 control-label">网站名称</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="site_name" value="{$data['site_name']}" > 
                                         </div>
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">网站关键字</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="site_keywords" value="{$data['site_keywords']}" > 
+                                            <span class="text-help">多个请以英文逗号隔开</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">网站描述</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="site_discription" value="{$data['site_discription']}" > 
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">网站备案号</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="site_icp_number" value="{$data['site_icp_number']}" > 
+                                        </div>
+                                    </div>  
                                 </form>
                             </div>
                         </div>

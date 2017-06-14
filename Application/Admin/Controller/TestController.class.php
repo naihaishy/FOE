@@ -576,7 +576,8 @@ class TestController extends Controller{
         }
 
         public function test50(){
-             
+            $aaa =sitesname();
+             dump($aaa);die;
         }
  
     
