@@ -32,11 +32,13 @@ class AuthGroupAccessModel extends BaseModel{
 	 * 获取管理员权限列表
 	 */
 	public function getAllData(){
+
+		$pre  = $this->tableprefix;
 		$data=$this
 			->field('u.id,u.username,u.truename,aga.group_id,ag.title')
 			->alias('aga')
-			->join('tp_user as u on aga.uid=u.id','RIGHT')
-			->join('tp_auth_group as ag on aga.group_id=ag.id','LEFT')
+			->join("{$pre}user as u on aga.uid=u.id","RIGHT")
+			->join("{$pre}auth_group as ag on aga.group_id=ag.id","LEFT")
 			->select();
 		// 获取第一条数据
 		$first=$data[0];

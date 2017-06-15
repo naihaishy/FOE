@@ -55,9 +55,10 @@ class RecordController extends CommonController {
      * @return  int 
     */
     public function ready(){
+        $pre = C('DB_PREFIX');
         $live_id =session('live_id');
         $data =  M('Live')->alias('t1')
-                        ->join('left join tp_live_room as t2 on t1.room_id = t2.room_id')
+                        ->join("left join {$pre}live_room as t2 on t1.room_id = t2.room_id")
                         ->find($live_id);
         //dump($data );die;
         $data['tags'] = explode(',', $data['tags']);

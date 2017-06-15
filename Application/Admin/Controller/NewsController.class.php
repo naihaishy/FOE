@@ -10,13 +10,13 @@ class NewsController extends CommonController{
      * @return
      */
     public function index(){
-
+        $pre = C('DB_PREFIX');
         $model = M('News');
         $page = A('Common/Pages')->getShowPage($model);
         $show = $page->show();
         $news   = M('News')->alias('t1')->field('t1.*,t2.username as author_name,t3.name as category_name')
-                                        ->join('left join tp_user as t2 on t1.author=t2.id')
-                                        ->join('left join tp_news_category as t3 on t1.category_id =t3.id')
+                                        ->join("left join {$pre}user as t2 on t1.author=t2.id")
+                                        ->join("left join {$pre}news_category as t3 on t1.category_id =t3.id")
                                         ->limit($page->firstRow,$page->listRows)
                                         ->select();
         $assign =   array(
@@ -213,9 +213,10 @@ class NewsController extends CommonController{
      * @return
      */
     private function checkCategoryCount(){
+        $pre = C('DB_PREFIX');
         $count  =   M('News')->alias('t1')
                             ->field('t2.id, count(*) as count ')
-                            ->join('left join tp_news_category as t2 on t1.category_id=t2.id')
+                            ->join("left join {$pre}news_category as t2 on t1.category_id=t2.id")
                             ->group('t2.id asc')
                             ->select();
         //M('Manual')

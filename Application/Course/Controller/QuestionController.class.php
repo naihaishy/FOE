@@ -11,7 +11,7 @@ class QuestionController extends CommonController {
      * @return  
      */
     public function index(){
-
+        $pre = C('DB_PREFIX');
         A('Teacher/Navbar')->navbar();
         $map = array('user_id'=>session('uid'));
         
@@ -34,7 +34,7 @@ class QuestionController extends CommonController {
     
         $questions = D('CourseQuestion')->alias('t1')
                                         ->field('t1.*,t2.title as course_title')
-                                        ->join('tp_course as t2 on t1.course_id = t2.id')
+                                        ->join("{$pre}course as t2 on t1.course_id = t2.id")
                                         ->where($map)
                                         ->limit($page->firstRow,$page->listRows) 
                                         ->select();

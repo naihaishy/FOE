@@ -114,6 +114,8 @@ class ManageController extends CommonController {
         * @return  int 
         */
     public function edit(){
+
+        $pre = C('DB_PREFIX');
         
         $live_id = I('get.id');
         if(empty($live_id)) $this->error('非法访问','',2);
@@ -132,7 +134,7 @@ class ManageController extends CommonController {
             empty($result) ? $this->error('更新失败', '', 1): $this->success('更新成功', '', 1);
         }else{
             $data =M('Live')->alias('t1')
-                            ->join('left join tp_live_room as t2 on t1.room_id = t2.room_id')
+                            ->join("left join {$pre}live_room as t2 on t1.room_id = t2.room_id")
                             ->find($live_id);
             $this->assign('data', $data);
             $this->display();

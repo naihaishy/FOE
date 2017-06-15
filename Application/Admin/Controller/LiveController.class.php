@@ -10,13 +10,13 @@ class LiveController extends CommonController{
      * @return
      */
     public function index(){
-
+        $pre = C('DB_PREFIX');
         $model = M('Live');
         $page = A('Common/Pages')->getShowPage($model, array('checked'=>1) );
         $show = $page->show();
         $lives   = M('Live')->alias('t1')->field('t1.*,t2.username as teacher_name,t3.name as category_name')
-                                        ->join('left join tp_teacher as t2 on t1.teacher_id = t2.id')
-                                        ->join('left join tp_live_category as t3 on t1.category_id =t3.id')
+                                        ->join("left join {$pre}teacher as t2 on t1.teacher_id = t2.id")
+                                        ->join("left join {$pre}live_category as t3 on t1.category_id =t3.id")
                                         ->where(array('t1.checked'=>1))
                                         ->limit($page->firstRow,$page->listRows)
                                         ->order('t1.id asc')
@@ -69,13 +69,13 @@ class LiveController extends CommonController{
 
             $result=== false ? $this->error('审核失败'):$this->success('审核成功');
         }else{
-
+            $pre = C('DB_PREFIX');
             $model = M('Live');
             $page = A('Common/Pages')->getShowPage($model, array('checked'=>0 ) );
             $show = $page->show();
             $lives   = M('Live')->alias('t1')->field('t1.*,t2.username as teacher_name,t3.name as category_name')
-                                            ->join('left join tp_teacher as t2 on t1.teacher_id = t2.id')
-                                            ->join('left join tp_live_category as t3 on t1.category_id =t3.id')
+                                            ->join("left join {$pre}teacher as t2 on t1.teacher_id = t2.id")
+                                            ->join("left join {$pre}live_category as t3 on t1.category_id =t3.id")
                                             ->limit($page->firstRow,$page->listRows)
                                             ->where("checked=0")
                                             ->order('t1.id asc')
@@ -216,9 +216,10 @@ class LiveController extends CommonController{
      * @return
      */
     private function checkCategoryCount(){
+        $pre = C('DB_PREFIX');
         $count  =   M('Live')->alias('t1')
                             ->field('t2.id, count(*) as count ')
-                            ->join('left join tp_live_category as t2 on t1.category_id=t2.id')
+                            ->join("left join {$pre}live_category as t2 on t1.category_id=t2.id")
                             ->group('t2.id asc')
                             ->select();
         //M('Manual')

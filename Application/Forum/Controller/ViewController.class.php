@@ -417,10 +417,11 @@ class ViewController extends Controller{
      * @return 
      */
     private function getForumInfo($post_id){
+        $pre = C('DB_PREFIX');
         $forum_id   = M('ForumPost')->field('forum_id')->find($post_id)['forum_id'];
         $forum_info = M('Forum')->alias('t1')
                                 ->field('t1.*,t2.title as ptitle')
-                                ->join('left join tp_forum as t2 on t1.pid =t2.id')
+                                ->join("left join {$pre}forum as t2 on t1.pid =t2.id")
                                 ->where('t1.id='.$forum_id)
                                 ->find();
         return $forum_info;

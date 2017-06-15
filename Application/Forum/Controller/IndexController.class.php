@@ -212,7 +212,7 @@ class IndexController extends Controller {
      * @return array
      */
     private function getPosts($forum_id, $num, $type){
-
+        $pre = C('DB_PREFIX');
         if($forum_id == 0){
 
             $map = array('status'=>$type); //不指定板块的相应类型帖子 [置顶|精华|最新]
@@ -225,8 +225,8 @@ class IndexController extends Controller {
                 $map = array('t1.status'=>$type, 't3.id'=>$forum_id);
                 $posts = M('ForumPost')->alias('t1')
                                         ->field('t1.*')
-                                        ->join('left join tp_forum as t2 on t1.forum_id =t2.id')
-                                        ->join('left join tp_forum as t3 on t2.pid = t3.id')
+                                        ->join("left join {$pre}forum as t2 on t1.forum_id =t2.id")
+                                        ->join("left join {$pre}forum as t3 on t2.pid = t3.id")
                                         ->where($map)->limit($num)->order('created_time desc')->select();
             }else{
                 //该板块为子版块 直接查询其相应类型帖子 [置顶|精华|最新]

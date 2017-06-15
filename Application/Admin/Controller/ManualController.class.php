@@ -78,9 +78,10 @@ class ManualController extends ManualsController{
      * @return
      */
     private function checkCategoryCount(){
+        $pre = C('DB_PREFIX');
         $count = M('Manual')->alias('t1')
                             ->field('t2.id, count(*) as count ')
-                            ->join('left join tp_manual_category as t2 on t1.category_id=t2.id')
+                            ->join("left join {$pre}manual_category as t2 on t1.category_id=t2.id")
                             ->group('t2.id asc')
                             ->select();
         //M('Manual')

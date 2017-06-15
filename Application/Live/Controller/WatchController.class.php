@@ -13,11 +13,13 @@ class WatchController extends Controller {
         */
     public function index(){
         $id = I('get.id') ? : exit();  //live id
+
+        $pre = C('DB_PREFIX');
         $live =  M('Live')->alias('t1')
-                                            ->field('t1.*,t2.username as teacher_name,t2.description as teacher_description,t2.avatar as teacher_avatar')
-                                            ->join('left join tp_teacher as t2 on t1.teacher_id = t2.id')
-                                            ->where('t1.id='.$id)
-                                            ->find();
+                        ->field('t1.*,t2.username as teacher_name,t2.description as teacher_description,t2.avatar as teacher_avatar')
+                        ->join("left join {$pre}teacher as t2 on t1.teacher_id = t2.id")
+                        ->where('t1.id='.$id)
+                        ->find();
         $live['is_start'] = $this->startCheck($id);
         $room = M('LiveRoom')->where('room_id='. $live['room_id'])->find();
         $tags = $this->getTags();

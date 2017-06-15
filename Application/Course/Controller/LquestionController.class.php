@@ -15,11 +15,12 @@ class LquestionController extends Controller{
      * @return    
      */
     public function index(){
+        $pre = C('DB_PREFIX');
         $map = array('t1.teacher_id' => session('uid'),'t1.status'=>'published','t2.status'=>'published');
         $lquestion =  M('Course')   ->alias('t1')
                                     ->field('t1.title as course_title,t2.id as lesson_id,t2.title as lesson_title,t3.*')
-                                    ->join('right join tp_course_lesson as t2 on t1.id= t2.course_id')
-                                    ->join('right join tp_lesson_questions as t3 on t2.id= t3.lesson_id')
+                                    ->join("right join {$pre}course_lesson as t2 on t1.id= t2.course_id")
+                                    ->join("right join {$pre}lesson_questions as t3 on t2.id= t3.lesson_id")
                                     ->where($map)
                                     ->select(); 
 
@@ -35,9 +36,14 @@ class LquestionController extends Controller{
      * @return    
      */
     public function detail($id){
+        $pre  = C('DB_PREFIX');
         if(empty($id)) $this->error('非法访问');
         //查询问题信息及提问者信息 
-        $question = M('LessonQuestions')->alias('t1')->field('t1.*,t2.truename as name')->join('left join tp_stu as t2 on t1.user_id = t2.id')->where('t1.id='.$id)->find();
+        $question = M('LessonQuestions')->alias('t1')
+                                        ->field('t1.*,t2.truename as name')
+                                        ->join("left join {$pre}stu as t2 on t1.user_id = t2.id")
+                                        ->where('t1.id='.$id)
+                                        ->find();
         //dump($info);die;
 
         $answers = M('LessonAnswers')->where(array('question_id'=>$id))->select();//该问题下的所有回复
@@ -151,6 +157,7 @@ class LquestionController extends Controller{
      * @return    
      */
     public function replyT(){
+        $pre = C('DB_PREFIX');
         if(IS_POST){
             $post = I('post.');
             $post['metas'] = 'teacher';
@@ -162,11 +169,12 @@ class LquestionController extends Controller{
                 M('LessonQuestions')->where('id='.$post['question_id'])->setField('teacher_reply',1);
                 
                 //消息机制
-                $question = M('LessonQuestions')->alias('t1')->field('t1.title as question,t1.user_id,t2.id,t3.title as title')
-                        ->join('left join tp_course_lesson as t2 on t1.lesson_id=t2.id ')
-                        ->join('left join tp_course as t3 on t2.course_id=t3.id')
-                        ->where('t1.id='.$post['question_id'])
-                        ->find();
+                $question = M('LessonQuestions')->alias('t1')
+                                                ->field('t1.title as question,t1.user_id,t2.id,t3.title as title')
+                                                ->join("left join {$pre}course_lesson as t2 on t1.lesson_id=t2.id ")
+                                                ->join("left join {$pre}course as t3 on t2.course_id=t3.id ")
+                                                ->where('t1.id='.$post['question_id'])
+                                                ->find();
 
                 $source = array(
                         'url'   =>  'https://foe.zhfsky.com/index.php/Course/Index/learn/id/'.$question['id'],

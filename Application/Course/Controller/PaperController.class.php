@@ -12,11 +12,12 @@ class PaperController extends CommonController {
      * @return  
      */
     public function index(){
+        $pre = C('DB_PREFIX');
         A('Teacher/Navbar')->navbar();
         $map=array('user_id'=>session('uid'),);
         $papers = D('CoursePaper') ->alias('t1')
                                     ->field('t1.*,t2.title as course_title')
-                                    ->join('tp_course as t2 on t1.course_id = t2.id')
+                                    ->join("{$pre}course as t2 on t1.course_id = t2.id")
                                     ->where($map)
                                     ->select();
       
@@ -252,10 +253,10 @@ class PaperController extends CommonController {
      * @return  
      */
     public function tests(){
-
+        $pre = C('DB_PREFIX');
         $tests  = M('CoursePaperTest')->alias('t1')
-                                        ->join('left join tp_course_paper as t2 on t2.id=t1.paper_id')
-                                        ->join('left join tp_course as t3 on t2.course_id=t3.id')
+                                        ->join("left join {$pre}course_paper as t2 on t2.id=t1.paper_id")
+                                        ->join("left join {$pre}course as t3 on t2.course_id=t3.id")
                                         ->where(array('t3.teacher_id'=>session('uid')))->select();
         $assign = array(
                 'paper' =>  $paper,

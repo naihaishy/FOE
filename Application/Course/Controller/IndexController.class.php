@@ -13,9 +13,10 @@ class IndexController extends Controller {
     public function index(){
         A('Teacher/Navbar')->navbar();
         $map=array('status'=>'published',);
+        $pre = C('DB_PREFIX');
         $course = M('Course')->alias('t1')
                             ->field('t1.id,t1.title,t1.picture_path,t1.has_picture,t2.slug')
-                            ->join('tp_course_category as t2 on t1.category_id =t2.id')
+                            ->join("{$pre}course_category as t2 on t1.category_id =t2.id")
                             ->where($map)->select();
         $category = M('CourseCategory')->select();                                        
         //dump($course);die;
@@ -90,6 +91,7 @@ class IndexController extends Controller {
      * @return  
      */
     public function category($id=''){
+        $pre = C('DB_PREFIX');
         $model = M('Course');
         $_SESSION['course_count']   =   M('Course')->where("status = 'published'")->count();
         if($id==null){
@@ -115,7 +117,7 @@ class IndexController extends Controller {
         
         //查询课程分类
         $category = M()->field('t2.*, count(*) as count')
-                         ->table('tp_course as t1,tp_course_category as t2')
+                         ->table("{$pre}course as t1, {$pre}course_category as t2")
                          ->where("t1.category_id = t2.id and t1.status='published' ")
                          ->group('category_id')
                          ->select(); 
@@ -354,7 +356,7 @@ class IndexController extends Controller {
     * @return int id  ajax返回问题的id
     */
     public function addQuestions(){
-        
+        $pre = C('DB_PREFIX');
         $post=I('post.');
         $post['user_id']    =session('uid');
         $post['created_time']=time();
@@ -362,9 +364,10 @@ class IndexController extends Controller {
         $result  = M('LessonQuestions')->add($post);
         if($result){
             //消息机制
-            $question = M('LessonQuestions')->alias('t1')->field('t1.title as question_title,t1.user_id,t2.id,t3.title as title,t3.teacher_id')
-                    ->join('left join tp_course_lesson as t2 on t1.lesson_id=t2.id ')
-                    ->join('left join tp_course as t3 on t2.course_id=t3.id')
+            $question = M('LessonQuestions')->alias('t1')
+                    ->field('t1.title as question_title,t1.user_id,t2.id,t3.title as title,t3.teacher_id')
+                    ->join("left join {$pre}course_lesson as t2 on t1.lesson_id=t2.id ")
+                    ->join("left join {$pre}course as t3 on t2.course_id=t3.id")
                     ->where('t1.id='.$result)
                     ->find();
 
@@ -387,7 +390,7 @@ class IndexController extends Controller {
     * @return int id  ajax返回问题的id
     */
     public function addAnswers(){
-        
+        $pre  = C('DB_PREFIX');
         $post=I('post.');
         $post['user_id']    =session('uid');
         $post['post_time']=time();
@@ -397,8 +400,8 @@ class IndexController extends Controller {
 
             //消息机制
             $question = M('LessonQuestions')->alias('t1')->field('t1.title as question,t1.user_id,t2.id,t3.title as title')
-                    ->join('left join tp_course_lesson as t2 on t1.lesson_id=t2.id ')
-                    ->join('left join tp_course as t3 on t2.course_id=t3.id')
+                    ->join("left join {$pre}course_lesson as t2 on t1.lesson_id=t2.id ")
+                    ->join("left join {$pre}course as t3 on t2.course_id=t3.id")
                     ->where('t1.id='.$post['question_id'])
                     ->find();
 
@@ -464,11 +467,11 @@ class IndexController extends Controller {
     * @return array 返回类型
     */
     private function getMaterials($lesson_id){
-        
+        $pre = C('DB_PREFIX');
         $map=array('lesson_id'=>$lesson_id );
         $materials  = M('LessonMaterials')->alias('t1')
                                         ->field('t1.*,t2.title,t2.uri')
-                                        ->join('left join tp_course_files as t2 on t1.file_id = t2.id')
+                                        ->join("left join {$pre}course_files as t2 on t1.file_id = t2.id")
                                         ->where($map)
                                         ->select();
         return $materials;
@@ -506,9 +509,9 @@ class IndexController extends Controller {
      * @return  
     */
     private function courseIsOpen($id){
-         
+        $pre  = C('DB_PREFIX');
         $course = M('CourseLesson')->alias('t1')
-                                    ->join('left join tp_course as t2 on t1.course_id=t2.id')
+                                    ->join("left join {$pre}course as t2 on t1.course_id=t2.id ")
                                     ->where(array('t1.id'=>$id))
                                     ->find();
         if( $course['course_start_date'] < time() ) return  true;

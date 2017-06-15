@@ -12,6 +12,7 @@ class RoomController extends Controller {
     * @return  int 
     */
     public function index(){
+        $pre  = C('DB_PREFIX');
         $map = array(
             't1.status'=>'open',
         );
@@ -29,7 +30,7 @@ class RoomController extends Controller {
 
         $room = M('Live')   ->alias('t1')
                             ->field('t1.*,t2.username as teacher_name')
-                            ->join('left join tp_teacher as t2 on t1.teacher_id = t2.id')
+                            ->join("left join {$pre}teacher as t2 on t1.teacher_id = t2.id")
                             ->limit($page->firstRow,$page->listRows)
                             ->where($map)
                             ->select();

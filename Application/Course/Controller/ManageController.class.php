@@ -611,17 +611,18 @@ class ManageController extends CommonController{
     /*-----------课程相关处理函数-----------*/
     
     private function getCourseList(){
+        $pre = C('DB_PREFIX');
         $teacher_id=session('uid');
-            $map=array(
-                'teacher_id'=>$teacher_id,
-                'status'=>array('in','closed,published'),
-            );
-            //获取该教师拥有的所有课程信息 包括分类信息
-            $course = D('Course')->alias('t1')->field('t1.*,t2.name as category_name')
-                                                     ->join('tp_course_category as t2 on t1.category_id = t2.id')
-                                                     ->where($map)->select();
+        $map=array(
+            'teacher_id'=>$teacher_id,
+            'status'=>array('in','closed,published'),
+        );
+        //获取该教师拥有的所有课程信息 包括分类信息
+        $course = D('Course')->alias('t1')->field('t1.*,t2.name as category_name')
+                                                 ->join("{$pre}course_category as t2 on t1.category_id = t2.id")
+                                                 ->where($map)->select();
 
-            $this->assign('course',$course);
+        $this->assign('course',$course);
     }
     
     private function getCourseId(){

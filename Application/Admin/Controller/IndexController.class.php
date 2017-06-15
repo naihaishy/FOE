@@ -25,8 +25,10 @@ class IndexController extends CommonController{
         $count['tforumpost'] =M('TeacherForumPost')->count();
         $count['news'] =M('News')->count();
 
+        $pre = C('DB_PREFIX');
+
         $rules = M('AuthGroupAccess')->alias('t1')
-                                    ->join('left join tp_auth_group as t2 on t2.id = t1.group_id')
+                                    ->join("left join {$pre}auth_group as t2 on t2.id = t1.group_id")
                                     ->where(array('t1.uid'=>session('uid')))
                                     ->getField('rules');
 

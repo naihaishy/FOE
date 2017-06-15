@@ -27,13 +27,18 @@ class CourseModel extends BaseModel{
      * @return array 分类名+ID
      */
     public function getCourseCategory($id=''){
-        if(empty($id)){
-            //获取全部分类
-            $result = M('CourseCategory')->field('name,id')->select();
-        }else{
-            $result = M('CourseCategory')->alias('t1')->field('t1.name,t1.id')->join('left join tp_course as t2 on t2.category_id = t1.id')->where('t2.id='.$id)->select();
-        }
-        return $result;
+      $pre = $this->tableprefix;
+      if(empty($id)){
+          //获取全部分类
+          $result = M('CourseCategory')->field('name,id')->select();
+      }else{
+          $result = M('CourseCategory')->alias('t1')
+                                      ->field('t1.name,t1.id')
+                                      ->join("left join {$pre}course as t2 on t2.category_id = t1.id")
+                                      ->where('t2.id='.$id)
+                                      ->select();
+      }
+      return $result;
     }
       
       

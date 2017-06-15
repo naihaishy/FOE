@@ -34,10 +34,10 @@ class PostController extends Controller{
      * @return 
      */
     public function index(){
-
+        $pre = C('DB_PREFIX');
         $forum =   M('Forum')->alias('t1')
                             ->field('t1.*,t2.title as ptitle')
-                            ->join('left join tp_forum as t2 on t1.pid =t2.id')
+                            ->join("left join {$pre}forum as t2 on t1.pid =t2.id")
                             ->where("t1.pid !=0")
                             ->select(); //板块信息 只能在子版块发帖  限制用户不得选择主版块 (checkPostForum 再次进行验证过滤)
         //dump($forum);die;

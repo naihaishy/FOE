@@ -128,6 +128,7 @@ class ForumController extends Controller {
     * @return  int 
     */
     public function post(){
+        $pre = C('DB_PREFIX');
         if(IS_POST){
             $post = I('post.');
             //参数验证
@@ -148,7 +149,7 @@ class ForumController extends Controller {
         }else{
             $forum =   M('TeacherForum')->alias('t1')
                                         ->field('t1.*,t2.title as ptitle')
-                                        ->join('left join tp_teacher_forum as t2 on t1.pid =t2.id')
+                                        ->join("left join {$pre}teacher_forum as t2 on t1.pid =t2.id")
                                         ->where("t1.pid !=0")
                                         ->select();//板块信息 主版块下的子版块  限制用户不得选择主版块 (checkPostForum 再次进行验证过滤)
             //dump($forum);die;
@@ -308,10 +309,11 @@ class ForumController extends Controller {
      * @return 
      */
     private function getForumInfo($post_id){
+        $pre = C('DB_PREFIX');
         $forum_id   = M('TeacherForumPost')->field('forum_id')->find($post_id)['forum_id'];
         $forum_info = M('TeacherForum')->alias('t1')
                                     ->field('t1.*,t2.title as ptitle')
-                                    ->join('left join tp_teacher_forum as t2 on t1.pid =t2.id')
+                                    ->join("left join {$pre}teacher_forum as t2 on t1.pid =t2.id")
                                     ->where('t1.id='.$forum_id)
                                     ->find();
         return $forum_info;
@@ -429,13 +431,14 @@ class ForumController extends Controller {
     */
 
     private function getPostCount($forum_id){
+        $pre = C('DB_PREFIX');
         if($this->checkForum($forum_id)){  //forum_id 合法性校验
 
             $forum = M('TeacherForum')->find($forum_id);//该板块信息
             if($forum['pid']==0){
                 //主版块 获取下级所有子版块帖子数
                 $count  =  M('TeacherForum')->alias('t1')
-                                            ->join('right join tp_teacher_forum_post as t2 on t2.forum_id=t1.id')
+                                            ->join("right join {$pre}teacher_forum_post as t2 on t2.forum_id=t1.id")
                                             ->where('t1.pid='.$forum_id)
                                             ->count();
             }else{
@@ -456,6 +459,7 @@ class ForumController extends Controller {
     * @return  int 
     */
     private function getViewCount($forum_id){
+        $pre = C('DB_PREFIX');
         if($this->checkForum($forum_id)){  //forum_id 合法性校验
 
             $forum = M('TeacherForum')->find($forum_id);//该板块信息
@@ -463,7 +467,7 @@ class ForumController extends Controller {
                 //主版块 获取下级所有子版块帖子浏览数
                 $count  =  M('TeacherForum')->alias('t1')
                                             ->field('sum(view_count) as count')
-                                            ->join('left join tp_teacher_forum_post as t2 on t2.forum_id=t1.id')
+                                            ->join("left join {$pre}teacher_forum_post as t2 on t2.forum_id=t1.id")
                                             ->where('t1.pid='.$forum_id)
                                             ->select();
             }else{
@@ -485,6 +489,7 @@ class ForumController extends Controller {
     * @return  int 
     */
     private function getReplyCount($forum_id){
+        $pre = C('DB_PREFIX');
         if($this->checkForum($forum_id)){  //forum_id 合法性校验
 
             $forum = M('TeacherForum')->find($forum_id);//该板块信息
@@ -492,7 +497,7 @@ class ForumController extends Controller {
                 //主版块 获取下级所有子版块帖子回复数
                 $count  =  M('TeacherForum')->alias('t1')
                                             ->field('sum(reply_count) as count')
-                                            ->join('left join tp_teacher_forum_post as t2 on t2.forum_id=t1.id')
+                                            ->join("left join {$pre}teacher_forum_post as t2 on t2.forum_id=t1.id")
                                             ->where('t1.pid='.$forum_id)
                                             ->select();
             }else{
@@ -558,7 +563,7 @@ class ForumController extends Controller {
      * @return array
      */
     private function getPosts($forum_id, $num, $type){
-
+        $pre = C('DB_PREFIX');
         if($forum_id == 0){
 
             $map = array('status'=>$type); //不指定板块的相应类型帖子 [置顶|精华|最新]
@@ -571,8 +576,8 @@ class ForumController extends Controller {
                 $map = array('t1.status'=>$type, 't3.id'=>$forum_id);
                 $posts = M('TeacherForumPost')->alias('t1')
                                         ->field('t1.*')
-                                        ->join('left join tp_teacher_forum as t2 on t1.forum_id =t2.id')
-                                        ->join('left join tp_teacher_forum as t3 on t2.pid = t3.id')
+                                        ->join("left join {$pre}teacher_forum as t2 on t1.forum_id =t2.id")
+                                        ->join("left join {$pre}teacher_forum as t3 on t2.pid = t3.id")
                                         ->where($map)->limit($num)->order('created_time desc')->select();
             }else{
                 //该板块为子版块 直接查询其相应类型帖子 [置顶|精华|最新]

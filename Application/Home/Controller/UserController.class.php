@@ -134,6 +134,7 @@ class UserController extends CommonController{
      * @return
      */
     public function course($type='ing'){
+        $pre = C('DB_PREFIX');
         if($type=='follow'){
             //关注的课程
             $map = array(
@@ -143,8 +144,8 @@ class UserController extends CommonController{
             $courses = M('CourseFollow')->alias('t1')
                                         ->distinct(true)
                                         ->field('t1.course_id,t2.*,t3.username as teacher_name')
-                                        ->join('left join tp_course as t2 on t2.id=t1.course_id')  
-                                        ->join('left join tp_teacher as t3 on t2.teacher_id=t3.id')                                          
+                                        ->join("left join {$pre}course as t2 on t2.id=t1.course_id")  
+                                        ->join("left join {$pre}teacher as t3 on t2.teacher_id=t3.id")                                          
                                         ->where($map)
                                         ->select();
         }else{
@@ -174,8 +175,8 @@ class UserController extends CommonController{
             $courses  = M('CourseLessonLearn')  ->alias('t1')
                                                 ->distinct(true)
                                                 ->field('t1.course_id,t2.*,t3.username as teacher_name')
-                                                ->join('left join tp_course as t2 on t2.id=t1.course_id')  
-                                                ->join('left join tp_teacher as t3 on t2.teacher_id=t3.id')                                          
+                                                ->join("left join {$pre}course as t2 on t2.id=t1.course_id")  
+                                                ->join("left join {$pre}teacher as t3 on t2.teacher_id=t3.id")                                          
                                                 ->where($map)
                                                 ->select();
         }
@@ -194,6 +195,7 @@ class UserController extends CommonController{
      * @return
      */
     public function discuss($type='lead'){
+        $pre = C('DB_PREFIX');
 
         if($type=='lead'){
             $map = array(
@@ -209,7 +211,7 @@ class UserController extends CommonController{
                 );
             $discuss = M('CourseDiscussReply')  ->alias('t1')
                                                 ->field('t2.*')
-                                                ->join('left join tp_course_discuss as t2 on t1.discuss_id=t2.id')
+                                                ->join("left join {$pre}course_discuss as t2 on t1.discuss_id=t2.id")
                                                 ->distinct(true)
                                                 ->where($map)
                                                 ->select();

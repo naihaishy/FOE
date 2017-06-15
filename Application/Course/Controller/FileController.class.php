@@ -10,9 +10,11 @@ class FileController extends CommonController {
 
         $page = A('Common/Pages')->getShowPage(D('CourseFiles'), array('user_id'=>session('uid'), 'course_id'=>array('not in', '0') ) );
         $show = $page->show();
+
+        $pre = C('DB_PREFIX');
         $files = D('CourseFiles') ->alias('t1')
                                     ->field('t1.*,t2.title as course_title')
-                                    ->join('tp_course as t2 on t1.course_id = t2.id')
+                                    ->join("{$pre}course as t2 on t1.course_id = t2.id")
                                     ->where($map)
                                     ->limit($page->firstRow,$page->listRows)
                                     ->select();
