@@ -21,11 +21,37 @@ class SettingController extends CommonController{
      * @return
      */
     public function systems(){
-        //展示模板
-        $this->display('systems');
+        if(IS_POST){
+            $post  = I('post.');
+            foreach ($post as $key => $value) {
+                $map = array('name'=> $key);
+                $data = array('name'=>$key,'value'=>$value,'group'=>'system');
+                $has_exists = M('Setting')->where($map)->find();
+                if($has_exists){
+                    M('Setting')->where($map)->save($data);
+                }else{
+                    M('Setting')->add($data);
+                }
+            }
+
+            $this->setConfigFile($post);
+            $this->success('更新成功');
+            
+        }else{
+            //展示模板
+            $data_arr = get_group_options('system');
+            foreach ($data_arr as $key => $value) {
+                $data[$value['name']] = $value['value'];
+            }
+            //dump($data );die;
+            $this->assign('data', $data);
+            $this->display('systems');
+        }
+        
     }
     
     public function blocks(){
+
         //展示模板
         $this->display('blocks');
     }
@@ -57,70 +83,20 @@ class SettingController extends CommonController{
 
             //邮件配置
             if($type=='config'){
-                foreach ($post as $k => $v) {
-                    M('Setting')->where(array('name'=>$k))->setField('value',$v);
-                }
-
-                $email_config =<<<php
-//***********************************邮箱设置***********************************************
-
-'THINK_EMAIL' => array(
-            'SMTP_HOST'   => '{$post['smtp_host']}', //SMTP服务器
-            'SMTP_PORT'   => '{$post['smtp_port']}', //SMTP服务器端口 ssl加密
-            'SMTP_USER'   => '{$post['smtp_user']}', //SMTP服务器用户名
-            'SMTP_PASS'   => '{$post['smtp_pass']}', //SMTP服务器密码
-            'FROM_EMAIL'  => '{$post['from_email']}', //发件人EMAIL
-            'FROM_NAME'   => '{$post['from_name']}', //发件人名称
-            'REPLY_EMAIL' => '', //回复EMAIL（留空则为发件人EMAIL）
-            'REPLY_NAME'  => '', //回复名称（留空则为发件人名称）
-        ),
-
-php;
-
-
-                $str = file_get_contents('./Application/Common/Conf/setting.php'); //原有配置
-
-                if( $str==false || empty($str) ){
-                    //初始化该文件
-                    $config =<<<php
-<?php
-return array(
-//此配置项为自动生成请勿直接修改；如需改动请在后台网站设置
-
-//***********************************邮箱设置***********************************************
-
-'THINK_EMAIL' => array(
-            'SMTP_HOST'   => '{$post['smtp_host']}', //SMTP服务器
-            'SMTP_PORT'   => '{$post['smtp_port']}', //SMTP服务器端口 ssl加密
-            'SMTP_USER'   => '{$post['smtp_user']}', //SMTP服务器用户名
-            'SMTP_PASS'   => '{$post['smtp_pass']}', //SMTP服务器密码
-            'FROM_EMAIL'  => '{$post['from_email']}', //发件人EMAIL
-            'FROM_NAME'   => '{$post['from_name']}', //发件人名称
-            'REPLY_EMAIL' => '', //回复EMAIL（留空则为发件人EMAIL）
-            'REPLY_NAME'  => '', //回复名称（留空则为发件人名称）
-        ),
-
-);
-php;
-                }else{
-
-                    if(preg_match("/\'THINK_EMAIL\'/", $str) ){
-                        //已结存在该配置 进行更新
-                        $config_a = substr($str, 0, stripos($str, 'THINK_EMAIL')-102);
-                        $config_b = substr($str, stripos($str, 'THINK_EMAIL')+596, strlen($str)-1 );
-                        $config = $config_a . $email_config . $config_b;
+                foreach ($post as $key => $value) {
+                    $map    = array('name'=> $key);
+                    $data   = array('name'=>$key,'value'=>$value,'group'=>'email');
+                    $has_exists = M('Setting')->where($map)->find();
+                    if($has_exists){
+                        M('Setting')->where($map)->save($data);
                     }else{
-                        //不存在该配置 添加配置
-                        $config_a = substr($str, 0, strlen($str)-4);
-                        $config = $config_a . $email_config ."\r\n);";
+                        M('Setting')->add($data);
                     }
-                    
-                    
-                    
                 }
-                
-            $boolean = file_put_contents('./Application/Common/Conf/setting.php', $config);
-            if($boolean) $this->success('更新成功', '',2);
+
+            $this->setConfigFile($post);
+            $this->success('更新成功', '',2);
+
             }
             
 
@@ -134,6 +110,38 @@ php;
             $this->display();
         }
         
+    }
+
+    /**  
+     * 配置处理
+     * @access private
+     * @param  
+     * @return
+     */
+    private function setConfigFile($data){
+
+        $str = file_get_contents('./Application/Common/Conf/setting.php'); //原有配置
+
+        if( $str==false || empty($str) ){
+            //初始化该文件
+            #init code 
+        }else{
+            foreach ($data as $key => $value) {
+                //查找是否存在配置项
+                if(stripos($str, $key)){
+                    //已经存在该项配置 更新
+                    $item   = "'".strtoupper($key)."'=>'".$value."',"; 
+                    $start  = stripos($str, $key);
+                    $config = substr_replace($str, $item, $start-1, 60);
+                }else{
+                    //不存在该配置项 初始化
+                    #init item code 
+                }
+            }
+        }
+
+        file_put_contents('./Application/Common/Conf/setting.php', $config);
+
     }
 
     
