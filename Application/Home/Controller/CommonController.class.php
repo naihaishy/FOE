@@ -10,11 +10,6 @@ class CommonController extends Controller{
         //验证学员登录
         public function _initialize(){
 
-            //网站状态
-            if(C('WEB_STATUS')=='close'){
-                $this->display('Public/close');
-            }
-
 
             $uid=session('uid');
             $rid=session('rid');

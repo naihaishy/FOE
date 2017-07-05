@@ -74,41 +74,44 @@
                             		<div class="form-group">
                                         <label class="col-md-2 control-label">网站状态</label>
                                           <div class="col-md-10">
-                                            <input   type="radio" name="web_status" value="open" checked="checked" />开启
-                                            <input   type="radio" name="web_status" value="close" />关闭
+                                            <input   type="radio" name="site_status" value="open" checked="checked" />开启
+                                            <input   type="radio" name="site_status" value="close" />关闭
                                           </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">网站关闭时提示文字</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="site_close_texts" value="{$data['site_close_texts']}" > 
+                                            <input type="text" class="form-control" name="site_close_texts" value="{$data['site_close_texts']|default='网站更新中 暂停访问'}" > 
                                             <span class="text-help">仅在网站关闭时显示</span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">网站名称</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="site_name" value="{$data['site_name']}" > 
+                                            <input type="text" class="form-control" name="site_name" value="{$data['site_name']|default='FOE'}" > 
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">网站关键字</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="site_keywords" value="{$data['site_keywords']}" > 
+                                            <input type="text" class="form-control" name="site_keywords" value="{$data['site_keywords']|default='Free Online Education'}" > 
                                             <span class="text-help">多个请以英文逗号隔开</span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">网站描述</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="site_discription" value="{$data['site_discription']}" > 
+                                            <input type="text" class="form-control" name="site_description" value="{$data['site_description']|default='在线教育,FOE'}" > 
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">网站备案号</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="site_icp_number" value="{$data['site_icp_number']}" > 
+                                            <input type="text" class="form-control" name="site_icp_number" value="{$data['site_icp_number']|default='0000'}" > 
                                         </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">更新 </button>
                                     </div>  
                                 </form>
                             </div>
@@ -117,32 +120,7 @@
                 </div>
                 
                 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">查看管理资料</h3>
-                                <div class="actions pull-right">
-                                    <i class="fa fa-chevron-down"></i>
-                                    <i class="fa fa-times"></i>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal form-border">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">我的角色</label>
-                                        <div class="col-sm-6">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">拥有权限</span>
-                                                <input type="text" class="form-control" readonly="readonly" placeholder="对不起 你没有修改权限 只要查看权限">
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                 
 
             </section>
         </section>
@@ -162,6 +140,14 @@
     <!--footer start-->
      <include file="Application/Admin/View/Index/tpl-footer.html" />
     <!--footer end--> 
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var site_status = "{$data['site_status']}";
+            $(":radio[value='" + site_status + "']").attr("checked","checked");
+        });
+    </script>
 </body>
 
 </html>

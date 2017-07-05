@@ -3,6 +3,23 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends BaseController {
  
+    public function _initialize(){
+
+        //网站设置信息
+        $system_config = get_group_options('system');
+        $siteinfo  = array();
+        foreach ($system_config as $key => $value) {
+            $siteinfo[$value['name']] = $value['value']; 
+        }
+        $this->assign('siteinfo', $siteinfo); 
+
+
+        if(C('SITE_STATUS')=='close'){
+            $data = C('SITE_CLOSE_TEXTS');
+            $this->assign('data', $data);
+            $this->display('Public/close');die;
+        }
+    }
 
     /**  
      * 首页

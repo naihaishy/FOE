@@ -120,9 +120,31 @@ class SettingController extends CommonController{
      */
     private function setConfigFile($data){
 
-        $str = file_get_contents('./Application/Common/Conf/setting.php'); //原有配置
+        //$str = file_get_contents('./Application/Common/Conf/setting.php'); //原有配置
 
-        if( $str==false || empty($str) ){
+        $str = include './Application/Common/Conf/setting.php';
+        $arr = array_change_key_case($data, CASE_UPPER);
+        $config = array_merge($str, $arr);
+
+        $config_text = "<?php \nreturn array( \n\n";
+        foreach ($config as $key => $value) {
+            if( is_array($value) ){
+                //二维数组
+                $config_text .= "\t'". $key ."' =>array( \n"; 
+                foreach ($value as $key2 => $value2) {
+                    $config_text .= "\t'".$key2."'=>'".$value2."',\n"; 
+                }
+                
+            }else{
+                $config_text .= "\t'".$key."'=>'".$value."',\n";  
+            }
+            
+
+        }
+
+        $config_text .= "\n );";
+
+        /*if( $str==false || empty($str) ){
             //初始化该文件
             #init code 
         }else{
@@ -130,7 +152,7 @@ class SettingController extends CommonController{
                 //查找是否存在配置项
                 if(stripos($str, $key)){
                     //已经存在该项配置 更新
-                    $item   = "'".strtoupper($key)."'=>'".$value."',"; 
+                    $item   = "\t'".strtoupper($key)."'=>'".$value."',\n"; 
                     $start  = stripos($str, $key);
                     $config = substr_replace($str, $item, $start-1, 60);
                 }else{
@@ -138,9 +160,9 @@ class SettingController extends CommonController{
                     #init item code 
                 }
             }
-        }
+        }*/
 
-        file_put_contents('./Application/Common/Conf/setting.php', $config);
+        file_put_contents('./Application/Common/Conf/setting.php', $config_text);
 
     }
 
