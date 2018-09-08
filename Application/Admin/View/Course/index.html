@@ -72,11 +72,20 @@
                                                     <td>{$vol['id']}</td>
                                                     <td>{$vol['title']|subtext=30} </td>
                                                     <td> {$vol['category_name']}</td>
-                                                    <td> {$vol['status']}</td>
+                                                    <td>
+                                                        <if condition="$vol['status'] eq 'closed'"> <span class="label label-danger">已关闭</span>
+                                                            <elseif condition="$vol['status'] eq 'published'"/><span class="label label-success">已公开</span>
+                                                        </if>
+                                                    </td>
                                                     <td> {$vol['create_time']|date='Y-m-d H:i:s',###}</td>
                                                     <td> {$vol['release_date']|date='Y-m-d H:i:s',###}</td>
                                                     <td>{$vol['teacher_name']} </td>
-                                                    <td> <a href="{:U('Admin/Course/close/id/'.$vol['id'])}" onclick="return confirm('确认关闭课程?')">关闭课程</a>| <a href="{:U('Admin/Course/delete/id/'.$vol['id'])}" onclick="return confirm('确认删除该课程及其所有相关信息?')">删除课程</a>| <a href="{:U('Course/Index/details/id/'.$vol['id'])}" target="_blank">查看</a> </td>
+                                                    <td>
+                                                        <if condition="$vol['status'] eq 'closed'"> <a href="{:U('Admin/Course/publish/id/'.$vol['id'])}" onclick="return confirm('确认发布课程?')">发布课程</a>
+                                                            <elseif condition="$vol['status'] eq 'published'"/> <a href="{:U('Admin/Course/close/id/'.$vol['id'])}" onclick="return confirm('确认关闭课程?')">关闭课程</a>
+                                                        </if>
+                                                        | <a href="{:U('Admin/Course/delete/id/'.$vol['id'])}" onclick="return confirm('确认删除该课程及其所有相关信息?')">删除课程</a>|
+                                                        <a href="{:U('Course/Index/details/id/'.$vol['id'])}" target="_blank">查看</a> </td>
                                                 </tr>
                                             </volist>
                                             

@@ -23,7 +23,7 @@ class CommonController extends Controller{
         }
         //检查账号是否锁定
         if($this->checklock()){
-            $this->error('对不起 您的账号已经被管理员锁定.请直接联系 Naihai [abc@zhfsky.com]进行申诉',U('Public/login'),6);exit;
+            $this->error('对不起 您的账号已经被管理员锁定.请直接联系 Naihai [abc@zhfsky.com]进行申诉', U('Public/login'), 6);
         }
 
         //权限认证

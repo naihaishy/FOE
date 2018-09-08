@@ -36,68 +36,68 @@
                                
                 
                 <div class="row">
-                	<div class="col-md-12">
+                    <div class="col-md-12">
                         <!--breadcrumbs start -->
                         <include file="Application/Admin/View/Sidebar/tpl-breadcrumb.html" />
                         <!--breadcrumbs end -->
                         <h1 class="h1">权限分配</h1>
                         <h3><strong>{$group_data['title']}</strong></h3>
                     </div>
-                </div>	
+                </div>  
                  
                 <div class="row">
-                	<div class="col-md-12">
-                		<form action="" method="post"> 
-											<input type="hidden" name="id" value="{$group_data['id']}">
-											<table class="table table-striped table-bordered table-hover table-condensed">
-												<foreach name="rule_data" item="v">
-													<empty name="v['_data']">
-														<tr class="b-group">
-															<th width="15%">
-																<label>{$v['title']}
-																 <input type="checkbox" name="rule_ids[]" value="{$v['id']}" <if condition="in_array($v['id'],$group_data['rules'])"> checked="checked"</if> onclick="checkAll(this)" />
-																</label>
-															</th>
-															<td></td>
-														</tr>
-												  <else/>
-														<tr class="b-group">
-															<th width="10%"> 
-																<label>{$v['title']} 
-																	<input type="checkbox" name="rule_ids[]" value="{$v['id']}" <if condition="in_array($v['id'],$group_data['rules'])"> checked="checked"</if> onclick="checkAll(this)">
-																</label>
-															<td class="b-child">
-																<foreach name="v['_data']" item="n">
-																	<table class="table table-striped table-bordered table-hover table-condensed">
-																		<tr class="b-group">
-																			<th width="10%">
-																				<label>{$n['title']} 
-																				 <input type="checkbox" name="rule_ids[]" value="{$n['id']}" <if condition="in_array($n['id'],$group_data['rules'])"> checked="checked"</if> onclick="checkAll(this)">
-																				</label>
-																			</th>
-																		 <td>
-																		 	<notempty name="n['_data']">
-																		 		<volist name="n['_data']" id="c"> 
-																		 			<label>&emsp;{$c['title']}
-																		 				 <input type="checkbox" name="rule_ids[]" value="{$c['id']}" <if condition="in_array($c['id'],$group_data['rules'])"> checked="checked"</if> >
-																		 		  </label>
-																		 		</volist>
-																		 	</notempty>
-																		 </td>
-																  	</tr>
-															 	  </table>
-																</foreach>
-													  	</td>
-													 </tr>
-												 </empty>
-											 </foreach>
-											<tr>
-											 	<th></th>
-											 	<td><input class="btn btn-success" type="submit" value="提交"></td>
-											 </tr>
-										</table>
-									 </form>				         
- 									</div>
+                    <div class="col-md-12">
+                        <form action="" method="post"> 
+                            <input type="hidden" name="id" value="{$group_data['id']}">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <foreach name="rule_data" item="v">
+                                    <empty name="v['_data']">
+                                        <tr class="b-group">
+                                            <th width="15%">
+                                                <label>{$v['title']}
+                                                 <input type="checkbox" name="rule_ids[]" value="{$v['id']}" <if condition="in_array($v['id'],$group_data['rules'])"> checked="checked"</if> onclick="checkAll(this)" />
+                                                </label>
+                                            </th>
+                                            <td></td>
+                                        </tr>
+                                  <else/>
+                                        <tr class="b-group">
+                                            <th width="10%"> 
+                                                <label>{$v['title']} 
+                                                    <input type="checkbox" name="rule_ids[]" value="{$v['id']}" <if condition="in_array($v['id'],$group_data['rules'])"> checked="checked"</if> onclick="checkAll(this)">
+                                                </label>
+                                            <td class="b-child">
+                                                <foreach name="v['_data']" item="n">
+                                                    <table class="table table-striped table-bordered table-hover table-condensed">
+                                                        <tr class="b-group">
+                                                            <th width="10%">
+                                                                <label>{$n['title']} 
+                                                                 <input type="checkbox" name="rule_ids[]" value="{$n['id']}" <if condition="in_array($n['id'],$group_data['rules'])"> checked="checked"</if> onclick="checkAll(this)">
+                                                                </label>
+                                                            </th>
+                                                         <td>
+                                                            <notempty name="n['_data']">
+                                                                <volist name="n['_data']" id="c"> 
+                                                                    <label>&emsp;{$c['title']}
+                                                                         <input type="checkbox" name="rule_ids[]" value="{$c['id']}" <if condition="in_array($c['id'],$group_data['rules'])"> checked="checked"</if> >
+                                                                  </label>
+                                                                </volist>
+                                                            </notempty>
+                                                         </td>
+                                                    </tr>
+                                                  </table>
+                                                </foreach>
+                                        </td>
+                                     </tr>
+                                 </empty>
+                             </foreach>
+                            <tr>
+                                <th></th>
+                                <td><input class="btn btn-success" type="submit" value="提交"></td>
+                             </tr>
+                        </table>
+                     </form>                         
+                    </div>
                 </div>
                  
                 <!--mail wrapper end-->
@@ -127,12 +127,12 @@
 
 <script>
 $(function(){
-	$('#formsubmit-add').on('click',function(){
-		$('form').eq(0).submit();
-	});
-	$('#formsubmit-edit').on('click',function(){
-		$('form').eq(1).submit();
-	});
+    $('#formsubmit-add').on('click',function(){
+        $('form').eq(0).submit();
+    });
+    $('#formsubmit-edit').on('click',function(){
+        $('form').eq(1).submit();
+    });
 }); 
 
 function checkAll(obj){

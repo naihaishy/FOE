@@ -16,9 +16,6 @@
     <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
 
 
-     
-
-    
 </head>
 
 <body>
@@ -170,38 +167,35 @@
  
  
     
-<!--footer start-->
+    <!--footer start-->
      <include file="Application/Admin/View/Index/tpl-footer.html" />
-<!--footer end--> 
+    <!--footer end--> 
 </body>
+ 
+<script type="text/javascript">
+    $(function(){
+        $('#formsubmit-add').on('click',function(){
+            $('form').eq(0).submit();
+        });
+        $('#formsubmit-edit').on('click',function(){
+            $('form').eq(1).submit();
+        });
+    }); 
 
-<script>
-$(function(){
-    $('#formsubmit-add').on('click',function(){
-        $('form').eq(0).submit();
-    });
-    $('#formsubmit-edit').on('click',function(){
-        $('form').eq(1).submit();
-    });
-}); 
+    //添加管理员
+    function add(obj){
+        $("input[name='group_id']").val(0);
+        $('#admin-add').modal('show');
+    }
 
-//添加管理员
-function add(obj){
-    $("input[name='group_id']").val(0);
-    $('#admin-add').modal('show');
-}
-
-//修改管理员权限
-function edits(obj){
-    var uid= $(obj).attr('uid');
-    var group_id = $(obj).attr('group_id');
-    $('#admin-edit').modal('show');
-    $("input[name='uid']").val(uid);
-    $(":radio[value='" + group_id + "']").attr("checked","checked");
-    //alert(uid);
-    
-
-}
-
+    //修改管理员权限
+    function edits(obj){
+        var uid= $(obj).attr('uid');
+        var group_id = $(obj).attr('group_id');
+        $('#admin-edit').modal('show');
+        $("input[name='uid']").val(uid);
+        $(":radio[value='" + group_id + "']").attr("checked","checked");
+        //alert(uid);
+    }
 </script>
 </html>

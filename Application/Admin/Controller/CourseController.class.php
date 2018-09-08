@@ -1,20 +1,20 @@
 <?php
 namespace Admin\Controller;
+
 use Think\Controller;
+
 class CourseController extends CommonController{
 
-
-     
-    /**  
+    /**
      * 课程列表
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function index(){
         $pre = C('DB_PREFIX');
         $model = M('Course');
-        $page = A('Common/Pages')->getShowPage($model, array('checked'=>1) );
+        $page = A('Common/Pages')->getShowPage($model, array('checked'=>1), 10 );
         $show = $page->show();
         $courses   = M('Course')->alias('t1')->field('t1.*,t2.username as teacher_name,t3.name as category_name')
                                         ->join("left join {$pre}teacher as t2 on t1.teacher_id = t2.id")
@@ -24,18 +24,20 @@ class CourseController extends CommonController{
                                         ->order('t1.id asc')
                                         ->select();
         $assign =   array(
-                'courses'  =>  $courses,
-                'show'  =>  $show,
-            );  
+                'courses'   =>  $courses,
+                'show'      =>  $show,
+                'title'     =>  "课程列表"
+            );
 
         $this->assign($assign);
         $this->display();
+
     }
 
-    /**  
+    /**
      * 审核课程
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function check(){
@@ -65,7 +67,7 @@ class CourseController extends CommonController{
                 else                    A('Common/Messages')->send('course', 'check_fail', $source, $course['teacher_id'], 2);
             }
 
-            
+
             $result=== false ? $this->error('审核失败'):$this->success('审核成功');
         }else{
             $pre = C('DB_PREFIX');
@@ -79,55 +81,76 @@ class CourseController extends CommonController{
                                             ->where("checked=0")
                                             ->order('t1.id asc')
                                             ->select();
-                                           
-                                            
+
+
             $assign =   array(
                     'courses'  =>  $courses,
                     'show'  =>  $show,
-                );  
+                );
 
             $this->assign($assign);
             $this->display();
             }
-        
+
     }
 
 
+    /**
+     * 发布课程
+     * @access public
+     * @param
+     * @return
+     */
+    public function publish($id){
+        if(empty($id) || !is_numeric($id) || !M('Course')->find($id)) $this->error('不存在此课程');
 
+        $result = M('Course')->where(array('id'=>$id))->setField('status', 'published');
+        //消息机制
 
-    /**  
+        if($result){
+            $course = M('Course')->find($id);
+            $source = array(
+                'title' => $course['title'],//课程标题
+                'url'   => sitesurl().'/index.php/Course/Index/details/id/'.$course['id'],
+            );
+            A('Common/Messages')->send('course', 'publish', $source, $course['teacher_id'], 2);//消息机制 发送
+            $this->success('发布课程成功', '', 1);
+        }else{
+            $this->error('发布课程失败', '', 1);
+        }
+    }
+
+    /**
      * 关闭课程
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function close($id){
-        if(empty($id) || !is_numeric($id) || !M('Course')->find($id)) $this->error('不存在此课程'); 
-        $result = M('Course')->where('id='.$id)->setField('status','closed');
+        if(empty($id) || !is_numeric($id) || !M('Course')->find($id)) $this->error('不存在此课程');
+
+        $result = M('Course')->where(array('id'=>$id))->setField('status', 'closed');
         //消息机制
-        $result ?  $this->success('关闭课程成功'):$this->error('关闭课程失败');
+
         if($result){
-            $this->success('关闭课程成功', '', 1);
-            //消息机制 源
             $course = M('Course')->find($id);
             $source = array(
                     'title' => $course['title'],//课程标题
-                    'url'   => 'https://foe.zhfsky.com/index.php/Course/Index/details/id/'.$course['id'],
+                    'url'   => sitesurl().'/index.php/Course/Index/details/id/'.$course['id'],
              );
             A('Common/Messages')->send('course', 'close', $source, $course['teacher_id'], 2);//消息机制 发送
-
+            $this->success('关闭课程成功', '', 1);
         }else{
             $this->error('关闭课程失败', '', 1);
         }
-
     }
 
 
-    /**  
+    /**
      * 删除课程
      * @access public
-     * @param   
-     * @return   
+     * @param
+     * @return
      */
     public function delete($id){
 
@@ -137,19 +160,19 @@ class CourseController extends CommonController{
       if(!M('Course')->find($id)) $this->success('删除成功', '', 2);
       else $this->error('删除失败', '', 2);
     }
-    
-    
-    
-        
- 
 
 
 
 
-    /**  
+
+
+
+
+
+    /**
      * 课程分类列表
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function category(){
@@ -159,10 +182,10 @@ class CourseController extends CommonController{
         $this->display();
     }
 
-    /**  
+    /**
      * 添加课程分类
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function addCategory(){
@@ -181,14 +204,14 @@ class CourseController extends CommonController{
     }
 
 
-    /**  
+    /**
      * 编辑课程分类
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function editCategory(){
-        
+
         if(IS_POST){
             $post = I('post.');
             //自动验证提交数据
@@ -200,14 +223,14 @@ class CourseController extends CommonController{
             $result =   M('CourseCategory')->save($post);
             $result ? $this->success('更新成功','',1) : $this->error('更新失败','',2);
         }
-        
-    }
-    
 
-    /**  
+    }
+
+
+    /**
      * 删除课程分类
      * @access public
-     * @param  
+     * @param
      * @return
      */
     public function delCategory($id){
@@ -217,10 +240,10 @@ class CourseController extends CommonController{
     }
 
 
-    /**  
+    /**
      * 检查课程分类总数
      * @access private
-     * @param  
+     * @param
      * @return
      */
     private function checkCategoryCount(){
