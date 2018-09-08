@@ -140,11 +140,38 @@ class AccountsController extends Controller {
             $email_result = $this->sendAccountVerify($id, $role);//发送邮件
             if($email_result['error']==1)  $this->error('恭喜注册成功！ 但账号激活邮件发送失败 请登录后台手动重新验证');//发送失败
             else $this->success('恭喜注册成功！ 账号激活邮件已发送至你的邮箱,请到邮箱查看激活', $redirect, 3);//发送成功 
+
+            //账号初始化工作
+            $this->initAccount($result);
+            
         }else{
             //注册失败
             $this->error('注册失败','',1);
         }
     }
+
+
+    /**  
+     * 账号初始化
+     * @access private
+     * @param   
+     * @return   
+     */
+    private function initAccount($user_id){
+        //分配默认权限
+        //将该用户加入默认角色组即可 id为99
+        $has_exist = M('AuthGroupAccess')->where(array('uid'=>$user_id))->find();
+        if($has_exist){
+            #do nothing
+        }else{
+            $data = array(
+                'uid'       =>  $user_id,
+                'group_id'  =>  99,
+            );
+            M('AuthGroupAccess')->add($data);
+        }
+    }
+
 
     /**  
      * 登录验证码

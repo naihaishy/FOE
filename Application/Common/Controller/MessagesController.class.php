@@ -209,6 +209,9 @@ class MessagesController extends Controller{
                 case 'check_fail':
                     $message = "您开设的课程 <a href='".$source['url']."'>".$source['title']."</a>没有通过审核，原因：".$source['reason'].".请修改后再次提交审核";
                     break;
+                case 'publish':
+                    $message = "您开设的课程 <a href='".$source['url']."'>".$source['title']."</a>于".date("Y年m月d日", time())."被管理员发布了";
+                    break;
                 case 'close':
                     $message = "您开设的课程 <a href='".$source['url']."'>".$source['title']."</a>于".date("Y年m月d日", time())."被管理员关闭了";
                     break;

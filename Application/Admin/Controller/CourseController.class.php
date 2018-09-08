@@ -45,47 +45,58 @@ class CourseController extends CommonController{
             $post = I('post.');
 
             if($post['checked'] ==1){
-                $data = array('checked'=>1, 'uncheck_reason'=>'','status'=>'published','release_date'=>time() );
+                // 通过了审核
+                $data = array('checked'=>1, 'has_checked'=>1, 'uncheck_reason'=>'');
             }else{
+                // 没有通过审核
                 if(!$post['uncheck_reason']) $this->error('需要填写未通过审核的原因');
-                $data = array('checked'=>0, 'uncheck_reason'=>$post['uncheck_reason'], 'status'=>'closed' );
+
+                $data = array('checked'=>0, 'has_checked'=>1, 'uncheck_reason'=>$post['uncheck_reason'], 'status'=>'closed' );
             }
 
-            $result = M('Course')->where('id='.$post['id'])->save($data);
+            $result = M('Course')->where(array('id'=>$post['id']))->save($data);
 
             //消息机制
             $course = M('Course')->find($post['id']);
             $source = array(
                     'title' => $course['title'],//课程标题
-                    'url'   => 'https://foe.zhfsky.com/index.php/Course/Index/details/id/'.$course['id'],
+                    'url'   => sitesurl().'index.php/Course/Index/details/id/'.$course['id'],
                     'reason'=> $post['uncheck_reason'],
              );
 
             if(!$result===false ){
-                //审核成功
-                if($post['checked']==1) A('Common/Messages')->send('course', 'check_pass', $source, $course['teacher_id'], 2);
-                else                    A('Common/Messages')->send('course', 'check_fail', $source, $course['teacher_id'], 2);
+                // 成功修改了字段
+                if($post['checked']==1){
+                    //审核成功
+                    A('Common/Messages')->send('course', 'check_pass', $source, $course['teacher_id'], 2);
+                }else{
+                    // 未通过审核
+                    A('Common/Messages')->send('course', 'check_fail', $source, $course['teacher_id'], 2);
+                }
+                $this->success('审核成功');
+
+            }else{
+                $this->error('审核失败');
             }
-
-
-            $result=== false ? $this->error('审核失败'):$this->success('审核成功');
         }else{
+            // 展示页面
             $pre = C('DB_PREFIX');
             $model = M('Course');
-            $page = A('Common/Pages')->getShowPage($model, array('checked'=>0 ) );
+            $map = array('checked'=>0,  'need_check'=>1);
+            $page = A('Common/Pages')->getShowPage($model, $map, 10);
             $show = $page->show();
             $courses   = M('Course')->alias('t1')->field('t1.*,t2.username as teacher_name,t3.name as category_name')
                                             ->join("left join {$pre}teacher as t2 on t1.teacher_id = t2.id")
                                             ->join("left join {$pre}course_category as t3 on t1.category_id =t3.id")
                                             ->limit($page->firstRow,$page->listRows)
-                                            ->where("checked=0")
+                                            ->where($map)
                                             ->order('t1.id asc')
                                             ->select();
-
 
             $assign =   array(
                     'courses'  =>  $courses,
                     'show'  =>  $show,
+                    'title'=> "审核课程",
                 );
 
             $this->assign($assign);
@@ -104,14 +115,14 @@ class CourseController extends CommonController{
     public function publish($id){
         if(empty($id) || !is_numeric($id) || !M('Course')->find($id)) $this->error('不存在此课程');
 
-        $result = M('Course')->where(array('id'=>$id))->setField('status', 'published');
+        $result = M('Course')->where(array('id'=>$id))->setField(array('status'=>'published', 'release_date'=>time()));
         //消息机制
 
         if($result){
             $course = M('Course')->find($id);
             $source = array(
                 'title' => $course['title'],//课程标题
-                'url'   => sitesurl().'/index.php/Course/Index/details/id/'.$course['id'],
+                'url'   => sitesurl().'index.php/Course/Index/details/id/'.$course['id'],
             );
             A('Common/Messages')->send('course', 'publish', $source, $course['teacher_id'], 2);//消息机制 发送
             $this->success('发布课程成功', '', 1);

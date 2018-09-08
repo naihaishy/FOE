@@ -148,11 +148,12 @@ class ManualsController extends Controller{
     
     
     protected function getManuals(){
-         $manual = M('Manual') ->alias('t1')
+        $pre = C('DB_PREFIX');
+        $manual = M('Manual') ->alias('t1')
                                 ->field('t1.*,t2.name as category_name')
-                                ->join('left join tp_manual_category as t2 on t1.category_id = t2.id')
+                                ->join("left join {$pre}manual_category as t2 on t1.category_id = t2.id")
                                 ->select();
-         return $manual;
+        return $manual;
     }
     
     

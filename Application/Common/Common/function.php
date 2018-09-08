@@ -13,17 +13,49 @@ function sitesname(){
     return "<a href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."'>".$name."</a>";
 }
 
+/** 站点的url
+ * @return string
+ */
+function sitesurl(){
+
+    $site_url = get_option('site_url');
+
+    if($site_url){
+        return $site_url;
+    }else{
+
+        if($_SERVER['REQUEST_SCHEME']==null)
+            $url = "http://".$_SERVER['HTTP_HOST'].trim($_SERVER['SCRIPT_NAME'], 'index.php');
+        else
+            $url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].trim($_SERVER['SCRIPT_NAME'], 'index.php');
+
+        return $url;
+    }
+
+}
+
 /**
  * 系统邮件发送函数
  * @param string $to    接收邮件者邮箱
  * @param string $name  接收邮件者名称
- * @param string $subject 邮件主题 
+ * @param string $subject 邮件主题
  * @param string $body    邮件内容
  * @param string $attachment 附件列表
- * @return boolean 
+ * @return boolean
  */
 function think_send_mail($to, $name, $subject = '', $body = '', $attachment = null){
-    $config = C('THINK_EMAIL');
+
+    //从数据库获取
+    $site_email_system = get_option('site_email_system');
+    if($site_email_system=='close'){
+        return;//邮箱系统未开启
+    }
+
+    $email_setting = get_group_options('email');
+    foreach ($email_setting as $key => $value) {
+        $config[$value['name']] = $value['value'];
+    }
+
     vendor('PHPMailer.class#smtp'); //从PHPMailer目录导class.smtp.php类文件
     vendor('PHPMailer.class#phpmailer'); //从PHPMailer目录导class.phpmailer.php类文件
     $mail             = new PHPMailer(); //PHPMailer对象
@@ -64,15 +96,15 @@ function file_save_name($filename){
 
 /**
  * 密码生成函数
- *  
+ *
  */
 function generate_password( $length = 10 ) {
-    
+
     // 密码字符集，可任意添加你需要的字符
     $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     $password = '';
-    for ( $i = 0; $i < $length; $i++ ) 
+    for ( $i = 0; $i < $length; $i++ )
     {
         $password .= $chars[ mt_rand(0, strlen($chars) - 1) ];
     }
@@ -82,7 +114,7 @@ function generate_password( $length = 10 ) {
 
 /**
  * 字符串生成函数
- *  
+ *
  */
 function generate_rand_string( $length = 10 ) {
     $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -95,10 +127,10 @@ function generate_rand_string( $length = 10 ) {
 
 /**
  * 生成指定位数的数字
- *  
+ *
  */
 function generate_numcode($length) {
-    
+
     // 密码字符集，可任意添加你需要的字符
     $nums = '0123456789';
 
@@ -121,7 +153,7 @@ function goBack(){
 /**
  *记录当前页面URI
  */
- 
+
 function record_current_uri(){
     $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     $_SESSION['current_uri']=$url;
@@ -133,41 +165,41 @@ function record_current_uri(){
  * 阿里短信验证码发送函数
  * @param string $tel              接收短信者手机号码箱
  * @param string $verify_code  接收验证码
- * @return boolean  
+ * @return boolean
  */
 function sms_verf_code($tel,$verify_code){
-    
+
      vendor('AliSMS.class#alisms'); //从AliSMS目录导class.alisms.php类文件
      $alisms =new AliSMS();
-     
+
      if( empty($tel) || empty($verify_code) ||  !is_numeric($verify_code) || !is_numeric($tel) ){
         die('参数错误');
      }
-     
+
     $nameString     =   array('verifynum'=>$verify_code);  //模板变量
     $SmsParamString =   json_encode($nameString);      //发送的字符串
-    
+
     //获取阿里短信的配置
     $alisms_config  =   C('ALISMS_CONFIG');//二维数组
     $app_key        =   $alisms_config['ALISMS_APP_KEY'];        //app_key
     $app_secret     =   $alisms_config['ALISMS_APP_SECRET'];     //app_secret
-    
+
     $request_paras = array(
             'ParamString' => $SmsParamString ,
             'RecNum'    => $tel ,
-            'SignName'  =>'萘海', 
+            'SignName'  =>'萘海',
             'TemplateCode' => 'SMS_47950204'
             );
-            
-    $request_host =     $alisms_config['ALISMS_APP_REQUEST_HOST'];  
-    $request_uri =      $alisms_config['ALISMS_APP_REQUEST_URI'];   
-    $request_method = $alisms_config['ALISMS_APP_REQUEST_METHOD'];  
+
+    $request_host =     $alisms_config['ALISMS_APP_REQUEST_HOST'];
+    $request_uri =      $alisms_config['ALISMS_APP_REQUEST_URI'];
+    $request_method = $alisms_config['ALISMS_APP_REQUEST_METHOD'];
 
     $content    = $alisms->do_get($app_key, $app_secret, $request_host, $request_uri, $request_method, $request_paras);
     $result     = json_decode($content, true);
     if($result['success']==true) return true;
     else return false;
-   
+
 }
 
 /**
@@ -181,7 +213,7 @@ function sms_verf_code($tel,$verify_code){
  * @param string $suffix 截断显示字符
  * @return string
  */
- 
+
 function msubstr($str, $start, $length){
     import('Org.Util.String');
     $string =new String();
@@ -190,7 +222,7 @@ function msubstr($str, $start, $length){
 
 function subtext($text, $length)
 {
-    if(mb_strlen($text, 'utf8') > $length) 
+    if(mb_strlen($text, 'utf8') > $length)
     return mb_substr($text, 0, $length, 'utf8').'...';
     return $text;
 }
@@ -264,7 +296,7 @@ function qqlogin(){
     vendor('QQConnect.API.qqConnectAPI'); //从 QQConnect/API/ 目录下导入 qqConnectAPI.php文件
     $qc = new QC();
     $qc->qq_login();
-} 
+}
 
 function qqcallback(){
     vendor('QQConnect.API.qqConnectAPI'); //从 QQConnect/API/ 目录下导入 qqConnectAPI.php文件
@@ -272,7 +304,7 @@ function qqcallback(){
     $calldata=array();
     $acs = $qc->qq_callback();//callback主要是验证 code和state,返回token信息，并写入到文件中存储，方便get_openid从文件中度  
     $oid = $qc->get_openid();//根据callback获取到的token信息得到openid,所以callback必须在openid前调用  
-    
+
     //实例化QC对象
     $qc         = new QC($acs,$oid);
     $user_info  = $qc->get_user_info();
@@ -280,7 +312,7 @@ function qqcallback(){
     $calldata['oauth']['openid']        =   $oid;
     $calldata['userinfo']               =   $user_info;
     return $calldata;
-} 
+}
 
 
 
@@ -346,32 +378,32 @@ function mkdata($pid, $filename, $input){
         fputs ( $fp, preg_replace ( "(\r\n)", "\n", $input ) );
         fclose ( $fp );
     }else{
-        echo "Error while opening".$basedir . "/$filename ,try [chgrp -R www-data $OJ_DATA] and [chmod -R 771 $OJ_DATA ] ";     
+        echo "Error while opening".$basedir . "/$filename ,try [chgrp -R www-data $OJ_DATA] and [chmod -R 771 $OJ_DATA ] ";
     }
 }
 
 //格式化各种列表中content
 function format_list_content($str){
-     
+
 }
 
 
 
-/**  
+/**
  * 计算距离过去时间差e
  * @param int  time uniux时间戳
- * @return  mix 
+ * @return  mix
 */
 function past_time($time){
-    
+
 }
- 
 
 
-/**  
+
+/**
  * 获取系统设置
- * @param  
- * @return  
+ * @param
+ * @return
 */
 function get_option($name){
     $map = array('name'=> $name );
@@ -390,6 +422,6 @@ function pass_time($time){
     elseif ( floor($distance/60) < 60 ) return  floor($distance/60).'分钟前'; //一小时以内
     elseif ( floor($distance/3600) < 60 ) return  floor($distance/3600).'小时前'; //一天以内
     elseif ( floor($distance/86400) < 7 ) return  floor($distance/86400).'天前'; //一星期以内
-    else return date('Y年m月d日 H:i:s', $time); 
+    else return date('Y年m月d日 H:i:s', $time);
 }
 

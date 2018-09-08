@@ -94,7 +94,20 @@ class LiveController extends CommonController{
     }
 
 
+    /**
+     * 发布直播
+     * @access public
+     * @param
+     * @return
+     */
+    public function open($id){
+        if(empty($id) || !is_numeric($id) || !M('Live')->find($id)) $this->error('不存在此直播');
+        $result = M('Live')->where(array('id'=>$id))->setField('status','open');
+        //消息机制
+        #code
+        $result ?  $this->success('发布直播成功'):$this->error('发布直播失败');
 
+    }
 
     /**  
      * 关闭直播
@@ -104,7 +117,7 @@ class LiveController extends CommonController{
      */
     public function close($id){
         if(empty($id) || !is_numeric($id) || !M('Live')->find($id)) $this->error('不存在此直播'); 
-        $result = M('Live')->where('id='.$id)->setField('status','closed');
+        $result = M('Live')->where(array('id'=>$id))->setField('status','closed');
         //消息机制
         #code 
         $result ?  $this->success('关闭直播成功'):$this->error('关闭直播失败');

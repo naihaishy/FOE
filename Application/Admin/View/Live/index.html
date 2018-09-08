@@ -11,7 +11,7 @@
     <include file="Application/Admin/View/Common/header.html" />
     
     <!-- Feature detection -->
-    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <script src="__THEME__/SpaceLab/js/modernizr-2.6.2.min.js"></script>
  
 </head>
 
@@ -72,11 +72,24 @@
                                                     <td>{$vol['id']}</td>
                                                     <td>{$vol['title']|subtext=30} </td>
                                                     <td> {$vol['category_name']}</td>
-                                                    <td> {$vol['status']}</td>
+                                                    <td>
+                                                        <if condition="$vol['status'] eq 'closed'"> <span class="label label-danger">已关闭</span>
+                                                            <elseif condition="$vol['status'] eq 'open'"/><span class="label label-success">已公开</span>
+                                                        </if>
+
                                                     <td> {$vol['created_time']|date='Y-m-d H:i:s',###}</td>
                                                     <td> {$vol['release_time']|date='Y-m-d H:i:s',###}</td>
                                                     <td>{$vol['teacher_name']} </td>
-                                                    <td> <a href="{:U('Admin/Live/close/id/'.$vol['id'])}" onclick="return confirm('确认关闭课程?')">关闭直播</a>| <a href="{:U('Admin/Live/delete/id/'.$vol['id'])}" onclick="return confirm('确认删除该直播及其所有相关信息?')">删除直播</a>| <a href="{:U('Live/Watch/index/id/'.$vol['id'])}" target="_blank">查看</a> </td>
+                                                    <td>
+                                                        <if condition="$vol['status'] eq 'closed'">
+                                                            <a href="{:U('Admin/Live/open/id/'.$vol['id'])}" onclick="return confirm('确认发布课程?')">发布直播</a>|
+                                                            <elseif condition="$vol['status'] eq 'open'"/>
+                                                            <a href="{:U('Admin/Live/close/id/'.$vol['id'])}" onclick="return confirm('确认关闭课程?')">关闭直播</a>|
+                                                        </if>
+
+                                                        <a href="{:U('Admin/Live/delete/id/'.$vol['id'])}" onclick="return confirm('确认删除该直播及其所有相关信息?')">删除直播</a>|
+                                                        <a href="{:U('Live/Watch/index/id/'.$vol['id'])}" target="_blank">查看</a>
+                                                    </td>
                                                 </tr>
                                             </volist>
                                             
@@ -115,11 +128,11 @@
         
     </section>
     <!--Global JS-->
-    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/plugins/nanoScroller/jquery.nanoscroller.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <script src="__THEME__/SpaceLab/js/jquery-1.10.2.min.js"></script>
+    <script src="__PLUGIN__/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PLUGIN__/waypoints/waypoints.min.js"></script>
+    <script src="__PLUGIN__/nanoScroller/jquery.nanoscroller.min.js"></script>
+    <script src="__THEME__/SpaceLab/js/application.js"></script>
 
 <!--footer start-->
      <include file="Application/Admin/View/Index/tpl-footer.html" />

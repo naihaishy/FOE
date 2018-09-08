@@ -12,7 +12,7 @@
 
    
     <!-- Feature detection -->
-    <script src="__ADMIN__/SpaceLab/assets/js/modernizr-2.6.2.min.js"></script>
+    <script src="__THEME__/SpaceLab/js/modernizr-2.6.2.min.js"></script>
  
 </head>
 
@@ -60,7 +60,6 @@
                                                 <th>#ID</th>
                                                 <th>标题</th>
                                                 <th>分类</th>
-                                                <th>状态</th>
                                                 <th>创建时间</th>
                                                 <th>教师</th>
                                                 <th>管理</th>
@@ -73,11 +72,17 @@
                                                     <td>{$vol['id']}</td>
                                                     <td>{$vol['title']|subtext=30} </td>
                                                     <td> {$vol['category_name']}</td>
-                                                    <td> {$vol['status']}</td>
                                                     <td> {$vol['created_time']|date='Y-m-d H:i:s',###}</td>
                                                     <td>{$vol['teacher_name']} </td>
                                                     <td><a href="javascript:;" onclick="check(this)" liveid="{$vol['id']}" livetitle="{$vol['title']}" checkedinfo="{$vol['checked']}" uncheck_reason="{$vol['uncheck_reason']}" >审核</a>| <a href="{:U('Admin/Live/delete/id/'.$vol['id'])}" onclick="return confirm('确认删除?')">删除</a>|<a href="{:U('Live/Watch/index/id/'.$vol['id'])}" target="_blank">查看</a> </td>
-                                                    <td><if condition="$vol['uncheck_reason'] eq '' "> 尚未审核  <else/> 审核未通过</if></td>
+                                                    <td>
+                                                        <if condition="$vol['has_checked'] eq 1 and $vol['checked'] eq 0">
+                                                            <span class="label label-danger">审核未通过</span>
+                                                            <elseif condition="$vol['has_checked'] eq  0"/>
+                                                            <span class="label label-info">尚未审核</span>
+                                                        </if>
+
+                                                    </td>
                                                 </tr>
                                             </volist>
                                             
@@ -154,11 +159,11 @@
         
     </section>
     <!--Global JS-->
-    <script src="__ADMIN__/SpaceLab/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/plugins/waypoints/waypoints.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/plugins/nanoScroller/jquery.nanoscroller.min.js"></script>
-    <script src="__ADMIN__/SpaceLab/assets/js/application.js"></script>
+    <script src="__THEME__/SpaceLab/js/jquery-1.10.2.min.js"></script>
+    <script src="__PLUGIN__/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PLUGIN__/waypoints/waypoints.min.js"></script>
+    <script src="__PLUGIN__/nanoScroller/jquery.nanoscroller.min.js"></script>
+    <script src="__THEME__/SpaceLab/js/application.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function(){

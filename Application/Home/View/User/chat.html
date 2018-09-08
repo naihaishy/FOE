@@ -8,11 +8,11 @@
 
     <title> 聊天室 </title>
 
-    <link href="__HOME__/uassets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="__HOME__/uassets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__THEME__/Inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__THEME__/Inspinia/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="__HOME__/uassets/css/animate.css" rel="stylesheet">
-    <link href="__HOME__/uassets/css/style.css" rel="stylesheet">
+    <link href="__THEME__/Inspinia/css/animate.css" rel="stylesheet">
+    <link href="__THEME__/Inspinia/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -67,7 +67,7 @@
                                             <else/>
 
                                                 <div class="chat-message left" style="word-break:break-all;">
-                                                    <img class="message-avatar" src="{$friends[0]['friend_info']['avatar']}" alt="" >
+                                                    <img class="message-avatar" src="{$friends[0]['friend_info']['avatar']|default='__THEME__/Inspinia/img/default_avatar.png'}" alt="" >
                                                     <div class="message">
                                                         <a class="message-author" href="javascript:;"> {$friends[0]['friend_info']['name']}</a>
                                                         <span class="message-date"> {$message['time']|date='H:i:s',###}</span>
@@ -228,16 +228,16 @@
 
 
 <!-- Mainly scripts -->
-<script src="__HOME__/uassets/js/jquery-2.1.1.js"></script>
-<script src="__HOME__/uassets/js/bootstrap.min.js"></script>
-<script src="__HOME__/uassets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="__THEME__/Inspinia/js/jquery-2.1.1.js"></script>
+<script src="__THEME__/Inspinia/js/bootstrap.min.js"></script>
+<script src="__THEME__/Inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__THEME__/Inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="__HOME__/uassets/js/inspinia.js"></script>
-<script src="__HOME__/uassets/js/plugins/pace/pace.min.js"></script>
+<script src="__THEME__/Inspinia/js/inspinia.js"></script>
+<script src="__THEME__/Inspinia/js/plugins/pace/pace.min.js"></script>
 
-<script src="__HOME__/uassets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="__THEME__/Inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 
 <script type="text/javascript">

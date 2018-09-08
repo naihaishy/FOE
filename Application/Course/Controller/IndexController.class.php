@@ -4,15 +4,14 @@ use Think\Controller;
 class IndexController extends Controller {
         
     /**  
-     * 显示课程 
-     * 
+     * 显示课程
      * @access public 
      * @param  
      * @return  
      */
     public function index(){
         A('Teacher/Navbar')->navbar();
-        $map=array('status'=>'published',);
+        $map = array('status'=>'published',);
         $pre = C('DB_PREFIX');
         $course = M('Course')->alias('t1')
                             ->field('t1.id,t1.title,t1.picture_path,t1.has_picture,t2.slug')
@@ -37,10 +36,26 @@ class IndexController extends Controller {
 
         $course_id  =    I('get.id');
 
-        if(empty($course_id) || !is_numeric($course_id) || !M('Course')->find($course_id) )  $this->error('不存在该课程','',1); 
+        // 根据seesion rid判断是谁在访问
+        switch (session('rid')){
+            case 1:
+                $map = array('id'=>$course_id);// 管理员
+                break;
+            case 2:
+                $map = array('id'=>$course_id);// 教师
+                break;
+            case 3:
+                $map = array('checked'=>1, 'status'=>'published', 'id'=>$course_id);;// 学生
+                break;
+            default:
+                $map = array('id'=>$course_id);
+                break;
+        }
+
+        if(empty($course_id) || !is_numeric($course_id) || !M('Course')->where($map)->find())  $this->error('不存在该课程','',1);
         
-        $map        =   array('status'=>'published','id'=>$course_id);
-        $course     =   M('Course')->where($map)->find(); unset($map);
+
+        $course     =   M('Course')->where($map)->find();
         $category   =   M('CourseCategory')->find($course['category_id']);
  
         $course['category_name']    =   $category['name'];
@@ -49,7 +64,7 @@ class IndexController extends Controller {
 
         $lesson = $this->getAllLesson($course_id); //所有课时
         //查找是否已经加入学习 
-        $map=array(
+        $map = array(
             'user_id'=>session('uid'),
             'course_id'=>$course_id,
         );
@@ -69,7 +84,7 @@ class IndexController extends Controller {
        
 
         $assign = array(
-                'joined' =>$joined,
+                'joined'    =>$joined,
                 'course'    =>$course,
                 'lesson'    =>$lesson,
                 'bulletins' =>$bulletins,
@@ -103,14 +118,14 @@ class IndexController extends Controller {
             $_SESSION['cat_title_head']='全部';
 
         }else{
-            $condition=array(
+            $condition = array(
                 'category_id'=>$id,
                 'status'=>'published'
             );
             $page   =   A('Common/Pages')->getShowPage($model, $condition );
             $show = $page->show();
             $course = M('Course')->where($condition)->limit($page->firstRow,$page->listRows)->select();
-            $category_item=M('CourseCategory')->field('name')->find($id);
+            $category_item = M('CourseCategory')->field('name')->find($id);
             $_SESSION['cat_title_head']=$category_item['name'];
         }
         
@@ -155,7 +170,7 @@ class IndexController extends Controller {
         //查找是否已经加入学习 
 
         $course_id = $cid;
-        $map=array(
+        $map = array(
             'user_id'=>$uid,
             'course_id'=>$course_id,
         );
@@ -168,6 +183,7 @@ class IndexController extends Controller {
                 'course_id' =>$course_id,
                 'start_time'=>time(),
                 'status'    =>'learning',
+                'lesson_id' => 0,
             );
         //dump($data);die;
         $result = D('CourseLessonLearn')->add($data);
