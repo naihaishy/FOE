@@ -2,3 +2,5 @@
 Application/Admin/Controller/TestController.class.php
 Application/Admin/Model/TestModel.class.php
 Application/Runtime
+Application/Common/Conf/config.php
+Application/Common/Conf/config.php
